@@ -3,9 +3,15 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { asset, siteConfig } from "@/lib/utils";
+
+function isActive(pathname: string, href: string) {
+  if (href === "/") return pathname === "/";
+  return pathname === href || pathname.startsWith(`${href}/`);
+}
 
 const navItems = [
   { href: "/", label: "Home" },
@@ -18,6 +24,7 @@ const navItems = [
 
 export function Header() {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname() ?? "/";
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -45,19 +52,23 @@ export function Header() {
 
           {/* Desktop nav */}
           <nav className="hidden items-center gap-1 lg:flex" aria-label="Primary">
-            {navItems.map((item, i) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={
-                  i === 0
-                    ? "relative rounded-md px-3 py-2 text-[0.9375rem] font-semibold text-orange-600 after:absolute after:bottom-0.5 after:left-3 after:right-3 after:h-0.5 after:bg-orange-600 after:content-['']"
-                    : "rounded-md px-3 py-2 text-[0.9375rem] font-medium text-ink transition-colors hover:bg-teal-50 hover:text-teal-900"
-                }
-              >
-                {item.label}
-              </Link>
-            ))}
+            {navItems.map((item) => {
+              const active = isActive(pathname, item.href);
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  aria-current={active ? "page" : undefined}
+                  className={
+                    active
+                      ? "relative rounded-md px-3 py-2 text-[0.9375rem] font-semibold text-orange-600 after:absolute after:bottom-0.5 after:left-3 after:right-3 after:h-0.5 after:bg-orange-600 after:content-['']"
+                      : "rounded-md px-3 py-2 text-[0.9375rem] font-medium text-ink transition-colors hover:bg-teal-50 hover:text-teal-900"
+                  }
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
           </nav>
 
           <div className="hidden lg:block">
@@ -99,17 +110,25 @@ export function Header() {
           </div>
           <nav className="container-content flex-1 py-8" aria-label="Mobile primary">
             <ul className="space-y-2">
-              {navItems.map((item) => (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    onClick={() => setOpen(false)}
-                    className="block rounded-lg px-4 py-3 text-lg font-semibold text-ink hover:bg-teal-50 hover:text-teal-900"
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
+              {navItems.map((item) => {
+                const active = isActive(pathname, item.href);
+                return (
+                  <li key={item.href}>
+                    <Link
+                      href={item.href}
+                      onClick={() => setOpen(false)}
+                      aria-current={active ? "page" : undefined}
+                      className={
+                        active
+                          ? "block rounded-lg bg-teal-50 px-4 py-3 text-lg font-semibold text-orange-600"
+                          : "block rounded-lg px-4 py-3 text-lg font-semibold text-ink hover:bg-teal-50 hover:text-teal-900"
+                      }
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                );
+              })}
             </ul>
           </nav>
           <div className="container-content border-t border-rule py-6">
