@@ -5,6 +5,20 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+/**
+ * Asset path helper.
+ *
+ * Next.js's <Image> with `unoptimized: true` (required for GitHub Pages
+ * static export) does NOT auto-prefix src with basePath. So we prepend
+ * NEXT_PUBLIC_BASE_PATH ourselves for every static asset (logos, photos).
+ */
+export const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
+export function asset(path: string): string {
+  if (!path.startsWith("/")) return path;
+  return `${basePath}${path}`;
+}
+
 export const siteConfig = {
   name: "Pak Venture Point",
   shortName: "PVP",

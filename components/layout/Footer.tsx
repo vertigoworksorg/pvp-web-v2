@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Mail, MapPin, Linkedin, Twitter, Facebook, Instagram } from "lucide-react";
-import { siteConfig } from "@/lib/utils";
+import { asset, siteConfig } from "@/lib/utils";
 
 const quickLinks = [
   { href: "/", label: "Home" },
@@ -36,7 +36,7 @@ export function Footer() {
         <div className="md:col-span-4">
           <div className="flex items-center gap-3">
             <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-paper p-2 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.4)]">
-              <Image src="/logo.png" alt="PVP" width={64} height={64} className="h-full w-full object-contain" />
+              <Image src={asset("/logo.png")} alt="PVP" width={64} height={64} className="h-full w-full object-contain" />
             </span>
             <div>
               <p className="font-display text-2xl font-bold leading-tight text-paper">

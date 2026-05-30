@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Code2, Compass, Sparkles, Users } from "lucide-react";
 import { Button } from "@/components/ui/Button";
+import { asset } from "@/lib/utils";
 
 const orbitNodes = [
   { label: "Software Development", icon: Code2, angle: -90, tone: "teal" },
@@ -104,7 +105,7 @@ export function Hero() {
             <div className="absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2">
               <div className="relative h-44 w-44 rounded-full bg-paper p-4 shadow-[0_20px_60px_-20px_rgba(26,91,100,0.5)] ring-1 ring-teal-900/10 md:h-52 md:w-52">
                 <Image
-                  src="/logo.png"
+                  src={asset("/logo.png")}
                   alt="PVP"
                   fill
                   className="object-contain p-2"

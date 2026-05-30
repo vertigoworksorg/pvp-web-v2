@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Target, Eye, Compass, Award, Layers, Cpu, Globe2, Handshake } from "lucide-react";
 import { IconBadge } from "@/components/ui/IconBadge";
+import { asset } from "@/lib/utils";
 
 const pillars = [
   { icon: Target, label: "Our Mission", body: "To empower through technology, strategy and innovation.", tone: "teal" as const },
@@ -55,7 +56,7 @@ export function AboutSection() {
             {/* pedestal + logo */}
             <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
               <div className="relative h-40 w-40 rounded-full bg-paper p-4 shadow-[0_30px_60px_-20px_rgba(26,91,100,0.6)] ring-1 ring-teal-900/10">
-                <Image src="/logo.png" alt="" fill className="object-contain p-2" />
+                <Image src={asset("/logo.png")} alt="" fill className="object-contain p-2" />
               </div>
               {/* pedestal shadow */}
               <div className="absolute -bottom-4 left-1/2 h-4 w-44 -translate-x-1/2 rounded-full bg-teal-900/15 blur-md" />

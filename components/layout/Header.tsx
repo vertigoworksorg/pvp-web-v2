@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/Button";
-import { siteConfig } from "@/lib/utils";
+import { asset, siteConfig } from "@/lib/utils";
 
 const navItems = [
   { href: "/", label: "Home" },
@@ -32,7 +32,7 @@ export function Header() {
         <div className="container-content flex h-20 items-center justify-between md:h-24">
           {/* Logo + wordmark */}
           <Link href="/" className="flex items-center gap-3" aria-label={`${siteConfig.name} — home`}>
-            <Image src="/logo.png" alt="" width={56} height={56} className="h-12 w-12 object-contain md:h-14 md:w-14" priority />
+            <Image src={asset("/logo.png")} alt="" width={56} height={56} className="h-12 w-12 object-contain md:h-14 md:w-14" priority />
             <div className="leading-tight">
               <p className="font-display text-lg font-bold text-teal-900 md:text-xl">
                 Pak Venture <span className="text-orange-600">Point</span>
@@ -83,7 +83,7 @@ export function Header() {
         <div role="dialog" aria-modal="true" className="fixed inset-0 z-50 flex flex-col bg-paper lg:hidden">
           <div className="container-content flex h-20 items-center justify-between border-b border-rule">
             <div className="flex items-center gap-2">
-              <Image src="/logo.png" alt="" width={40} height={40} className="object-contain" />
+              <Image src={asset("/logo.png")} alt="" width={40} height={40} className="object-contain" />
               <span className="font-display text-lg font-bold text-teal-900">
                 Pak Venture <span className="text-orange-600">Point</span>
               </span>

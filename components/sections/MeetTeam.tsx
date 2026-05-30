@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { leaders } from "@/lib/content";
+import { asset } from "@/lib/utils";
 
 export function MeetTeam() {
   return (
@@ -28,7 +29,7 @@ export function MeetTeam() {
                 <div className="relative aspect-[4/5] w-full overflow-hidden bg-mist">
                   {leader.imageSrc ? (
                     <Image
-                      src={leader.imageSrc}
+                      src={asset(leader.imageSrc)}
                       alt={leader.name}
                       fill
                       sizes="(max-width: 768px) 100vw, 25vw"

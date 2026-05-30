@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { plusJakarta } from "@/lib/fonts";
-import { cn, siteConfig } from "@/lib/utils";
+import { asset, cn, siteConfig } from "@/lib/utils";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 
@@ -12,8 +12,8 @@ export const metadata: Metadata = {
   },
   description: siteConfig.description,
   icons: {
-    icon: "/logo.png",
-    apple: "/logo.png",
+    icon: asset("/logo.png"),
+    apple: asset("/logo.png"),
   },
 };
 

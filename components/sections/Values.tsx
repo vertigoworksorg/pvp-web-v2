@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { asset } from "@/lib/utils";
 import {
   Lightbulb,
   Briefcase,
@@ -66,7 +67,7 @@ export function Values() {
               {/* center logo */}
               <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
                 <div className="relative h-36 w-36 rounded-full bg-paper p-3 shadow-[0_20px_50px_-20px_rgba(26,91,100,0.5)] ring-1 ring-teal-900/10">
-                  <Image src="/logo.png" alt="" fill className="object-contain p-2" />
+                  <Image src={asset("/logo.png")} alt="" fill className="object-contain p-2" />
                 </div>
               </div>
               {/* outer ring */}
