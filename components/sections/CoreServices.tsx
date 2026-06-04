@@ -1,14 +1,21 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { ArrowRight, Check, Code2, Compass, Sparkles, Users, type LucideIcon } from "lucide-react";
-import { Button } from "@/components/ui/Button";
+import Image from "next/image";
+import { ArrowRight, ArrowUpRight, Check, Code2, Compass, Sparkles, Users, type LucideIcon } from "lucide-react";
+import { asset } from "@/lib/utils";
+
+type Tone = "teal" | "orange";
 
 type Service = {
   number: string;
   icon: LucideIcon;
-  tone: "teal" | "orange";
+  tone: Tone;
   title: string;
   blurb: string;
-  bullets: string[];
+  capabilities: string[];
+  image: string;
   href: string;
 };
 
@@ -17,180 +24,249 @@ const services: Service[] = [
     number: "01",
     icon: Code2,
     tone: "teal",
-    title: "SOFTWARE DEVELOPMENT",
+    title: "Software Development",
     blurb: "We build smart, scalable and secure digital solutions tailored to your business needs.",
-    bullets: [
-      "Web Development",
-      "Mobile Applications",
-      "ERP & SaaS Solutions",
-      "AI & Automation Tools",
-      "UI/UX Design",
-      "Cloud Systems & Maintenance",
-    ],
+    capabilities: ["Web Development", "Mobile Applications", "ERP & SaaS", "AI & Automation", "UI/UX Design", "Cloud & DevOps"],
+    image: "/images/services/software.jpg",
     href: "/services/software-development",
   },
   {
     number: "02",
     icon: Users,
     tone: "orange",
-    title: "FREELANCING SERVICES",
+    title: "Freelancing Services",
     blurb: "Access skilled talent and remote expertise to accelerate your projects and operations.",
-    bullets: [
-      "Remote Development",
-      "Digital Marketing",
-      "Graphic Design",
-      "Content Writing",
-      "Technical Support",
-      "Outsourced Operations",
-    ],
+    capabilities: ["Remote Development", "Digital Marketing", "Graphic Design", "Content Writing", "Technical Support", "Outsourced Ops"],
+    image: "/images/services/freelancing.jpg",
     href: "/services/digital-freelancing",
   },
   {
     number: "03",
     icon: Compass,
     tone: "teal",
-    title: "CONSULTANCY & ADVISORY",
+    title: "Consultancy & Advisory",
     blurb: "Strategic guidance and practical solutions to strengthen organizations and drive growth.",
-    bullets: [
-      "Strategic Planning",
-      "Organizational Development",
-      "M&E and Research",
-      "Policy & Proposal Development",
-      "Business Consultancy",
-      "Capacity Building & Training",
-    ],
+    capabilities: ["Strategic Planning", "Org Development", "M&E & Research", "Proposal Development", "Business Consultancy", "Capacity Building"],
+    image: "/images/services/consultancy.jpg",
     href: "/services/consultancy",
   },
   {
     number: "04",
     icon: Sparkles,
     tone: "orange",
-    title: "STARTUP & VENTURE DEVELOPMENT",
+    title: "Startup & Venture Development",
     blurb: "We incubate ideas, build ventures and connect founders with opportunities to scale globally.",
-    bullets: [
-      "Startup Incubation",
-      "Product Development",
-      "Venture Building",
-      "Investor Networking",
-      "Business Acceleration",
-      "Innovation Management",
-    ],
+    capabilities: ["Startup Incubation", "Product Development", "Venture Building", "Investor Networking", "Acceleration", "Innovation Mgmt"],
+    image: "/images/services/startup.jpg",
     href: "/services/innovative-startups",
   },
 ];
 
+const AUTO_MS = 6000;
+
+const tone = {
+  teal: {
+    text: "text-teal-900",
+    bg: "bg-teal-900",
+    ring: "ring-teal-900",
+    chipBg: "bg-teal-50",
+    chipText: "text-teal-900",
+    tabActive: "border-teal-900 bg-teal-900 text-paper",
+  },
+  orange: {
+    text: "text-orange-600",
+    bg: "bg-orange-600",
+    ring: "ring-orange-600",
+    chipBg: "bg-orange-50",
+    chipText: "text-orange-700",
+    tabActive: "border-orange-600 bg-orange-600 text-paper",
+  },
+} as const;
+
 export function CoreServices() {
+  const [active, setActive] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const timer = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  useEffect(() => {
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduce || paused) return;
+    timer.current = setInterval(() => setActive((a) => (a + 1) % services.length), AUTO_MS);
+    return () => {
+      if (timer.current) clearInterval(timer.current);
+    };
+  }, [paused]);
+
+  const s = services[active];
+  const t = tone[s.tone];
+  const ActiveIcon = s.icon;
+
   return (
-    <section className="relative overflow-hidden bg-mist py-20 md:py-28">
-      {/* dot pattern */}
-      <svg aria-hidden="true" className="pointer-events-none absolute right-0 top-0 h-72 w-72 opacity-50">
-        <defs>
-          <pattern id="cs-dots" width="20" height="20" patternUnits="userSpaceOnUse">
-            <circle cx="2" cy="2" r="1" fill="#e97724" fillOpacity="0.25" />
-          </pattern>
-        </defs>
-        <rect width="100%" height="100%" fill="url(#cs-dots)" />
-      </svg>
+    <section id="services" className="relative overflow-hidden bg-mist py-20 md:py-28">
+      {/* dotted texture */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 opacity-50"
+        style={{
+          backgroundImage: "radial-gradient(circle at 1px 1px, rgba(26,91,100,0.06) 1px, transparent 0)",
+          backgroundSize: "22px 22px",
+        }}
+      />
 
       <div className="container-content relative">
-        <div className="grid items-end gap-8 md:grid-cols-12">
+        {/* Heading */}
+        <div className="grid items-end gap-6 md:grid-cols-12">
           <div className="md:col-span-7">
             <p className="text-eyebrow text-orange-600">What We Do</p>
             <h2 className="text-display-2xl mt-3 text-ink">
               CORE <span className="text-orange-600">SERVICES</span>
             </h2>
-            <div className="mt-5 flex items-center gap-3">
-              <span className="block h-1 w-12 rounded-full bg-teal-900" />
-              <span className="block h-2 w-2 rounded-full bg-orange-600" />
-              <p className="text-sm font-semibold uppercase tracking-wider text-ink">
-                Integrated Solutions. Sustainable Growth.
-              </p>
-            </div>
           </div>
           <div className="md:col-span-5">
             <div className="border-l-4 border-teal-900 pl-4">
-              <h3 className="font-display text-xl font-bold leading-tight text-ink md:text-2xl">
-                One Ecosystem. Multiple Solutions. Infinite Possibilities.
+              <h3 className="font-display text-lg font-bold leading-tight text-ink md:text-xl">
+                One ecosystem. Multiple solutions.
               </h3>
-              <p className="text-body-sm mt-3 text-ink-muted">
-                PVP offers integrated services across technology, freelancing, consultancy and venture
-                development — empowering businesses, startups and organizations to innovate, scale and succeed.
+              <p className="text-body-sm mt-2 text-ink-muted">
+                Integrated services across technology, freelancing, consultancy and venture
+                development — built to help you innovate, scale and succeed.
               </p>
             </div>
           </div>
         </div>
 
-        <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-          {services.map((service) => {
-            const Icon = service.icon;
-            const isTeal = service.tone === "teal";
+        {/* Tab selector */}
+        <div className="mt-10 grid grid-cols-2 gap-3 md:grid-cols-4">
+          {services.map((svc, i) => {
+            const Icon = svc.icon;
+            const isActive = i === active;
+            const tt = tone[svc.tone];
             return (
-              <article
-                key={service.title}
-                className="group relative flex flex-col rounded-2xl bg-paper p-6 shadow-[0_10px_30px_-20px_rgba(11,42,48,0.2)] ring-1 ring-rule transition-all hover:-translate-y-1 hover:shadow-[0_20px_40px_-20px_rgba(11,42,48,0.3)]"
+              <button
+                key={svc.title}
+                type="button"
+                onClick={() => setActive(i)}
+                aria-pressed={isActive}
+                className={
+                  "flex items-center gap-3 rounded-xl border px-4 py-3 text-left transition-all duration-200 " +
+                  (isActive
+                    ? tt.tabActive + " shadow-lg"
+                    : "border-rule bg-paper text-ink hover:-translate-y-0.5 hover:border-teal-700")
+                }
               >
                 <span
-                  className={`absolute left-6 top-6 text-2xl font-bold ${
-                    isTeal ? "text-teal-900" : "text-orange-600"
-                  }`}
+                  className={
+                    "flex h-9 w-9 shrink-0 items-center justify-center rounded-lg " +
+                    (isActive ? "bg-paper/15 text-paper" : `${tt.chipBg} ${tt.chipText}`)
+                  }
                 >
-                  {service.number}
+                  <Icon className="h-5 w-5" strokeWidth={1.75} aria-hidden="true" />
                 </span>
-
-                <div className="flex justify-center">
-                  <div
-                    className={`flex h-28 w-28 items-center justify-center rounded-full text-paper ring-8 ${
-                      isTeal ? "bg-teal-900 ring-teal-50" : "bg-orange-600 ring-orange-50"
-                    }`}
-                  >
-                    <Icon className="h-12 w-12" strokeWidth={1.5} aria-hidden="true" />
-                  </div>
-                </div>
-
-                <h3 className={`mt-6 text-center text-sm font-bold tracking-wide ${
-                  isTeal ? "text-teal-900" : "text-orange-600"
-                }`}>
-                  {service.title}
-                </h3>
-
-                <p className="text-body-sm mt-3 text-center text-ink-muted">{service.blurb}</p>
-
-                <ul className="mt-6 space-y-2 border-t border-rule pt-5">
-                  {service.bullets.map((b) => (
-                    <li key={b} className="flex items-start gap-2 text-[0.8125rem] text-ink">
-                      <span
-                        className={`mt-0.5 inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full ${
-                          isTeal ? "bg-teal-900" : "bg-orange-600"
-                        }`}
-                      >
-                        <Check className="h-2.5 w-2.5 text-paper" strokeWidth={3.5} aria-hidden="true" />
-                      </span>
-                      {b}
-                    </li>
-                  ))}
-                </ul>
-
-                <Link
-                  href={service.href}
-                  className={`mt-6 inline-flex items-center gap-1.5 text-sm font-bold ${
-                    isTeal ? "text-teal-900" : "text-orange-600"
-                  }`}
-                >
-                  Learn More
-                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
-                </Link>
-              </article>
+                <span className="min-w-0">
+                  <span className={"block font-mono text-[10px] " + (isActive ? "text-paper/70" : "text-ink-muted")}>
+                    §0{i + 1}
+                  </span>
+                  <span className="block truncate text-sm font-bold">{svc.title}</span>
+                </span>
+              </button>
             );
           })}
         </div>
 
-        <div className="mt-14 flex flex-wrap items-center justify-center gap-6">
-          <Button href="/services" size="lg" variant="primary">
-            Explore All Services
-          </Button>
-          <span className="font-display italic text-ink-muted">Let&apos;s build the future together!</span>
+        {/* Showcase */}
+        <div
+          className="mt-6 overflow-hidden rounded-3xl border border-rule bg-paper shadow-[0_40px_80px_-40px_rgba(11,42,48,0.3)]"
+          onMouseEnter={() => setPaused(true)}
+          onMouseLeave={() => setPaused(false)}
+        >
+          <div className="grid md:grid-cols-2">
+            {/* Image */}
+            <div className="relative aspect-[4/3] overflow-hidden md:aspect-auto md:min-h-[460px]">
+              {services.map((svc, i) => (
+                <Image
+                  key={svc.image}
+                  src={asset(svc.image)}
+                  alt={svc.title}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className={
+                    "object-cover transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] " +
+                    (i === active ? "scale-100 opacity-100" : "scale-105 opacity-0")
+                  }
+                  priority={i === 0}
+                />
+              ))}
+              {/* tint + overlay badge */}
+              <div
+                aria-hidden="true"
+                className="absolute inset-0"
+                style={{ background: "linear-gradient(180deg, rgba(7,24,46,0.15) 0%, rgba(7,24,46,0.55) 100%)" }}
+              />
+              <div className="absolute left-5 top-5 flex items-center gap-3">
+                <span className={`flex h-12 w-12 items-center justify-center rounded-xl ${t.bg} text-paper shadow-lg`}>
+                  <ActiveIcon className="h-6 w-6" strokeWidth={1.75} aria-hidden="true" />
+                </span>
+                <span className="font-display text-5xl font-extrabold text-paper/90">{s.number}</span>
+              </div>
+              <div className="absolute inset-x-5 bottom-5">
+                <h3 className="font-display text-2xl font-bold text-paper md:text-3xl">{s.title}</h3>
+              </div>
+            </div>
+
+            {/* Content */}
+            <div key={active} className="flex flex-col justify-center p-8 md:p-12 motion-safe:animate-[fadeUp_0.4s_ease]">
+              <p className="text-body-lg text-ink">{s.blurb}</p>
+
+              <p className="font-mono mt-8 text-[11px] uppercase tracking-[0.12em] text-ink-muted">
+                What&apos;s included
+              </p>
+              <ul className="mt-4 grid grid-cols-1 gap-x-4 gap-y-2.5 sm:grid-cols-2">
+                {s.capabilities.map((c) => (
+                  <li key={c} className="flex items-center gap-2.5 text-body-sm text-ink">
+                    <span className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full ${t.bg}`}>
+                      <Check className="h-3 w-3 text-paper" strokeWidth={3.5} aria-hidden="true" />
+                    </span>
+                    {c}
+                  </li>
+                ))}
+              </ul>
+
+              <Link
+                href={s.href}
+                className={`group mt-8 inline-flex items-center gap-2 self-start rounded-sm px-5 py-3 font-semibold text-paper transition-colors ${t.bg} hover:opacity-90`}
+              >
+                Explore {s.title.split(" ")[0]}
+                <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true" />
+              </Link>
+            </div>
+          </div>
+
+          {/* progress bar */}
+          <div className="h-1 w-full bg-rule/60">
+            <div
+              key={`bar-${active}-${paused}`}
+              className={`h-full ${t.bg} ${paused ? "w-full" : "motion-safe:animate-[grow_6s_linear]"}`}
+            />
+          </div>
+        </div>
+
+        {/* Bottom CTA */}
+        <div className="mt-12 flex flex-wrap items-center justify-center gap-5">
+          <Link
+            href="/services"
+            className="group inline-flex items-center gap-2 rounded-sm bg-teal-900 px-7 py-3.5 font-semibold text-paper transition-colors hover:bg-teal-950"
+          >
+            Explore all services
+            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+          </Link>
+          <span className="text-lg italic text-ink-muted">Let&apos;s build the future together.</span>
         </div>
       </div>
+
+      <style>{`
+        @keyframes fadeUp { from { opacity:0; transform:translateY(10px) } to { opacity:1; transform:none } }
+        @keyframes grow { from { width:0% } to { width:100% } }
+      `}</style>
     </section>
   );
 }

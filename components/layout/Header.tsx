@@ -38,17 +38,16 @@ export function Header() {
     <>
       <header className="sticky top-0 z-40 border-b border-rule bg-paper/95 backdrop-blur supports-[backdrop-filter]:bg-paper/85">
         <div className="container-content flex h-20 items-center justify-between md:h-24">
-          {/* Logo + wordmark */}
-          <Link href="/" className="flex items-center gap-3" aria-label={`${siteConfig.name} — home`}>
-            <Image src={asset("/logo.png")} alt="" width={56} height={56} className="h-12 w-12 object-contain md:h-14 md:w-14" priority />
-            <div className="leading-tight">
-              <p className="font-display text-lg font-bold text-teal-900 md:text-xl">
-                Pak Venture <span className="text-orange-600">Point</span>
-              </p>
-              <p className="text-[10px] font-medium tracking-wider text-ink-muted">
-                BRIDGING TECH &amp; DEVELOPMENT
-              </p>
-            </div>
+          {/* Full lockup (transparent PNG includes wordmark + tagline) */}
+          <Link href="/" aria-label={`${siteConfig.name} — home`} className="flex items-center">
+            <Image
+              src={asset("/logo-full.png")}
+              alt={siteConfig.name}
+              width={3007}
+              height={1248}
+              priority
+              className="h-12 w-auto object-contain md:h-16"
+            />
           </Link>
 
           {/* Desktop nav */}
@@ -94,12 +93,13 @@ export function Header() {
       {open && (
         <div role="dialog" aria-modal="true" className="fixed inset-0 z-50 flex flex-col bg-paper lg:hidden">
           <div className="container-content flex h-20 items-center justify-between border-b border-rule">
-            <div className="flex items-center gap-2">
-              <Image src={asset("/logo.png")} alt="" width={40} height={40} className="object-contain" />
-              <span className="font-display text-lg font-bold text-teal-900">
-                Pak Venture <span className="text-orange-600">Point</span>
-              </span>
-            </div>
+            <Image
+              src={asset("/logo-full.png")}
+              alt={siteConfig.name}
+              width={3007}
+              height={1248}
+              className="h-11 w-auto object-contain"
+            />
             <button
               type="button"
               onClick={() => setOpen(false)}

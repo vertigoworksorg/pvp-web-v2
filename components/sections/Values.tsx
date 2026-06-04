@@ -1,200 +1,207 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { asset } from "@/lib/utils";
 import {
   Lightbulb,
-  Briefcase,
   ShieldCheck,
   Anchor,
-  Rocket,
+  Users,
+  Award,
   Leaf,
+  Rocket,
+  Briefcase,
+  Smile,
   Palette,
   Handshake,
-  Smile,
-  Award,
-  Users,
-  Heart,
-  Globe2,
-  Flag,
-  Brain,
   type LucideIcon,
 } from "lucide-react";
+import { asset } from "@/lib/utils";
 
-type Value = {
-  icon: LucideIcon;
-  tone: "teal" | "orange";
-  name: string;
-  body: string;
-};
+type Value = { name: string; body: string; icon: LucideIcon; tone: "teal" | "orange" };
 
 const values: Value[] = [
-  { icon: Lightbulb, tone: "teal", name: "INNOVATION", body: "We embrace creativity and new ideas to solve real-world challenges." },
-  { icon: ShieldCheck, tone: "orange", name: "INTEGRITY", body: "We act with honesty, transparency and strong ethical standards." },
-  { icon: Anchor, tone: "teal", name: "ACCOUNTABILITY", body: "We take ownership, deliver on our promises and stand accountable for results." },
-  { icon: Users, tone: "orange", name: "COLLABORATION", body: "We believe in the power of teamwork and partnership to achieve greater impact." },
-  { icon: Award, tone: "teal", name: "EXCELLENCE", body: "We are committed to quality, continuous improvement and high performance." },
-  { icon: Leaf, tone: "orange", name: "SUSTAINABILITY", body: "We build solutions that create long-term value for people, businesses and communities." },
-  { icon: Rocket, tone: "teal", name: "ENTREPRENEURSHIP", body: "We encourage initiative, calculated risk-taking and the drive to build impactful ventures." },
-  { icon: Briefcase, tone: "orange", name: "PROFESSIONALISM", body: "We maintain the highest level of professionalism in everything we do." },
-  { icon: Smile, tone: "teal", name: "CLIENT SATISFACTION", body: "Our clients are at the heart of our work. Their success is our success." },
-  { icon: Palette, tone: "orange", name: "CREATIVITY", body: "We turn ideas into intelligent, practical and scalable solutions." },
+  { name: "Innovation", icon: Lightbulb, tone: "teal", body: "We embrace creativity and new ideas to solve real-world challenges." },
+  { name: "Integrity", icon: ShieldCheck, tone: "orange", body: "We act with honesty, transparency, and strong ethical standards." },
+  { name: "Accountability", icon: Anchor, tone: "teal", body: "We take ownership and stand behind every result we deliver." },
+  { name: "Collaboration", icon: Users, tone: "orange", body: "Teamwork and partnership create greater, lasting impact." },
+  { name: "Excellence", icon: Award, tone: "teal", body: "We commit to quality, craft, and continuous improvement." },
+  { name: "Sustainability", icon: Leaf, tone: "orange", body: "We build solutions that create long-term value for communities." },
+  { name: "Entrepreneurship", icon: Rocket, tone: "teal", body: "We back initiative, calculated risk, and the drive to build." },
+  { name: "Professionalism", icon: Briefcase, tone: "orange", body: "We hold the highest standard of conduct in everything we do." },
+  { name: "Client Focus", icon: Smile, tone: "teal", body: "Our clients are at the heart of our work. Their success is ours." },
+  { name: "Creativity", icon: Palette, tone: "orange", body: "We turn ideas into intelligent, practical, scalable solutions." },
 ];
 
-const philosophy = [
-  { icon: Users, title: "People First", body: "Empowering people and communities is our core belief." },
-  { icon: Heart, title: "Value Creation", body: "We create meaningful value that drives growth and opportunity." },
-  { icon: Globe2, title: "Future Focused", body: "We build today for a resilient and innovative tomorrow." },
-  { icon: Flag, title: "Purpose Driven", body: "Everything we do is aligned with our mission and long-term impact." },
-];
+const pins = [
+  { icon: Lightbulb, label: "INNOVATE", pos: "top-0 left-1/2 -translate-x-1/2 -translate-y-1/2", tone: "teal" },
+  { icon: Handshake, label: "COLLABORATE", pos: "top-1/2 right-0 -translate-y-1/2 translate-x-1/2", tone: "orange" },
+  { icon: Award, label: "GROW", pos: "bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2", tone: "orange" },
+  { icon: Rocket, label: "IMPACT", pos: "top-1/2 left-0 -translate-y-1/2 -translate-x-1/2", tone: "teal" },
+] as const;
+
+const AUTO_MS = 3600;
 
 export function Values() {
-  return (
-    <section className="relative overflow-hidden bg-mist py-20 md:py-28">
-      {/* dot pattern right */}
-      <svg aria-hidden="true" className="pointer-events-none absolute right-0 top-0 h-72 w-72 opacity-50">
-        <defs>
-          <pattern id="vp-dots" width="20" height="20" patternUnits="userSpaceOnUse">
-            <circle cx="2" cy="2" r="1" fill="#1a5b64" fillOpacity="0.18" />
-          </pattern>
-        </defs>
-        <rect width="100%" height="100%" fill="url(#vp-dots)" />
-      </svg>
+  const [active, setActive] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const timer = useRef<ReturnType<typeof setInterval> | null>(null);
 
+  useEffect(() => {
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduce || paused) return;
+    timer.current = setInterval(() => setActive((a) => (a + 1) % values.length), AUTO_MS);
+    return () => {
+      if (timer.current) clearInterval(timer.current);
+    };
+  }, [paused]);
+
+  const current = values[active];
+  const ActiveIcon = current.icon;
+  const loop = [...values, ...values]; // doubled for seamless marquee
+
+  return (
+    <section id="values" className="relative overflow-hidden bg-mist py-20 md:py-28">
       <div className="container-content relative">
-        {/* Top — diagram + intro */}
-        <div className="grid items-center gap-12 md:grid-cols-12 md:gap-12">
+        {/* Top: animated orbit + heading */}
+        <div className="grid items-center gap-12 md:grid-cols-12 md:gap-10">
           <div className="md:col-span-5">
-            <div className="relative mx-auto aspect-square w-full max-w-[460px]">
-              {/* center logo */}
+            <div className="relative mx-auto aspect-square w-full max-w-[420px]">
+              <div className="absolute inset-[8%] rounded-full border-2 border-dashed border-teal-900/20 motion-safe:animate-[spin_36s_linear_infinite]" />
               <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-                <div className="relative h-36 w-36 rounded-full bg-paper p-3 shadow-[0_20px_50px_-20px_rgba(26,91,100,0.5)] ring-1 ring-teal-900/10">
-                  <Image src={asset("/logo.png")} alt="" fill className="object-contain p-2" />
+                <div className="relative h-36 w-36 overflow-hidden rounded-full bg-paper p-3 shadow-[0_20px_50px_-20px_rgba(26,91,100,0.5)] ring-1 ring-teal-900/10">
+                  <Image src={asset("/logo.png")} alt="PVP" fill className="object-contain p-1" />
                 </div>
               </div>
-              {/* outer ring */}
-              <div className="absolute inset-[8%] rounded-full border-2 border-dashed border-teal-900/15" />
-
-              {/* 4 corner pins */}
-              <CornerPin position="top-0 left-1/2 -translate-x-1/2" icon={Lightbulb} tone="teal" label="INNOVATE" />
-              <CornerPin position="top-1/2 right-0 -translate-y-1/2" icon={Handshake} tone="orange" label="COLLABORATE" />
-              <CornerPin position="bottom-0 left-1/2 -translate-x-1/2" icon={Award} tone="orange" label="GROW" />
-              <CornerPin position="top-1/2 left-0 -translate-y-1/2" icon={Rocket} tone="teal" label="IMPACT" />
+              {pins.map((p) => {
+                const Icon = p.icon;
+                return (
+                  <div key={p.label} className={`absolute ${p.pos}`}>
+                    <div className="flex flex-col items-center">
+                      <span
+                        className={`flex h-14 w-14 items-center justify-center rounded-full text-paper shadow-lg ${
+                          p.tone === "teal" ? "bg-teal-900" : "bg-orange-600"
+                        }`}
+                      >
+                        <Icon className="h-6 w-6" strokeWidth={1.75} aria-hidden="true" />
+                      </span>
+                      <span
+                        className={`mt-1.5 text-[10px] font-bold tracking-wider ${
+                          p.tone === "teal" ? "text-teal-900" : "text-orange-600"
+                        }`}
+                      >
+                        {p.label}
+                      </span>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
 
           <div className="md:col-span-7">
             <p className="text-eyebrow text-orange-600">Our Values &amp; Philosophy</p>
-            <h2 className="text-display-xl mt-4 text-ink">
-              Guided by Values.
-              <br />
-              Driven by <span className="text-orange-600">Purpose.</span>
+            <h2 className="text-display-xl mt-3 text-ink">
+              Guided by values.
+              <br /> Driven by <span className="text-orange-600">purpose.</span>
             </h2>
             <span className="mt-6 inline-block h-1 w-16 rounded-full bg-orange-600" />
-            <p className="text-body mt-6 max-w-2xl text-ink-muted md:text-[1.0625rem]">
-              At PVP, our values shape our culture, define our decisions and drive everything we do.
-              We believe in creating long-term impact through integrity, innovation and collaboration
-              — while staying committed to excellence and sustainability.
+            <p className="text-body-lg mt-6 max-w-xl text-ink-muted">
+              Ten values shape our culture and decisions. Watch them rotate — or tap any to read it.
             </p>
-          </div>
-        </div>
 
-        {/* 10 value cards */}
-        <ul className="mt-14 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-5">
-          {values.map((v) => {
-            const Icon = v.icon;
-            const isTeal = v.tone === "teal";
-            return (
-              <li
-                key={v.name}
-                className="flex flex-col rounded-2xl bg-paper p-5 ring-1 ring-rule transition-all hover:-translate-y-1 hover:shadow-[0_16px_40px_-16px_rgba(11,42,48,0.3)]"
-              >
+            {/* Spotlight — one value at a time */}
+            <div
+              className="mt-8 overflow-hidden rounded-2xl border border-rule bg-paper p-6 md:p-7"
+              onMouseEnter={() => setPaused(true)}
+              onMouseLeave={() => setPaused(false)}
+            >
+              <div key={active} className="flex items-start gap-5 motion-safe:animate-[slideIn_0.4s_cubic-bezier(0.4,0,0.2,1)]">
                 <span
-                  className={`flex h-12 w-12 items-center justify-center self-center rounded-full text-paper ${
-                    isTeal ? "bg-teal-900" : "bg-orange-600"
+                  className={`flex h-14 w-14 shrink-0 items-center justify-center rounded-xl text-paper ${
+                    current.tone === "teal" ? "bg-teal-900" : "bg-orange-600"
                   }`}
                 >
-                  <Icon className="h-5 w-5" strokeWidth={1.75} aria-hidden="true" />
-                </span>
-                <p className={`mt-4 text-center text-xs font-bold tracking-wide ${
-                  isTeal ? "text-teal-900" : "text-orange-600"
-                }`}>
-                  {v.name}
-                </p>
-                <span className={`my-3 block h-0.5 w-6 self-center rounded-full ${
-                  isTeal ? "bg-teal-900" : "bg-orange-600"
-                }`} />
-                <p className="text-[0.8125rem] text-center text-ink-muted leading-snug">{v.body}</p>
-              </li>
-            );
-          })}
-        </ul>
-
-        {/* Philosophy strip */}
-        <div className="mt-12 overflow-hidden rounded-3xl bg-teal-950 text-paper">
-          <div className="grid items-center gap-8 p-8 md:grid-cols-12 md:gap-6">
-            <div className="md:col-span-5 lg:col-span-4">
-              <div className="flex items-start gap-4">
-                <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-orange-600/20 ring-1 ring-orange-500/40">
-                  <Brain className="h-6 w-6 text-orange-500" aria-hidden="true" />
+                  <ActiveIcon className="h-7 w-7" strokeWidth={1.75} aria-hidden="true" />
                 </span>
                 <div>
-                  <p className="font-display text-xl font-bold leading-tight md:text-2xl">Our Philosophy</p>
-                  <p className="text-body-sm mt-2 max-w-xs text-paper/75">
-                    We believe that technology, innovation and human potential together can create a better,
-                    smarter and more sustainable future.
-                  </p>
+                  <div className="flex items-center gap-2">
+                    <h3
+                      className={`font-display text-xl font-bold md:text-2xl ${
+                        current.tone === "teal" ? "text-teal-900" : "text-orange-600"
+                      }`}
+                    >
+                      {current.name}
+                    </h3>
+                    <span className="font-mono text-[11px] text-ink-muted">
+                      {String(active + 1).padStart(2, "0")}/10
+                    </span>
+                  </div>
+                  <p className="text-body mt-1.5 text-ink-muted">{current.body}</p>
                 </div>
               </div>
+              <div className="mt-5 h-1 w-full overflow-hidden rounded-full bg-rule/60">
+                <div
+                  key={`bar-${active}-${paused}`}
+                  className={`h-full ${current.tone === "teal" ? "bg-teal-900" : "bg-orange-600"} ${
+                    paused ? "w-full" : "motion-safe:animate-[grow_3.6s_linear]"
+                  }`}
+                />
+              </div>
             </div>
-            <ul className="grid grid-cols-2 gap-5 md:col-span-7 md:grid-cols-4 lg:col-span-8">
-              {philosophy.map((p, i) => (
-                <li key={p.title}>
-                  <span
-                    className={`flex h-10 w-10 items-center justify-center rounded-full ${
-                      i % 2 === 0 ? "bg-teal-700/40" : "bg-orange-600/30"
-                    }`}
-                  >
-                    <p.icon className={`h-5 w-5 ${i % 2 === 0 ? "text-teal-100" : "text-orange-500"}`} aria-hidden="true" />
-                  </span>
-                  <p className="mt-3 text-sm font-bold text-paper">{p.title}</p>
-                  <p className="text-[0.8125rem] mt-1 text-paper/65">{p.body}</p>
-                </li>
-              ))}
-            </ul>
           </div>
         </div>
-      </div>
-    </section>
-  );
-}
 
-function CornerPin({
-  position,
-  icon: Icon,
-  tone,
-  label,
-}: {
-  position: string;
-  icon: LucideIcon;
-  tone: "teal" | "orange";
-  label: string;
-}) {
-  const isTeal = tone === "teal";
-  return (
-    <div className={`absolute ${position}`}>
-      <div className="flex flex-col items-center">
-        <span
-          className={`flex h-14 w-14 items-center justify-center rounded-full text-paper shadow-lg ${
-            isTeal ? "bg-teal-900" : "bg-orange-600"
-          }`}
+        {/* Sliding marquee of value chips */}
+        <div
+          className="group relative mt-14 overflow-hidden"
+          onMouseEnter={() => setPaused(true)}
+          onMouseLeave={() => setPaused(false)}
         >
-          <Icon className="h-6 w-6" strokeWidth={1.75} aria-hidden="true" />
-        </span>
-        <p className={`mt-2 text-[10px] font-bold tracking-wider ${
-          isTeal ? "text-teal-900" : "text-orange-600"
-        }`}>
-          {label}
-        </p>
+          <div aria-hidden="true" className="pointer-events-none absolute left-0 top-0 z-10 h-full w-16 bg-gradient-to-r from-mist to-transparent" />
+          <div aria-hidden="true" className="pointer-events-none absolute right-0 top-0 z-10 h-full w-16 bg-gradient-to-l from-mist to-transparent" />
+
+          <ul className="marquee-track flex w-max gap-3">
+            {loop.map((v, i) => {
+              const Icon = v.icon;
+              const idx = i % values.length;
+              const isActive = idx === active;
+              return (
+                <li key={i}>
+                  <button
+                    type="button"
+                    onClick={() => setActive(idx)}
+                    aria-label={v.name}
+                    className={
+                      "flex items-center gap-2.5 rounded-full border px-4 py-2.5 transition-colors " +
+                      (isActive
+                        ? v.tone === "teal"
+                          ? "border-teal-900 bg-teal-900 text-paper"
+                          : "border-orange-600 bg-orange-600 text-paper"
+                        : "border-rule bg-paper text-ink-muted hover:border-teal-900 hover:text-teal-900")
+                    }
+                  >
+                    <Icon className="h-4 w-4" strokeWidth={1.75} aria-hidden="true" />
+                    <span className="text-sm font-semibold">{v.name}</span>
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
       </div>
-    </div>
+
+      <style>{`
+        @keyframes spin { to { transform: rotate(360deg) } }
+        @keyframes slideIn { from { opacity:0; transform:translateX(20px) } to { opacity:1; transform:none } }
+        @keyframes grow { from { width:0% } to { width:100% } }
+        @keyframes marquee { from { transform:translateX(0) } to { transform:translateX(-50%) } }
+        .marquee-track { animation: marquee 32s linear infinite; }
+        .group:hover .marquee-track { animation-play-state: paused; }
+        @media (prefers-reduced-motion: reduce) {
+          .marquee-track { animation: none; flex-wrap: wrap; width: 100%; }
+        }
+      `}</style>
+    </section>
   );
 }
