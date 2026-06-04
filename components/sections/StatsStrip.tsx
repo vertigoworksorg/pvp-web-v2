@@ -1,41 +1,45 @@
-const stats = [
-  { value: "4", label: "Core practices", sub: "One accountable team" },
-  { value: "AI", label: "First by default", sub: "Not bolted on" },
-  { value: "48h", label: "Scope summary", sub: "After every first call" },
-  { value: "1", label: "Named owner", sub: "Brief to handover" },
+import { Layers, Cpu, TrendingUp, Globe2, type LucideIcon } from "lucide-react";
+
+type Stat = {
+  icon: LucideIcon;
+  headline: string;
+  trailing: string;
+  sub: string;
+};
+
+const stats: Stat[] = [
+  { icon: Layers, headline: "4", trailing: "Core Pillars", sub: "Integrated Services" },
+  { icon: Cpu, headline: "AI", trailing: "First Approach", sub: "Innovation at the Core" },
+  { icon: TrendingUp, headline: "Growth", trailing: "Driven Solutions", sub: "Scalable & Sustainable" },
+  { icon: Globe2, headline: "Global", trailing: "Vision", sub: "Local Roots, Global Impact" },
 ];
 
 export function StatsStrip() {
   return (
-    <section className="relative overflow-hidden bg-navy text-paper">
+    <section className="relative bg-teal-950 text-paper">
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 opacity-30"
-        style={{
-          backgroundImage:
-            "radial-gradient(circle at 1px 1px, rgba(255,255,255,0.06) 1px, transparent 0)",
-          backgroundSize: "22px 22px",
-        }}
+        className="pointer-events-none absolute -right-40 top-0 h-[320px] w-[320px] rounded-full opacity-30"
+        style={{ background: "radial-gradient(circle, rgba(233,119,36,0.6) 0%, transparent 70%)" }}
       />
-      <ul className="container-content relative grid grid-cols-2 gap-px md:grid-cols-4">
-        {stats.map((s, i) => (
-          <li
-            key={s.label}
-            className={
-              "py-8 md:py-10 " +
-              (i !== 0 ? "md:border-l md:border-paper/10 md:pl-8" : "")
-            }
-          >
-            <p className="font-display text-4xl font-bold leading-none text-paper md:text-5xl">
-              {s.value}
-            </p>
-            <p className="mt-3 font-display text-base font-semibold text-paper">{s.label}</p>
-            <p className="font-mono mt-1 text-[11px] uppercase tracking-[0.08em] text-teal-bright">
-              {s.sub}
-            </p>
-          </li>
+      <div className="container-content relative grid grid-cols-2 gap-8 py-10 md:grid-cols-4 md:gap-6 md:py-14">
+        {stats.map((s) => (
+          <div key={s.trailing} className="flex items-center gap-4">
+            <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-paper/10 ring-1 ring-paper/15">
+              <s.icon className="h-6 w-6 text-orange-500" strokeWidth={1.75} aria-hidden="true" />
+            </span>
+            <div>
+              <p className="font-display text-2xl font-bold leading-tight md:text-3xl">
+                <span className="text-orange-500">{s.headline}</span>{" "}
+                <span className="text-paper">{s.trailing}</span>
+              </p>
+              <p className="mt-1 text-xs font-medium uppercase tracking-wider text-paper/65">
+                {s.sub}
+              </p>
+            </div>
+          </div>
         ))}
-      </ul>
+      </div>
     </section>
   );
 }

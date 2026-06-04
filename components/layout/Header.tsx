@@ -2,11 +2,11 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/Button";
-import { OrbitMark } from "@/components/ui/OrbitMark";
-import { siteConfig } from "@/lib/utils";
+import { asset, siteConfig } from "@/lib/utils";
 
 function isActive(pathname: string, href: string) {
   if (href === "/") return pathname === "/";
@@ -15,32 +15,13 @@ function isActive(pathname: string, href: string) {
 
 const navItems = [
   { href: "/", label: "Home" },
-  { href: "/about", label: "About" },
+  { href: "/about", label: "About Us" },
   { href: "/services", label: "Services" },
   { href: "/ventures", label: "Ventures" },
   { href: "/investors", label: "Investors" },
   { href: "/blog", label: "Blog" },
-  { href: "/contact", label: "Contact" },
+  { href: "/contact", label: "Contact Us" },
 ];
-
-function Wordmark({ size = "default" }: { size?: "default" | "sm" }) {
-  return (
-    <span className="flex items-center gap-2.5">
-      <OrbitMark className={size === "sm" ? "h-7 w-7" : "h-9 w-9"} />
-      <span className="leading-none">
-        <span
-          className={
-            size === "sm"
-              ? "font-display text-base font-bold tracking-tight text-ink"
-              : "font-display text-[1.0625rem] font-bold tracking-tight text-ink"
-          }
-        >
-          Pak Venture Point
-        </span>
-      </span>
-    </span>
-  );
-}
 
 export function Header() {
   const [open, setOpen] = useState(false);
@@ -55,14 +36,23 @@ export function Header() {
 
   return (
     <>
-      <header className="sticky top-0 z-40 border-b border-hairline bg-paper/82 backdrop-blur-md">
-        <div className="container-content flex h-16 items-center justify-between md:h-[68px]">
-          <Link href="/" aria-label={`${siteConfig.name} — home`}>
-            <Wordmark />
+      <header className="sticky top-0 z-40 border-b border-rule bg-paper/95 backdrop-blur supports-[backdrop-filter]:bg-paper/85">
+        <div className="container-content flex h-20 items-center justify-between md:h-24">
+          {/* Logo + wordmark */}
+          <Link href="/" className="flex items-center gap-3" aria-label={`${siteConfig.name} — home`}>
+            <Image src={asset("/logo.png")} alt="" width={56} height={56} className="h-12 w-12 object-contain md:h-14 md:w-14" priority />
+            <div className="leading-tight">
+              <p className="font-display text-lg font-bold text-teal-900 md:text-xl">
+                Pak Venture <span className="text-orange-600">Point</span>
+              </p>
+              <p className="text-[10px] font-medium tracking-wider text-ink-muted">
+                BRIDGING TECH &amp; DEVELOPMENT
+              </p>
+            </div>
           </Link>
 
-          {/* Desktop nav — mono labels */}
-          <nav className="hidden items-center gap-6 lg:flex" aria-label="Primary">
+          {/* Desktop nav */}
+          <nav className="hidden items-center gap-1 lg:flex" aria-label="Primary">
             {navItems.map((item) => {
               const active = isActive(pathname, item.href);
               return (
@@ -71,8 +61,9 @@ export function Header() {
                   href={item.href}
                   aria-current={active ? "page" : undefined}
                   className={
-                    "font-mono text-[11px] uppercase tracking-[0.08em] transition-colors " +
-                    (active ? "text-teal" : "text-ink-soft hover:text-teal")
+                    active
+                      ? "relative rounded-md px-3 py-2 text-[0.9375rem] font-semibold text-orange-600 after:absolute after:bottom-0.5 after:left-3 after:right-3 after:h-0.5 after:bg-orange-600 after:content-['']"
+                      : "rounded-md px-3 py-2 text-[0.9375rem] font-medium text-ink transition-colors hover:bg-teal-50 hover:text-teal-900"
                   }
                 >
                   {item.label}
@@ -82,16 +73,17 @@ export function Header() {
           </nav>
 
           <div className="hidden lg:block">
-            <Button href="/contact" size="sm" variant="primary" withArrow>
+            <Button href="/contact" size="md" variant="primary">
               Let&apos;s Connect
             </Button>
           </div>
 
+          {/* Mobile menu trigger */}
           <button
             type="button"
             onClick={() => setOpen(true)}
             aria-label="Open menu"
-            className="inline-flex h-10 w-10 items-center justify-center text-navy lg:hidden"
+            className="inline-flex h-10 w-10 items-center justify-center text-teal-900 lg:hidden"
           >
             <Menu className="h-6 w-6" aria-hidden="true" />
           </button>
@@ -101,19 +93,24 @@ export function Header() {
       {/* Mobile drawer */}
       {open && (
         <div role="dialog" aria-modal="true" className="fixed inset-0 z-50 flex flex-col bg-paper lg:hidden">
-          <div className="container-content flex h-16 items-center justify-between border-b border-hairline">
-            <Wordmark size="sm" />
+          <div className="container-content flex h-20 items-center justify-between border-b border-rule">
+            <div className="flex items-center gap-2">
+              <Image src={asset("/logo.png")} alt="" width={40} height={40} className="object-contain" />
+              <span className="font-display text-lg font-bold text-teal-900">
+                Pak Venture <span className="text-orange-600">Point</span>
+              </span>
+            </div>
             <button
               type="button"
               onClick={() => setOpen(false)}
               aria-label="Close menu"
-              className="inline-flex h-10 w-10 items-center justify-center text-navy"
+              className="inline-flex h-10 w-10 items-center justify-center text-teal-900"
             >
               <X className="h-6 w-6" aria-hidden="true" />
             </button>
           </div>
-          <nav className="container-content flex-1 py-6" aria-label="Mobile primary">
-            <ul className="divide-y divide-hairline">
+          <nav className="container-content flex-1 py-8" aria-label="Mobile primary">
+            <ul className="space-y-2">
               {navItems.map((item) => {
                 const active = isActive(pathname, item.href);
                 return (
@@ -123,22 +120,20 @@ export function Header() {
                       onClick={() => setOpen(false)}
                       aria-current={active ? "page" : undefined}
                       className={
-                        "flex items-center justify-between py-4 font-display text-2xl font-semibold tracking-tight " +
-                        (active ? "text-coral-deep" : "text-ink")
+                        active
+                          ? "block rounded-lg bg-teal-50 px-4 py-3 text-lg font-semibold text-orange-600"
+                          : "block rounded-lg px-4 py-3 text-lg font-semibold text-ink hover:bg-teal-50 hover:text-teal-900"
                       }
                     >
                       {item.label}
-                      <span className="font-mono text-[11px] text-ink-mute">
-                        {String(navItems.indexOf(item) + 1).padStart(2, "0")}
-                      </span>
                     </Link>
                   </li>
                 );
               })}
             </ul>
           </nav>
-          <div className="container-content border-t border-hairline py-5">
-            <Button href="/contact" size="lg" variant="coral" className="w-full" withArrow>
+          <div className="container-content border-t border-rule py-6">
+            <Button href="/contact" size="lg" variant="primary" className="w-full">
               Let&apos;s Connect
             </Button>
           </div>

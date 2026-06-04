@@ -1,9 +1,10 @@
 import Link from "next/link";
-import { Mail, MapPin, Linkedin, Twitter, Github, ArrowUpRight } from "lucide-react";
-import { OrbitMark } from "@/components/ui/OrbitMark";
-import { siteConfig } from "@/lib/utils";
+import Image from "next/image";
+import { Mail, MapPin, Linkedin, Twitter, Facebook, Instagram } from "lucide-react";
+import { asset, siteConfig } from "@/lib/utils";
 
 const quickLinks = [
+  { href: "/", label: "Home" },
   { href: "/about", label: "About" },
   { href: "/services", label: "Services" },
   { href: "/ventures", label: "Ventures" },
@@ -14,64 +15,52 @@ const quickLinks = [
 
 export function Footer() {
   return (
-    <footer className="relative overflow-hidden bg-navy-900 text-paper">
-      {/* faint dotted texture */}
+    <footer className="relative overflow-hidden bg-teal-950 text-paper">
+      {/* decorative blobs */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 opacity-[0.4]"
+        className="pointer-events-none absolute -right-32 -top-32 h-[420px] w-[420px] rounded-full opacity-20"
         style={{
-          backgroundImage:
-            "radial-gradient(circle at 1px 1px, rgba(255,255,255,0.05) 1px, transparent 0)",
-          backgroundSize: "24px 24px",
+          background: "radial-gradient(circle, rgba(233,119,36,0.7) 0%, transparent 70%)",
+        }}
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -left-40 -bottom-40 h-[420px] w-[420px] rounded-full opacity-15"
+        style={{
+          background: "radial-gradient(circle, rgba(42,138,146,0.7) 0%, transparent 70%)",
         }}
       />
 
-      {/* CTA band */}
-      <div className="relative border-b border-paper/10">
-        <div className="container-content flex flex-col items-start justify-between gap-6 py-12 md:flex-row md:items-center md:py-16">
-          <h2 className="text-display-lg max-w-xl text-paper">
-            Let&apos;s build something <span className="emph paper">accountable.</span>
-          </h2>
-          <Link
-            href="/contact"
-            className="group inline-flex items-center gap-2 rounded-sm bg-coral px-6 py-3.5 font-semibold text-paper transition-colors hover:bg-coral-deep"
-          >
-            Start a conversation
-            <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true" />
-          </Link>
-        </div>
-      </div>
-
-      <div className="container-content relative grid gap-10 py-14 md:grid-cols-12 md:gap-8 md:py-16">
-        {/* Brand */}
-        <div className="md:col-span-5">
-          <div className="flex items-center gap-2.5">
-            <OrbitMark className="h-9 w-9" tone="paper" />
-            <span className="font-display text-xl font-bold tracking-tight text-paper">
-              Pak Venture Point
+      <div className="container-content relative grid gap-12 py-16 md:grid-cols-12 md:gap-8 md:py-20">
+        {/* Brand block */}
+        <div className="md:col-span-4">
+          <div className="flex items-center gap-3">
+            <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-paper p-2 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.4)]">
+              <Image src={asset("/logo.png")} alt="PVP" width={64} height={64} className="h-full w-full object-contain" />
             </span>
+            <div>
+              <p className="font-display text-2xl font-bold leading-tight text-paper">
+                Pak Venture <span className="text-orange-500">Point</span>
+              </p>
+              <p className="text-[10px] font-medium tracking-wider text-paper/60">
+                BRIDGING TECH &amp; DEVELOPMENT
+              </p>
+            </div>
           </div>
-          <p className="text-body-sm mt-5 max-w-sm text-paper/65">
-            An AI-first innovation ecosystem — software, consultancy, freelancing, and ventures,
-            built from {siteConfig.city}.
-          </p>
-          <p className="font-mono mt-6 text-[11px] uppercase tracking-[0.14em] text-paper/40">
-            Bridging Tech &amp; Development
+          <p className="text-body-sm mt-6 max-w-sm text-paper/75">
+            Empowering businesses and communities through innovative technology, strategic
+            partnerships and sustainable growth.
           </p>
         </div>
 
-        {/* Navigate */}
+        {/* Quick links */}
         <div className="md:col-span-3">
-          <h3 className="font-mono text-[11px] uppercase tracking-[0.14em] text-teal-bright">
-            Navigate
-          </h3>
+          <h3 className="text-eyebrow text-orange-500">Quick Links</h3>
           <ul className="mt-5 space-y-3">
             {quickLinks.map((link) => (
               <li key={link.href}>
-                <Link
-                  href={link.href}
-                  className="text-body-sm text-paper/75 transition-colors hover:text-paper"
-                >
+                <Link href={link.href} className="text-body-sm text-paper/85 transition-colors hover:text-orange-500">
                   {link.label}
                 </Link>
               </li>
@@ -79,30 +68,33 @@ export function Footer() {
           </ul>
         </div>
 
-        {/* Contact + social */}
-        <div className="md:col-span-4">
-          <h3 className="font-mono text-[11px] uppercase tracking-[0.14em] text-teal-bright">
-            Get in touch
-          </h3>
+        {/* Contact info */}
+        <div className="md:col-span-3">
+          <h3 className="text-eyebrow text-orange-500">Contact Info</h3>
           <ul className="mt-5 space-y-3 text-body-sm">
             <li className="flex items-start gap-3">
-              <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-coral" aria-hidden="true" />
-              <span className="text-paper/75">{siteConfig.city}, {siteConfig.country}</span>
+              <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-orange-500" aria-hidden="true" />
+              <span className="text-paper/85">{siteConfig.city}, {siteConfig.country}</span>
             </li>
             <li className="flex items-start gap-3">
-              <Mail className="mt-0.5 h-4 w-4 shrink-0 text-coral" aria-hidden="true" />
-              <a href={`mailto:${siteConfig.email}`} className="text-paper/75 transition-colors hover:text-paper">
+              <Mail className="mt-0.5 h-4 w-4 shrink-0 text-orange-500" aria-hidden="true" />
+              <a href={`mailto:${siteConfig.email}`} className="text-paper/85 transition-colors hover:text-orange-500">
                 {siteConfig.email}
               </a>
             </li>
           </ul>
-          <ul className="mt-6 flex gap-3">
-            {[Linkedin, Twitter, Github].map((Icon, i) => (
+        </div>
+
+        {/* Stay connected */}
+        <div className="md:col-span-2">
+          <h3 className="text-eyebrow text-orange-500">Stay Connected</h3>
+          <ul className="mt-5 flex gap-3">
+            {[Linkedin, Twitter, Facebook, Instagram].map((Icon, i) => (
               <li key={i}>
                 <a
                   href="#"
                   aria-label="Social link"
-                  className="flex h-10 w-10 items-center justify-center rounded-sm bg-paper/10 text-paper transition-colors hover:bg-teal"
+                  className="flex h-10 w-10 items-center justify-center rounded-lg bg-paper/10 text-paper transition-colors hover:bg-orange-600"
                 >
                   <Icon className="h-4 w-4" aria-hidden="true" />
                 </a>
@@ -113,13 +105,11 @@ export function Footer() {
       </div>
 
       <div className="relative border-t border-paper/10">
-        <div className="container-content flex flex-col items-start justify-between gap-2 py-6 md:h-14 md:flex-row md:items-center md:py-0">
-          <p className="font-mono text-[11px] uppercase tracking-[0.06em] text-paper/45">
-            © {new Date().getFullYear()} Pak Venture Point · Islamabad, PK
+        <div className="container-content flex flex-col items-start justify-between gap-3 py-6 md:h-16 md:flex-row md:items-center md:py-0">
+          <p className="text-body-sm text-paper/60">
+            © {new Date().getFullYear()} Pak Venture Point (PVP) — Bridging the Gap between Technology and Development.
           </p>
-          <p className="font-mono text-[11px] uppercase tracking-[0.06em] text-paper/45">
-            All rights reserved
-          </p>
+          <p className="text-body-sm text-paper/50">All rights reserved.</p>
         </div>
       </div>
     </footer>
