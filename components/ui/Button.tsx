@@ -3,28 +3,34 @@ import { ArrowRight } from "lucide-react";
 import type { ComponentProps, ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
-type Variant = "primary" | "secondary" | "outline" | "ghost" | "onDark";
+type Variant = "primary" | "coral" | "secondary" | "outline" | "ghost" | "onDark";
 type Size = "sm" | "md" | "lg";
 
 const base =
-  "inline-flex items-center justify-center gap-2 font-semibold transition-all duration-200 " +
-  "disabled:opacity-50 disabled:cursor-not-allowed rounded-lg";
+  "group inline-flex items-center justify-center gap-2 font-semibold transition-all duration-200 " +
+  "disabled:opacity-50 disabled:cursor-not-allowed";
 
 const sizes: Record<Size, string> = {
-  sm: "h-9 px-4 text-sm",
-  md: "h-11 px-5 text-[0.9375rem]",
-  lg: "h-13 px-6 text-base",
+  sm: "h-9 px-4 text-sm rounded-sm",
+  md: "h-11 px-5 text-[0.9375rem] rounded-sm",
+  lg: "h-12 px-6 text-base rounded-sm",
 };
 
 const variants: Record<Variant, string> = {
-  primary:
-    "bg-teal-900 text-paper hover:bg-teal-700 shadow-[0_8px_20px_-8px_rgba(26,91,100,0.55)] hover:shadow-[0_12px_28px_-10px_rgba(26,91,100,0.7)] hover:-translate-y-0.5",
+  // Navy = primary action
+  primary: "bg-navy text-paper hover:bg-navy-900",
+  // Coral = venture / momentum action
+  coral: "bg-coral text-paper hover:bg-coral-deep",
+  // Neutral
   secondary:
-    "bg-orange-600 text-paper hover:bg-orange-700 shadow-[0_8px_20px_-8px_rgba(233,119,36,0.55)] hover:shadow-[0_12px_28px_-10px_rgba(233,119,36,0.7)] hover:-translate-y-0.5",
+    "border border-hairline-2 text-ink bg-transparent hover:border-ink hover:bg-paper-raised",
+  // Legacy alias for inner pages — same as secondary
   outline:
-    "border-2 border-teal-900 text-teal-900 bg-paper hover:bg-teal-900 hover:text-paper",
-  ghost: "text-teal-900 hover:bg-teal-50",
-  onDark: "bg-paper text-teal-900 hover:bg-orange-50",
+    "border border-hairline-2 text-ink bg-transparent hover:border-ink hover:bg-paper-raised",
+  // Inline / tertiary — teal underline
+  ghost:
+    "text-teal border-b border-teal-bright rounded-none px-0 pb-1 h-auto hover:border-teal",
+  onDark: "bg-paper text-navy hover:bg-navy-tint",
 };
 
 type CommonProps = {
@@ -50,12 +56,17 @@ export function Button(props: ButtonProps) {
     ...rest
   } = props;
 
-  const classes = cn(base, sizes[size], variants[variant], className);
+  const classes = cn(base, variant !== "ghost" && sizes[size], variants[variant], className);
 
   const content = (
     <>
       <span>{children}</span>
-      {withArrow && <ArrowRight className="h-4 w-4" aria-hidden="true" />}
+      {withArrow && (
+        <ArrowRight
+          className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1"
+          aria-hidden="true"
+        />
+      )}
     </>
   );
 

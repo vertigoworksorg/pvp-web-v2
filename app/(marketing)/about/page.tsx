@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/sections/PageHeader";
 import { AboutSection } from "@/components/sections/AboutSection";
-import { Values } from "@/components/sections/Values";
+import { ValuesExplorer } from "@/components/sections/ValuesExplorer";
 import { ConnectStrip } from "@/components/sections/ConnectStrip";
 
 export const metadata: Metadata = { title: "About Us" };
@@ -16,7 +16,7 @@ export default function AboutPage() {
         sub="Pak Venture Point (PVP) integrates technology, consultancy, freelancing, entrepreneurship, and venture development into one scalable ecosystem — built from Islamabad."
       />
       <AboutSection />
-      <Values />
+      <ValuesExplorer />
       <ConnectStrip />
     </>
   );

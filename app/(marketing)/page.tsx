@@ -4,7 +4,7 @@ import { StatsStrip } from "@/components/sections/StatsStrip";
 import { AboutSection } from "@/components/sections/AboutSection";
 import { CoreServices } from "@/components/sections/CoreServices";
 import { WhoWeServe } from "@/components/sections/WhoWeServe";
-import { Values } from "@/components/sections/Values";
+import { ValuesExplorer } from "@/components/sections/ValuesExplorer";
 import { MeetTeam } from "@/components/sections/MeetTeam";
 import { ConnectStrip } from "@/components/sections/ConnectStrip";
 
@@ -22,7 +22,7 @@ export default function HomePage() {
       <AboutSection />
       <CoreServices />
       <WhoWeServe />
-      <Values />
+      <ValuesExplorer />
       <MeetTeam />
       <ConnectStrip />
     </>
