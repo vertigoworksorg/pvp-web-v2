@@ -246,7 +246,7 @@ export const leaders = [
   {
     initials: "SH",
     name: "Shahan Ali Naqvi",
-    role: "Chief Operating Officer",
+    role: "Chief Technology Officer",
     credentials: "Owns software delivery, freelancing, and technical operations.",
     tags: ["Engineering", "Technical Ops"],
     imageSrc: "/images/team/shahan.jpg",

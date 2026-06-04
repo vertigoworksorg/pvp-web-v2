@@ -45,7 +45,7 @@ const tahir: Author = {
 };
 const shahan: Author = {
   name: "Shahan Ali Naqvi",
-  role: "Chief Operating Officer",
+  role: "Chief Technology Officer",
   imageSrc: "/images/team/shahan.jpg",
   initials: "SH",
 };
