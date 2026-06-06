@@ -17,9 +17,9 @@ export function ContactForm() {
         We use this for first contact only. Once we&apos;re working together, we move to email and a shared doc.
       </p>
 
-      <Field label="Name" id="name" placeholder="Your name" />
-      <Field label="Email" id="email" placeholder="you@company.com" type="email" />
-      <Field label="Company" id="company" placeholder="Optional" />
+      <Field label="Name" id="name" placeholder="Your name" autoComplete="name" />
+      <Field label="Email" id="email" placeholder="you@company.com" type="email" autoComplete="email" inputMode="email" />
+      <Field label="Company" id="company" placeholder="Optional" autoComplete="organization" />
       <Field
         label="How can we help?"
         id="message"
@@ -43,24 +43,29 @@ function Field({
   placeholder,
   type = "text",
   multiline = false,
+  autoComplete,
+  inputMode,
 }: {
   id: string;
   label: string;
   placeholder?: string;
   type?: string;
   multiline?: boolean;
+  autoComplete?: string;
+  inputMode?: "text" | "email" | "tel" | "url" | "numeric";
 }) {
+  // text-base (16px) keeps iOS from auto-zooming on focus
   const base =
-    "block w-full rounded-lg border border-rule bg-mist px-4 py-3 text-body text-ink placeholder:text-ink-muted/60 transition-colors focus:border-teal-700 focus:bg-paper";
+    "block w-full rounded-lg border border-rule bg-mist px-4 py-3 text-base text-ink placeholder:text-ink-muted/60 transition-colors focus:border-teal-700 focus:bg-paper";
   return (
     <div>
       <label htmlFor={id} className="text-xs font-bold uppercase tracking-wider text-ink-muted">
         {label}
       </label>
       {multiline ? (
-        <textarea id={id} rows={5} placeholder={placeholder} className={`${base} mt-2 resize-y`} />
+        <textarea id={id} rows={5} placeholder={placeholder} autoComplete={autoComplete} className={`${base} mt-2 resize-y`} />
       ) : (
-        <input id={id} type={type} placeholder={placeholder} className={`${base} mt-2`} />
+        <input id={id} type={type} placeholder={placeholder} autoComplete={autoComplete} inputMode={inputMode} className={`${base} mt-2`} />
       )}
     </div>
   );

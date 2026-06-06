@@ -48,12 +48,55 @@
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
     scroll-behavior: smooth;
+    /* never expose a horizontal scrollbar from decorative overflow */
+    overflow-x: hidden;
+    /* avoid iOS auto text inflation in landscape */
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
   }
 
   body {
     background-color: var(--color-paper);
     color: var(--color-ink);
     font-family: var(--font-sans);
+    overflow-x: hidden;
+  }
+
+  /* anchor targets clear the sticky header */
+  :target {
+    scroll-margin-top: 6rem;
+  }
+
+  /* media never overflows its container */
+  img,
+  svg,
+  video,
+  canvas {
+    max-width: 100%;
+  }
+
+  /* long words / URLs wrap instead of forcing horizontal scroll */
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  li,
+  a {
+    overflow-wrap: break-word;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
   }
 
   ::selection {
@@ -73,7 +116,7 @@
     width: 100%;
     max-width: var(--container-content);
     margin-inline: auto;
-    padding-inline: 1.25rem;
+    padding-inline: clamp(1rem, 4vw, 2rem);
   }
   @media (min-width: 768px) {
     .container-content {

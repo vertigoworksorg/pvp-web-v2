@@ -211,7 +211,7 @@ export const upcomingVenturesNote =
    ============================================================ */
 
 export const microInvestor = {
-  eyebrow: "§— Invest in Innovation",
+  eyebrow: "Invest in Innovation",
   title: "A SAFE-based participation in the next wave of AI-first ventures.",
   body: "PVP is developing a SAFE-based Micro-Investor Participation Initiative designed to support AI-first startups and emerging digital ventures within the PVP ecosystem — enabling selected early participants to gain exposure to multiple innovation-driven ventures under the PVP umbrella.",
   ctaPrimary: { label: "Become a Strategic Partner", href: "/contact?topic=partner" },

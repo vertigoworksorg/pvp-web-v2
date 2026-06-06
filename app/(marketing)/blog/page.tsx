@@ -35,7 +35,7 @@ export default function BlogPage() {
       />
 
       {/* Featured post */}
-      <section className="bg-paper py-16 md:py-20">
+      <section className="bg-paper py-10 md:py-14">
         <div className="container-content">
           <div className="mb-8 flex items-center gap-3">
             <Sparkles className="h-4 w-4 text-orange-600" aria-hidden="true" />
@@ -46,7 +46,7 @@ export default function BlogPage() {
       </section>
 
       {/* Filter row + grid */}
-      <section className="bg-mist py-16 md:py-24">
+      <section className="bg-mist py-10 md:py-14">
         <div className="container-content">
           <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
             <div>
@@ -83,7 +83,7 @@ export default function BlogPage() {
       </section>
 
       {/* Newsletter signup */}
-      <section className="bg-paper py-16 md:py-20">
+      <section className="bg-paper py-10 md:py-14">
         <div className="container-content">
           <div className="relative overflow-hidden rounded-3xl bg-teal-950 p-8 text-paper md:p-12">
             <div

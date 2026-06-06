@@ -53,14 +53,14 @@ export function Hero() {
             services designed for sustainable growth and digital transformation.
           </p>
 
-          <div className="mt-10 flex flex-wrap items-center gap-3">
-            <Button href="/services" size="lg" variant="primary">
+          <div className="mt-10 flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+            <Button href="/services" size="lg" variant="primary" className="w-full justify-center sm:w-auto">
               Explore Services
             </Button>
-            <Button href="/contact?topic=partner" size="lg" variant="outline">
+            <Button href="/contact?topic=partner" size="lg" variant="outline" className="w-full justify-center sm:w-auto">
               Partner With Us
             </Button>
-            <Button href="/ventures" size="lg" variant="secondary">
+            <Button href="/ventures" size="lg" variant="secondary" className="w-full justify-center sm:w-auto">
               Launch Your Venture
             </Button>
           </div>
@@ -68,7 +68,7 @@ export function Hero() {
 
         {/* Right — orbit diagram with logo center */}
         <div className="md:col-span-6">
-          <div className="relative mx-auto aspect-square w-full max-w-[560px]">
+          <div className="relative mx-auto aspect-square w-full max-w-[300px] sm:max-w-[440px] md:max-w-[560px]">
             {/* outer ring */}
             <div className="absolute inset-0 rounded-full border-2 border-dashed border-teal-900/15" />
             {/* mid ring */}
@@ -103,7 +103,7 @@ export function Hero() {
 
             {/* center logo */}
             <div className="absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2">
-              <div className="relative h-44 w-44 rounded-full bg-paper p-4 shadow-[0_20px_60px_-20px_rgba(26,91,100,0.5)] ring-1 ring-teal-900/10 md:h-52 md:w-52">
+              <div className="relative h-24 w-24 rounded-full bg-paper p-3 shadow-[0_20px_60px_-20px_rgba(26,91,100,0.5)] ring-1 ring-teal-900/10 sm:h-40 sm:w-40 sm:p-4 md:h-52 md:w-52">
                 <Image
                   src={asset("/logo.png")}
                   alt="PVP"
@@ -129,13 +129,13 @@ export function Hero() {
                 >
                   <div className="flex flex-col items-center">
                     <span
-                      className={`flex h-16 w-16 items-center justify-center rounded-full text-paper shadow-lg md:h-20 md:w-20 ${
+                      className={`flex h-11 w-11 items-center justify-center rounded-full text-paper shadow-lg sm:h-16 sm:w-16 md:h-20 md:w-20 ${
                         isTeal ? "bg-teal-900" : "bg-orange-600"
                       }`}
                     >
-                      <Icon className="h-7 w-7 md:h-9 md:w-9" strokeWidth={1.75} aria-hidden="true" />
+                      <Icon className="h-5 w-5 sm:h-7 sm:w-7 md:h-9 md:w-9" strokeWidth={1.75} aria-hidden="true" />
                     </span>
-                    <span className="mt-2 max-w-[110px] text-center text-xs font-semibold leading-tight text-ink md:max-w-[140px] md:text-sm">
+                    <span className="mt-1.5 max-w-[72px] text-center text-[10px] font-semibold leading-tight text-ink sm:mt-2 sm:max-w-[110px] sm:text-xs md:max-w-[140px] md:text-sm">
                       {node.label}
                     </span>
                   </div>

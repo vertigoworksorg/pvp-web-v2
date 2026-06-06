@@ -4,7 +4,7 @@ import { asset } from "@/lib/utils";
 
 export function MeetTeam() {
   return (
-    <section className="relative overflow-hidden bg-paper py-20 md:py-28">
+    <section className="relative overflow-hidden bg-paper py-10 md:py-14">
       <div className="container-content relative">
         <div className="mx-auto max-w-3xl text-center">
           <p className="text-eyebrow text-orange-600">Our Leadership</p>

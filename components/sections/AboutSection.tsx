@@ -13,7 +13,7 @@ const pillars: Pillar[] = [
 
 export function AboutSection() {
   return (
-    <section id="about" className="relative overflow-hidden bg-paper py-20 md:py-28">
+    <section id="about" className="relative overflow-hidden bg-paper py-10 md:py-14">
       <div className="container-content relative grid items-center gap-12 md:grid-cols-12 md:gap-14">
         {/* Image */}
         <div className="md:col-span-5">

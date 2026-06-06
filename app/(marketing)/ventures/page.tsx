@@ -35,7 +35,7 @@ export default function VenturesPage() {
         sub="A growing portfolio of innovation-driven ventures developed inside the PVP ecosystem."
       />
 
-      <section className="bg-paper py-20 md:py-28">
+      <section className="bg-paper py-10 md:py-14">
         <div className="container-content grid gap-6 md:grid-cols-2">
           {ventures.map((v) => {
             const isTeal = v.tone === "teal";

@@ -102,7 +102,7 @@ export function CoreServices() {
   const ActiveIcon = s.icon;
 
   return (
-    <section id="services" className="relative overflow-hidden bg-mist py-20 md:py-28">
+    <section id="services" className="relative overflow-hidden bg-mist py-10 md:py-14">
       {/* dotted texture */}
       <div
         aria-hidden="true"
@@ -163,9 +163,6 @@ export function CoreServices() {
                   <Icon className="h-5 w-5" strokeWidth={1.75} aria-hidden="true" />
                 </span>
                 <span className="min-w-0">
-                  <span className={"block font-mono text-[10px] " + (isActive ? "text-paper/70" : "text-ink-muted")}>
-                    §0{i + 1}
-                  </span>
                   <span className="block truncate text-sm font-bold">{svc.title}</span>
                 </span>
               </button>

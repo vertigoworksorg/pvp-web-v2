@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { asset } from "@/lib/utils";
 
 type Variant = "ecosystem" | "skyline" | "team" | "launch" | "chart" | "posts" | "send";
 
@@ -108,9 +109,9 @@ function ArtEcosystem() {
       {/* pulsing halo */}
       <circle cx={cx} cy={cy} r="30" fill={TEAL} fillOpacity="0.1"
         className="motion-safe:animate-[ph-beat_3.5s_ease-in-out_infinite]" style={{ transformBox: "fill-box", transformOrigin: "center" }} />
-      {/* core */}
-      <circle cx={cx} cy={cy} r="24" fill={TEAL} />
-      <text x={cx} y={cy + 5} textAnchor="middle" fill="#faf7f0" fontSize="13" fontWeight="700" fontFamily="system-ui">PVP</text>
+      {/* core — PVP logo mark on a paper disc */}
+      <circle cx={cx} cy={cy} r="27" fill="#faf7f0" stroke={TEAL} strokeOpacity="0.12" strokeWidth="1.5" />
+      <image href={asset("/logo.png")} x={cx - 19} y={cy - 21} width="38" height="42" preserveAspectRatio="xMidYMid meet" />
     </svg>
   );
 }

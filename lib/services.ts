@@ -142,7 +142,7 @@ export const serviceDetails: Record<string, ServiceDetail> = {
     theme: "earth",
     icon: "Compass",
     hero:
-      "PVP Consultancy Services — also operating under the Beacon Consulting (BCS) sub-brand — is the professional advisory and business support wing of Pak Venture Point. It combines strategic thinking, technical expertise, research-based planning, and market-oriented solutions to help clients improve performance, strengthen systems, secure funding, develop projects, and achieve sustainable growth.",
+      "PVP Research and Consulting — the professional advisory and business support wing of Pak Venture Point — combines strategic thinking, technical expertise, research-based planning, and market-oriented solutions to help clients improve performance, strengthen systems, secure funding, develop projects, and achieve sustainable growth.",
     deliverables: [
       {
         title: "Organizational development",

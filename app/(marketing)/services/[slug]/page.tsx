@@ -48,12 +48,12 @@ export default async function ServiceDetailPage({
   return (
     <>
       <PageHeader
-        eyebrow={`Practice · §02.${service.number}`}
+        eyebrow="What we offer"
         title={service.title}
         sub={service.tagline}
       />
 
-      <section className="bg-paper py-20 md:py-24">
+      <section className="bg-paper py-10 md:py-14">
         <div className="container-content grid gap-10 md:grid-cols-12 md:gap-12">
           <div className="md:col-span-4">
             <div
@@ -69,7 +69,7 @@ export default async function ServiceDetailPage({
         </div>
       </section>
 
-      <section className="bg-mist py-20 md:py-24">
+      <section className="bg-mist py-10 md:py-14">
         <div className="container-content">
           <p className="text-eyebrow text-orange-600">What we deliver</p>
           <h2 className="text-display-lg mt-3 text-ink">Core offerings.</h2>
@@ -91,7 +91,7 @@ export default async function ServiceDetailPage({
         </div>
       </section>
 
-      <section className="bg-paper py-20 md:py-24">
+      <section className="bg-paper py-10 md:py-14">
         <div className="container-content grid gap-12 md:grid-cols-12 md:gap-12">
           <div className="md:col-span-5">
             <p className="text-eyebrow text-orange-600">Who it&apos;s for</p>
@@ -111,7 +111,7 @@ export default async function ServiceDetailPage({
         </div>
       </section>
 
-      <section className="bg-mist py-20 md:py-24">
+      <section className="bg-mist py-10 md:py-14">
         <div className="container-content">
           <p className="text-eyebrow text-orange-600">Engagement models</p>
           <h2 className="text-display-lg mt-3 text-ink">How we structure the work.</h2>
@@ -169,7 +169,7 @@ export default async function ServiceDetailPage({
             <a href={`/services/${nextService.slug}`} className="group flex items-center justify-between gap-6">
               <div>
                 <p className="text-xs font-bold uppercase tracking-wider text-orange-600">
-                  Next practice — §02.{nextService.number}
+                  Next service
                 </p>
                 <p className="font-display mt-2 text-2xl font-bold text-ink group-hover:text-teal-900 md:text-3xl">
                   {nextService.title}

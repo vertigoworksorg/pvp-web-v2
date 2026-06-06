@@ -24,7 +24,7 @@ export default function InvestorsPage() {
         sub="PVP is developing a SAFE-based Micro-Investor Participation Initiative designed to support AI-first startups and emerging digital ventures within the PVP ecosystem."
       />
 
-      <section className="bg-mist py-20 md:py-28">
+      <section className="bg-mist py-10 md:py-14">
         <div className="container-content">
           <ul className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
             {benefits.map((b, i) => (

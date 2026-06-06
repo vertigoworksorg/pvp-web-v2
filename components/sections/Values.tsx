@@ -61,15 +61,15 @@ export function Values() {
   const loop = [...values, ...values]; // doubled for seamless marquee
 
   return (
-    <section id="values" className="relative overflow-hidden bg-mist py-20 md:py-28">
+    <section id="values" className="relative overflow-hidden bg-mist py-10 md:py-14">
       <div className="container-content relative">
         {/* Top: animated orbit + heading */}
         <div className="grid items-center gap-12 md:grid-cols-12 md:gap-10">
           <div className="md:col-span-5">
-            <div className="relative mx-auto aspect-square w-full max-w-[420px]">
+            <div className="relative mx-auto aspect-square w-full max-w-[260px] sm:max-w-[360px] md:max-w-[420px]">
               <div className="absolute inset-[8%] rounded-full border-2 border-dashed border-teal-900/20 motion-safe:animate-[spin_36s_linear_infinite]" />
               <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-                <div className="relative h-36 w-36 overflow-hidden rounded-full bg-paper p-3 shadow-[0_20px_50px_-20px_rgba(26,91,100,0.5)] ring-1 ring-teal-900/10">
+                <div className="relative h-24 w-24 overflow-hidden rounded-full bg-paper p-2 shadow-[0_20px_50px_-20px_rgba(26,91,100,0.5)] ring-1 ring-teal-900/10 sm:h-32 sm:w-32 sm:p-3 md:h-36 md:w-36">
                   <Image src={asset("/logo.png")} alt="PVP" fill className="object-contain p-1" />
                 </div>
               </div>
@@ -79,11 +79,11 @@ export function Values() {
                   <div key={p.label} className={`absolute ${p.pos}`}>
                     <div className="flex flex-col items-center">
                       <span
-                        className={`flex h-14 w-14 items-center justify-center rounded-full text-paper shadow-lg ${
+                        className={`flex h-11 w-11 items-center justify-center rounded-full text-paper shadow-lg sm:h-14 sm:w-14 ${
                           p.tone === "teal" ? "bg-teal-900" : "bg-orange-600"
                         }`}
                       >
-                        <Icon className="h-6 w-6" strokeWidth={1.75} aria-hidden="true" />
+                        <Icon className="h-5 w-5 sm:h-6 sm:w-6" strokeWidth={1.75} aria-hidden="true" />
                       </span>
                       <span
                         className={`mt-1.5 text-[10px] font-bold tracking-wider ${

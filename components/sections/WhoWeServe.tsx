@@ -23,7 +23,7 @@ const audiences: Audience[] = [
 
 export function WhoWeServe() {
   return (
-    <section id="who-we-serve" className="relative overflow-hidden bg-paper py-20 md:py-28">
+    <section id="who-we-serve" className="relative overflow-hidden bg-paper py-10 md:py-14">
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 opacity-50"

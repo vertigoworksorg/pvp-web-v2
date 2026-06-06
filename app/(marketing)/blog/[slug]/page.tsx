@@ -69,7 +69,7 @@ export default async function BlogPostPage({
           }}
         />
 
-        <div className="container-content relative py-16 md:py-24">
+        <div className="container-content relative py-10 md:py-14">
           <Link
             href="/blog"
             className="inline-flex items-center gap-2 text-sm font-semibold text-paper/85 transition-colors hover:text-paper"
@@ -116,7 +116,7 @@ export default async function BlogPostPage({
       </section>
 
       {/* Article body */}
-      <article className="bg-paper py-16 md:py-24">
+      <article className="bg-paper py-10 md:py-14">
         <div className="container-content max-w-3xl">
           <p className="font-display text-2xl leading-snug text-ink md:text-[1.75rem]">
             {post.body.lead}
@@ -197,7 +197,7 @@ export default async function BlogPostPage({
       </article>
 
       {/* Related posts */}
-      <section className="bg-mist py-16 md:py-24">
+      <section className="bg-mist py-10 md:py-14">
         <div className="container-content">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>

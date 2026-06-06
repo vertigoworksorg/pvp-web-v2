@@ -17,7 +17,7 @@ export default function ContactPage() {
         sub="A clear scope or a vague idea — both are fine. We will reply within one business day with a written next step."
       />
 
-      <section className="relative bg-paper py-20 md:py-28">
+      <section className="relative bg-paper py-10 md:py-14">
         <div className="container-content grid gap-10 md:grid-cols-12 md:gap-12">
           <div className="md:col-span-5">
             <ul className="space-y-4">

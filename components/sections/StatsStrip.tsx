@@ -17,24 +17,27 @@ export function StatsStrip() {
         className="pointer-events-none absolute -right-40 top-0 h-[320px] w-[320px] rounded-full opacity-30"
         style={{ background: "radial-gradient(circle, rgba(233,119,36,0.6) 0%, transparent 70%)" }}
       />
-      <div className="container-content relative grid grid-cols-2 gap-x-6 gap-y-8 py-10 md:grid-cols-4 md:gap-4 md:py-14">
+      <ul className="container-content relative grid grid-cols-2 gap-x-4 gap-y-4 py-4 md:grid-cols-4 md:gap-4 md:py-5">
         {stats.map((s) => (
-          <div key={s.trailing} className="flex items-center gap-3">
-            <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-paper/10 ring-1 ring-paper/15">
-              <s.icon className="h-5 w-5 text-orange-500" strokeWidth={1.75} aria-hidden="true" />
+          <li
+            key={s.trailing}
+            className="flex flex-col items-center gap-1.5 text-center sm:flex-row sm:items-center sm:gap-2.5 sm:text-left"
+          >
+            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-paper/10 ring-1 ring-paper/15 md:h-10 md:w-10">
+              <s.icon className="h-4 w-4 text-orange-500 md:h-[18px] md:w-[18px]" strokeWidth={1.75} aria-hidden="true" />
             </span>
             <div className="min-w-0">
-              <p className="font-display text-lg font-bold leading-tight whitespace-nowrap md:text-xl">
+              <p className="font-display text-sm font-bold leading-tight sm:whitespace-nowrap sm:text-[0.9375rem] md:text-base">
                 <span className="text-orange-500">{s.headline}</span>{" "}
                 <span className="text-paper">{s.trailing}</span>
               </p>
-              <p className="mt-0.5 truncate text-[11px] font-medium uppercase tracking-wider text-paper/65">
+              <p className="mt-0.5 text-[9px] font-medium uppercase tracking-wider text-paper/65 sm:truncate md:text-[10px]">
                 {s.sub}
               </p>
             </div>
-          </div>
+          </li>
         ))}
-      </div>
+      </ul>
     </section>
   );
 }

@@ -109,7 +109,7 @@ export function Header() {
               <X className="h-6 w-6" aria-hidden="true" />
             </button>
           </div>
-          <nav className="container-content flex-1 py-8" aria-label="Mobile primary">
+          <nav className="container-content flex-1 overflow-y-auto py-8" aria-label="Mobile primary">
             <ul className="space-y-2">
               {navItems.map((item) => {
                 const active = isActive(pathname, item.href);
