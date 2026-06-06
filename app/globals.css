@@ -184,3 +184,17 @@
     top: 1rem;
   }
 }
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* PageHeader decorative animations */
+@keyframes ph-ping { 0% { transform: scale(.25); opacity:.5 } 80% { opacity:0 } 100% { transform: scale(1); opacity:0 } }
+@keyframes ph-float { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-12px) } }
+@keyframes ph-rise { 0% { transform: translateY(24px); opacity:0 } 18% { opacity:.8 } 100% { transform: translateY(-90px); opacity:0 } }
+@keyframes ph-grow { from { transform: scaleY(0) } to { transform: scaleY(1) } }
+@keyframes ph-kenburns { from { transform: scale(1) } to { transform: scale(1.12) } }
+@keyframes ph-draw { from { stroke-dashoffset: 500 } to { stroke-dashoffset: 0 } }
+@keyframes ph-drift { from { transform: translateX(0) } to { transform: translateX(-50%) } }
+@keyframes ph-beat { 0%,100% { transform: scale(1); opacity:.85 } 50% { transform: scale(1.1); opacity:1 } }
+@keyframes ph-fade { from { opacity:0 } to { opacity:1 } }
+@keyframes ph-bounce { 0%,100% { transform: translateY(0); opacity:.45 } 50% { transform: translateY(-4px); opacity:1 } }

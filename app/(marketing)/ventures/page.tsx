@@ -28,7 +28,7 @@ const ventures = [
 export default function VenturesPage() {
   return (
     <>
-      <PageHeader
+      <PageHeader variant="launch"
         eyebrow="Ventures & Initiatives"
         title="What we're"
         highlight="building."

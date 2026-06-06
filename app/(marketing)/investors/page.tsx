@@ -17,7 +17,7 @@ const benefits = [
 export default function InvestorsPage() {
   return (
     <>
-      <PageHeader
+      <PageHeader variant="chart"
         eyebrow="Invest in Innovation"
         title="A SAFE-based participation in"
         highlight="the next wave."

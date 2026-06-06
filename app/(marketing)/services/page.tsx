@@ -9,7 +9,7 @@ export const metadata: Metadata = { title: "Services" };
 export default function ServicesPage() {
   return (
     <>
-      <PageHeader
+      <PageHeader variant="ecosystem"
         eyebrow="Our Operational Pillars"
         title="One Ecosystem."
         highlight="Multiple Solutions."

@@ -8,7 +8,7 @@ export const metadata: Metadata = { title: "Our Team" };
 export default function TeamPage() {
   return (
     <>
-      <PageHeader
+      <PageHeader variant="team"
         eyebrow="Our Leadership"
         title="The people"
         highlight="behind PVP."

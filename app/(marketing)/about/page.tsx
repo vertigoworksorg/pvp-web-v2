@@ -9,7 +9,7 @@ export const metadata: Metadata = { title: "About Us" };
 export default function AboutPage() {
   return (
     <>
-      <PageHeader
+      <PageHeader variant="skyline"
         eyebrow="Who We Are"
         title="A multidisciplinary innovation"
         highlight="enterprise."

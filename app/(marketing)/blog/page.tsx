@@ -27,7 +27,7 @@ export default function BlogPage() {
 
   return (
     <>
-      <PageHeader
+      <PageHeader variant="posts"
         eyebrow="Blog & Insights"
         title="Perspectives on building"
         highlight="from Islamabad."

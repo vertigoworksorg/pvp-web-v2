@@ -27,6 +27,7 @@ export const siteConfig = {
     "Pak Venture Point (PVP) is an AI-first innovation ecosystem delivering software solutions, strategic consultancy, freelancing operations, and startup development services designed for sustainable growth and digital transformation.",
   city: "Islamabad",
   country: "Pakistan",
-  email: "company@pvp.com.pk",
+  address: "02, Sunset Street, Greens Avenue, Park Road, Islamabad.",
+  email: "info@pvp.com.pk",
   phone: "",
 } as const;

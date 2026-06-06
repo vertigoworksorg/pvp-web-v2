@@ -61,8 +61,8 @@ export function Footer() {
           </ul>
         </div>
 
-        {/* Two columns — right */}
-        <div className="grid grid-cols-2 gap-12 md:gap-20">
+        {/* Two columns — grouped tight, right side */}
+        <div className="flex flex-col gap-10 sm:flex-row sm:gap-16 lg:gap-24">
           {/* Quick links */}
           <div>
             <h3 className="text-eyebrow text-orange-500">Quick Links</h3>
@@ -78,12 +78,12 @@ export function Footer() {
           </div>
 
           {/* Contact */}
-          <div>
+          <div className="sm:max-w-[15rem]">
             <h3 className="text-eyebrow text-orange-500">Contact</h3>
             <ul className="mt-5 space-y-3 text-body-sm">
               <li className="flex items-start gap-3">
                 <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-orange-500" aria-hidden="true" />
-                <span className="text-paper/85">{siteConfig.city}, {siteConfig.country}</span>
+                <span className="text-paper/85">{siteConfig.address}</span>
               </li>
               <li className="flex items-start gap-3">
                 <Mail className="mt-0.5 h-4 w-4 shrink-0 text-orange-500" aria-hidden="true" />

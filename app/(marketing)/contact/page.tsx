@@ -10,7 +10,7 @@ export const metadata: Metadata = { title: "Contact Us" };
 export default function ContactPage() {
   return (
     <>
-      <PageHeader
+      <PageHeader variant="send"
         eyebrow="Get in touch"
         title="Tell us what you're"
         highlight="trying to do."
@@ -30,7 +30,7 @@ export default function ContactPage() {
               <ContactCard
                 icon={<IconBadge icon={MapPin} tone="orange" size="md" />}
                 title="Visit Us"
-                value={`${siteConfig.city}, ${siteConfig.country}`}
+                value={siteConfig.address}
               />
               <ContactCard
                 icon={<IconBadge icon={Clock} tone="teal" size="md" />}
