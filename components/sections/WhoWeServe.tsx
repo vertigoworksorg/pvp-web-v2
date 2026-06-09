@@ -52,7 +52,7 @@ export function WhoWeServe() {
             return (
               <li
                 key={a.title}
-                className="group relative flex flex-col overflow-hidden rounded-2xl border border-rule bg-paper p-6 transition-all duration-200 hover:-translate-y-1 hover:border-teal-700 hover:shadow-[0_24px_48px_-28px_rgba(11,42,48,0.4)]"
+                className="group relative flex flex-col overflow-hidden rounded-2xl border border-rule bg-paper p-6 transition-all duration-200 [@media(hover:hover)]:hover:-translate-y-1 [@media(hover:hover)]:hover:border-teal-700 [@media(hover:hover)]:hover:shadow-[0_24px_48px_-28px_rgba(11,42,48,0.4)]"
               >
                 {/* top accent bar */}
                 <span
@@ -60,7 +60,7 @@ export function WhoWeServe() {
                   className={`absolute inset-x-0 top-0 h-1 ${isTeal ? "bg-teal-900" : "bg-orange-600"}`}
                 />
                 <span
-                  className={`flex h-14 w-14 items-center justify-center rounded-2xl text-paper transition-transform duration-200 group-hover:scale-105 ${
+                  className={`flex h-14 w-14 items-center justify-center rounded-2xl text-paper transition-transform duration-200 [@media(hover:hover)]:group-hover:scale-105 ${
                     isTeal ? "bg-teal-900" : "bg-orange-600"
                   }`}
                 >

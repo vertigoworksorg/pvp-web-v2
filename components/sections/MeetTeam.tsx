@@ -24,7 +24,7 @@ export function MeetTeam() {
             return (
               <li
                 key={leader.name}
-                className="group flex flex-col overflow-hidden rounded-2xl bg-paper ring-1 ring-rule transition-all hover:-translate-y-1 hover:shadow-[0_20px_45px_-20px_rgba(11,42,48,0.35)]"
+                className="group flex flex-col overflow-hidden rounded-2xl bg-paper ring-1 ring-rule transition-all [@media(hover:hover)]:hover:-translate-y-1 [@media(hover:hover)]:hover:shadow-[0_20px_45px_-20px_rgba(11,42,48,0.35)]"
               >
                 <div className="relative aspect-[4/5] w-full overflow-hidden bg-mist">
                   {leader.imageSrc ? (
@@ -33,7 +33,7 @@ export function MeetTeam() {
                       alt={leader.name}
                       fill
                       sizes="(max-width: 768px) 100vw, 25vw"
-                      className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                      className="object-cover object-center transition-transform duration-500 [@media(hover:hover)]:group-hover:scale-105"
                     />
                   ) : (
                     <div className="flex h-full w-full items-center justify-center">

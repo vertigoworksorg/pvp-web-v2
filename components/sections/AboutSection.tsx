@@ -66,7 +66,7 @@ export function AboutSection() {
               return (
                 <div
                   key={p.label}
-                  className="group flex items-start gap-4 rounded-2xl border border-rule bg-paper p-5 transition-all hover:-translate-y-0.5 hover:border-teal-700 hover:shadow-[0_16px_40px_-24px_rgba(11,42,48,0.4)]"
+                  className="group flex items-start gap-4 rounded-2xl border border-rule bg-paper p-5 transition-all [@media(hover:hover)]:hover:-translate-y-0.5 [@media(hover:hover)]:hover:border-teal-700 [@media(hover:hover)]:hover:shadow-[0_16px_40px_-24px_rgba(11,42,48,0.4)]"
                 >
                   <span
                     className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl text-paper ${

@@ -86,8 +86,12 @@ const tone = {
 export function CoreServices() {
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
+  const [cycle, setCycle] = useState(0);
   const timer = useRef<ReturnType<typeof setInterval> | null>(null);
 
+  // Restart the interval on every slide change (manual or auto) so the JS timer
+  // stays in phase with the keyed CSS progress bar; `cycle` re-syncs after the
+  // tab returns to the foreground.
   useEffect(() => {
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduce || paused) return;
@@ -95,7 +99,18 @@ export function CoreServices() {
     return () => {
       if (timer.current) clearInterval(timer.current);
     };
-  }, [paused]);
+  }, [paused, active, cycle]);
+
+  // Mobile browsers throttle setInterval and freeze CSS animations while the
+  // page is backgrounded/locked; on return, re-sync so the bar and timer don't
+  // sit stuck at full.
+  useEffect(() => {
+    const onVisible = () => {
+      if (document.visibilityState === "visible") setCycle((c) => c + 1);
+    };
+    document.addEventListener("visibilitychange", onVisible);
+    return () => document.removeEventListener("visibilitychange", onVisible);
+  }, []);
 
   const s = services[active];
   const t = tone[s.tone];
@@ -173,7 +188,12 @@ export function CoreServices() {
         {/* Showcase */}
         <div
           className="mt-6 overflow-hidden rounded-3xl border border-rule bg-paper shadow-[0_40px_80px_-40px_rgba(11,42,48,0.3)]"
-          onMouseEnter={() => setPaused(true)}
+          onMouseEnter={() => {
+            // Hover-pause only on devices with a real pointer. On touch, a tap
+            // fires mouseenter with no reliable mouseleave, which would otherwise
+            // strand paused=true and freeze the carousel permanently.
+            if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) setPaused(true);
+          }}
           onMouseLeave={() => setPaused(false)}
         >
           <div className="grid md:grid-cols-2">
@@ -241,8 +261,9 @@ export function CoreServices() {
           {/* progress bar */}
           <div className="h-1 w-full bg-rule/60">
             <div
-              key={`bar-${active}-${paused}`}
-              className={`h-full ${t.bg} ${paused ? "w-full" : "motion-safe:animate-[grow_6s_linear]"}`}
+              key={`bar-${active}-${cycle}`}
+              className={`h-full w-full origin-left ${t.bg} motion-safe:animate-[grow_linear]`}
+              style={{ animationDuration: `${AUTO_MS}ms`, animationPlayState: paused ? "paused" : "running" }}
             />
           </div>
         </div>
@@ -262,7 +283,7 @@ export function CoreServices() {
 
       <style>{`
         @keyframes fadeUp { from { opacity:0; transform:translateY(10px) } to { opacity:1; transform:none } }
-        @keyframes grow { from { width:0% } to { width:100% } }
+        @keyframes grow { from { transform: scaleX(0) } to { transform: scaleX(1) } }
       `}</style>
     </section>
   );

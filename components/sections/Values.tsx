@@ -45,8 +45,12 @@ const AUTO_MS = 3600;
 export function Values() {
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
+  const [cycle, setCycle] = useState(0);
   const timer = useRef<ReturnType<typeof setInterval> | null>(null);
 
+  // Restart the interval on every value change (manual or auto) so the JS timer
+  // stays in phase with the keyed CSS progress bar; `cycle` re-syncs after the
+  // tab returns to the foreground.
   useEffect(() => {
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduce || paused) return;
@@ -54,7 +58,18 @@ export function Values() {
     return () => {
       if (timer.current) clearInterval(timer.current);
     };
-  }, [paused]);
+  }, [paused, active, cycle]);
+
+  // Mobile browsers throttle setInterval and freeze CSS animations while the
+  // page is backgrounded/locked; on return, re-sync so the bar and timer don't
+  // sit stuck at full.
+  useEffect(() => {
+    const onVisible = () => {
+      if (document.visibilityState === "visible") setCycle((c) => c + 1);
+    };
+    document.addEventListener("visibilitychange", onVisible);
+    return () => document.removeEventListener("visibilitychange", onVisible);
+  }, []);
 
   const current = values[active];
   const ActiveIcon = current.icon;
@@ -113,7 +128,12 @@ export function Values() {
             {/* Spotlight — one value at a time */}
             <div
               className="mt-8 overflow-hidden rounded-2xl border border-rule bg-paper p-6 md:p-7"
-              onMouseEnter={() => setPaused(true)}
+              onMouseEnter={() => {
+                // Hover-pause only on real-pointer devices; on touch a tap fires
+                // mouseenter with no reliable mouseleave, which would strand
+                // paused=true and freeze the section permanently.
+                if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) setPaused(true);
+              }}
               onMouseLeave={() => setPaused(false)}
             >
               <div key={active} className="flex items-start gap-5 motion-safe:animate-[slideIn_0.4s_cubic-bezier(0.4,0,0.2,1)]">
@@ -142,10 +162,11 @@ export function Values() {
               </div>
               <div className="mt-5 h-1 w-full overflow-hidden rounded-full bg-rule/60">
                 <div
-                  key={`bar-${active}-${paused}`}
-                  className={`h-full ${current.tone === "teal" ? "bg-teal-900" : "bg-orange-600"} ${
-                    paused ? "w-full" : "motion-safe:animate-[grow_3.6s_linear]"
-                  }`}
+                  key={`bar-${active}-${cycle}`}
+                  className={`h-full w-full origin-left ${
+                    current.tone === "teal" ? "bg-teal-900" : "bg-orange-600"
+                  } motion-safe:animate-[grow_linear]`}
+                  style={{ animationDuration: `${AUTO_MS}ms`, animationPlayState: paused ? "paused" : "running" }}
                 />
               </div>
             </div>
@@ -194,10 +215,12 @@ export function Values() {
       <style>{`
         @keyframes spin { to { transform: rotate(360deg) } }
         @keyframes slideIn { from { opacity:0; transform:translateX(20px) } to { opacity:1; transform:none } }
-        @keyframes grow { from { width:0% } to { width:100% } }
+        @keyframes grow { from { transform: scaleX(0) } to { transform: scaleX(1) } }
         @keyframes marquee { from { transform:translateX(0) } to { transform:translateX(-50%) } }
         .marquee-track { animation: marquee 32s linear infinite; }
-        .group:hover .marquee-track { animation-play-state: paused; }
+        @media (hover: hover) and (pointer: fine) {
+          .group:hover .marquee-track { animation-play-state: paused; }
+        }
         @media (prefers-reduced-motion: reduce) {
           .marquee-track { animation: none; flex-wrap: wrap; width: 100%; }
         }
