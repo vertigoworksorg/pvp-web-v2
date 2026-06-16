@@ -35,12 +35,16 @@ jobs:
         run: pnpm build
         env:
           GITHUB_PAGES: "true"
-          # Served from the apex domain pvp.com.pk (root), so no basePath.
+          # STAGING: served from the GitHub Pages project sub-path
+          # https://vertigoworksorg.github.io/pvp-web-v2/, so set basePath.
+          # (Apex domain pvp.com.pk is on hold; restore by clearing this
+          # var and re-adding the CNAME step below.)
+          NEXT_PUBLIC_BASE_PATH: /pvp-web-v2
 
-      - name: Add .nojekyll and CNAME
+      - name: Add .nojekyll
         run: |
           touch out/.nojekyll
-          echo "pvp.com.pk" > out/CNAME
+          # No CNAME while deploying to the github.io staging sub-path.
 
       - uses: actions/configure-pages@v5
 
