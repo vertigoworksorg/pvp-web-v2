@@ -5,6 +5,8 @@ import { PageHeader } from "@/components/sections/PageHeader";
 import { Button } from "@/components/ui/Button";
 import { IconBadge } from "@/components/ui/IconBadge";
 import { ConnectStrip } from "@/components/sections/ConnectStrip";
+import { VentureFaction } from "@/components/services/VentureFaction";
+import { ConsultancyFaction } from "@/components/services/ConsultancyFaction";
 import { serviceDetails, serviceOrder } from "@/lib/services";
 
 const iconMap: Record<string, LucideIcon> = {
@@ -42,6 +44,17 @@ export default async function ServiceDetailPage({
   const currentIdx = serviceOrder.indexOf(slug as (typeof serviceOrder)[number]);
   const next = serviceOrder[(currentIdx + 1) % serviceOrder.length];
   const nextService = serviceDetails[next];
+  const nextRef = nextService ? { slug: nextService.slug, title: nextService.title } : undefined;
+
+  // Faction-specific designs. Each core service can carry its own visual
+  // identity while sharing the brand palette. Software/Freelancing keep the
+  // standard layout until their factions are defined.
+  if (slug === "innovative-startups") {
+    return <VentureFaction service={service} next={nextRef} />;
+  }
+  if (slug === "consultancy") {
+    return <ConsultancyFaction service={service} next={nextRef} />;
+  }
 
   const isTeal = service.theme === "ocean" || service.theme === "earth";
 

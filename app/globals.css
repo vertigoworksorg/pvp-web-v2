@@ -231,6 +231,9 @@
 
 @keyframes spin { to { transform: rotate(360deg); } }
 
+/* Hero headline gradient sheen (animated background-position) */
+@keyframes hero-sheen { to { background-position: 200% center; } }
+
 /* PageHeader decorative animations */
 @keyframes ph-ping { 0% { transform: scale(.25); opacity:.5 } 80% { opacity:0 } 100% { transform: scale(1); opacity:0 } }
 @keyframes ph-float { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-12px) } }
