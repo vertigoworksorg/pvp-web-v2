@@ -35,10 +35,12 @@ jobs:
         run: pnpm build
         env:
           GITHUB_PAGES: "true"
-          NEXT_PUBLIC_BASE_PATH: "/pvp-web-v2"
+          # Served from the apex domain pvp.com.pk (root), so no basePath.
 
-      - name: Add .nojekyll
-        run: touch out/.nojekyll
+      - name: Add .nojekyll and CNAME
+        run: |
+          touch out/.nojekyll
+          echo "pvp.com.pk" > out/CNAME
 
       - uses: actions/configure-pages@v5
 
