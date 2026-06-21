@@ -7,7 +7,18 @@ import { IconBadge } from "@/components/ui/IconBadge";
 import { ConnectStrip } from "@/components/sections/ConnectStrip";
 import { VentureFaction } from "@/components/services/VentureFaction";
 import { ConsultancyFaction } from "@/components/services/ConsultancyFaction";
+import { FactionLink } from "@/components/transition/FactionLink";
 import { serviceDetails, serviceOrder } from "@/lib/services";
+
+// Next-service links into a faction page enter via its themed transition.
+const FACTION_THEME: Record<string, "cinematic" | "editorial"> = {
+  "innovative-startups": "cinematic",
+  consultancy: "editorial",
+};
+const FACTION_LABEL: Record<string, string> = {
+  "innovative-startups": "Startup & Venture Development",
+  consultancy: "Consultancy & Advisory",
+};
 
 const iconMap: Record<string, LucideIcon> = {
   Users,
@@ -179,17 +190,32 @@ export default async function ServiceDetailPage({
       {nextService && (
         <section className="bg-paper py-10">
           <div className="container-content">
-            <a href={`/services/${nextService.slug}`} className="group flex items-center justify-between gap-6">
-              <div>
-                <p className="text-xs font-bold uppercase tracking-wider text-orange-600">
-                  Next service
-                </p>
-                <p className="font-display mt-2 text-2xl font-bold text-ink group-hover:text-teal-900 md:text-3xl">
-                  {nextService.title}
-                </p>
-              </div>
-              <ArrowRight className="h-6 w-6 text-ink-muted group-hover:text-teal-900" />
-            </a>
+            {FACTION_THEME[nextService.slug] ? (
+              <FactionLink
+                href={`/services/${nextService.slug}`}
+                theme={FACTION_THEME[nextService.slug]}
+                label={FACTION_LABEL[nextService.slug]}
+                className="group flex items-center justify-between gap-6"
+              >
+                <div>
+                  <p className="text-xs font-bold uppercase tracking-wider text-orange-600">Next service</p>
+                  <p className="font-display mt-2 text-2xl font-bold text-ink group-hover:text-teal-900 md:text-3xl">
+                    {nextService.title}
+                  </p>
+                </div>
+                <ArrowRight className="h-6 w-6 text-ink-muted group-hover:text-teal-900" />
+              </FactionLink>
+            ) : (
+              <a href={`/services/${nextService.slug}`} className="group flex items-center justify-between gap-6">
+                <div>
+                  <p className="text-xs font-bold uppercase tracking-wider text-orange-600">Next service</p>
+                  <p className="font-display mt-2 text-2xl font-bold text-ink group-hover:text-teal-900 md:text-3xl">
+                    {nextService.title}
+                  </p>
+                </div>
+                <ArrowRight className="h-6 w-6 text-ink-muted group-hover:text-teal-900" />
+              </a>
+            )}
           </div>
         </section>
       )}

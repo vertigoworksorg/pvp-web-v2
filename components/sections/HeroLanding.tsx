@@ -167,12 +167,18 @@ function OrbitRing({ reduce }: { reduce: boolean | null }) {
               onClick={(e) => {
                 // A drag shouldn't fire a navigation.
                 if (drag.current.moved) { e.preventDefault(); return; }
-                // The venture node enters via the dark-cinematic transition.
-                if (node.href === "/services/innovative-startups" && !reduce) {
+                // Faction nodes enter via their themed page transition.
+                const theme =
+                  node.href === "/services/innovative-startups"
+                    ? "cinematic"
+                    : node.href === "/services/consultancy"
+                    ? "editorial"
+                    : null;
+                if (theme && !reduce) {
                   if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
                   e.preventDefault();
                   window.dispatchEvent(
-                    new CustomEvent("pvp:cinematic-go", { detail: { href: node.href, label: node.label } })
+                    new CustomEvent("pvp:faction-go", { detail: { href: node.href, label: node.label, theme } })
                   );
                 }
               }}

@@ -12,7 +12,7 @@ import type { ServiceDetail } from "@/lib/services";
 import {
   Reveal, Magnetic, Stagger, StaggerItem, WordReveal, Marquee, Parallax,
 } from "@/components/lab/primitives";
-import { CinematicLink } from "@/components/transition/CinematicLink";
+import { FactionLink } from "@/components/transition/FactionLink";
 
 export function ConsultancyFaction({
   service,
@@ -196,9 +196,10 @@ export function ConsultancyFaction({
           <div className="container-content">
             {next.slug === "innovative-startups" ? (
               // Next is the Venture faction — enter via the cinematic transition.
-              <CinematicLink
+              <FactionLink
                 href={`/services/${next.slug}`}
                 label="Startup & Venture Development"
+                theme="cinematic"
                 className="group flex items-center justify-between gap-6 border-t-2 border-ink pt-8"
               >
                 <div>
@@ -208,7 +209,7 @@ export function ConsultancyFaction({
                   </p>
                 </div>
                 <ArrowRight className="h-7 w-7 transition-transform group-hover:translate-x-1" />
-              </CinematicLink>
+              </FactionLink>
             ) : (
               <Link href={`/services/${next.slug}`} className="group flex items-center justify-between gap-6 border-t-2 border-ink pt-8">
                 <div>
