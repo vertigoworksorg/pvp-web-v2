@@ -5,6 +5,11 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, ArrowUpRight, Check, Code2, Compass, Sparkles, Users, type LucideIcon } from "lucide-react";
 import { asset } from "@/lib/utils";
+import { CinematicLink } from "@/components/transition/CinematicLink";
+
+// The Startup & Venture Development service carries the dark-cinematic faction
+// identity everywhere it appears, so users learn to expect it before clicking.
+const VENTURE_HREF = "/services/innovative-startups";
 
 type Tone = "teal" | "orange";
 
@@ -115,6 +120,7 @@ export function CoreServices() {
   const s = services[active];
   const t = tone[s.tone];
   const ActiveIcon = s.icon;
+  const isVenture = s.href === VENTURE_HREF;
 
   return (
     <section id="services" className="relative overflow-hidden bg-mist py-10 md:py-14">
@@ -156,6 +162,15 @@ export function CoreServices() {
             const Icon = svc.icon;
             const isActive = i === active;
             const tt = tone[svc.tone];
+            const venture = svc.href === VENTURE_HREF;
+            // The venture tab signals its faction: a dark, glowing pill when
+            // active so the dark-cinematic identity is hinted from the tabs.
+            const activeClass = venture
+              ? "border-teal-300/40 bg-[#07110f] text-white shadow-[0_10px_40px_-10px_rgba(42,138,146,0.7)]"
+              : tt.tabActive + " shadow-lg";
+            const iconActiveClass = venture
+              ? "bg-gradient-to-br from-teal-400/30 to-orange-400/20 text-teal-200 ring-1 ring-white/15"
+              : "bg-paper/15 text-paper";
             return (
               <button
                 key={svc.title}
@@ -163,16 +178,16 @@ export function CoreServices() {
                 onClick={() => setActive(i)}
                 aria-pressed={isActive}
                 className={
-                  "flex items-center gap-3 rounded-xl border px-4 py-3 text-left transition-all duration-200 " +
+                  "flex items-center gap-3 rounded-xl border px-4 py-3 text-left transition-all duration-300 " +
                   (isActive
-                    ? tt.tabActive + " shadow-lg"
+                    ? activeClass
                     : "border-rule bg-paper text-ink hover:-translate-y-0.5 hover:border-teal-700")
                 }
               >
                 <span
                   className={
                     "flex h-9 w-9 shrink-0 items-center justify-center rounded-lg " +
-                    (isActive ? "bg-paper/15 text-paper" : `${tt.chipBg} ${tt.chipText}`)
+                    (isActive ? iconActiveClass : `${tt.chipBg} ${tt.chipText}`)
                   }
                 >
                   <Icon className="h-5 w-5" strokeWidth={1.75} aria-hidden="true" />
@@ -187,7 +202,12 @@ export function CoreServices() {
 
         {/* Showcase */}
         <div
-          className="mt-6 overflow-hidden rounded-3xl border border-rule bg-paper shadow-[0_40px_80px_-40px_rgba(11,42,48,0.3)]"
+          className={
+            "mt-6 overflow-hidden rounded-3xl border transition-colors duration-500 " +
+            (isVenture
+              ? "border-white/10 bg-[#07110f] shadow-[0_50px_120px_-40px_rgba(42,138,146,0.55)]"
+              : "border-rule bg-paper shadow-[0_40px_80px_-40px_rgba(11,42,48,0.3)]")
+          }
           onMouseEnter={() => {
             // Hover-pause only on devices with a real pointer. On touch, a tap
             // fires mouseenter with no reliable mouseleave, which would otherwise
@@ -213,12 +233,23 @@ export function CoreServices() {
                   priority={i === 0}
                 />
               ))}
-              {/* tint + overlay badge */}
+              {/* tint + overlay badge — deeper, glowing tint for the venture faction */}
               <div
                 aria-hidden="true"
-                className="absolute inset-0"
-                style={{ background: "linear-gradient(180deg, rgba(7,24,46,0.15) 0%, rgba(7,24,46,0.55) 100%)" }}
+                className="absolute inset-0 transition-opacity duration-500"
+                style={{
+                  background: isVenture
+                    ? "linear-gradient(180deg, rgba(7,17,15,0.45) 0%, rgba(7,17,15,0.88) 100%)"
+                    : "linear-gradient(180deg, rgba(7,24,46,0.15) 0%, rgba(7,24,46,0.55) 100%)",
+                }}
               />
+              {isVenture && (
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute -bottom-16 -left-16 h-64 w-64 rounded-full opacity-70 blur-3xl"
+                  style={{ background: "radial-gradient(circle, rgba(42,138,146,0.55), transparent 65%)" }}
+                />
+              )}
               <div className="absolute left-5 top-5 flex items-center gap-3">
                 <span className={`flex h-12 w-12 items-center justify-center rounded-xl ${t.bg} text-paper shadow-lg`}>
                   <ActiveIcon className="h-6 w-6" strokeWidth={1.75} aria-hidden="true" />
@@ -232,37 +263,56 @@ export function CoreServices() {
 
             {/* Content */}
             <div key={active} className="flex flex-col justify-center p-8 md:p-12 motion-safe:animate-[fadeUp_0.4s_ease]">
-              <p className="text-body-lg text-ink">{s.blurb}</p>
+              <p className={"text-body-lg " + (isVenture ? "text-white" : "text-ink")}>{s.blurb}</p>
 
-              <p className="font-mono mt-8 text-[11px] uppercase tracking-[0.12em] text-ink-muted">
+              <p className={"font-mono mt-8 text-[11px] uppercase tracking-[0.12em] " + (isVenture ? "text-teal-200/70" : "text-ink-muted")}>
                 What&apos;s included
               </p>
               <ul className="mt-4 grid grid-cols-1 gap-x-4 gap-y-2.5 sm:grid-cols-2">
                 {s.capabilities.map((c) => (
-                  <li key={c} className="flex items-center gap-2.5 text-body-sm text-ink">
-                    <span className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full ${t.bg}`}>
-                      <Check className="h-3 w-3 text-paper" strokeWidth={3.5} aria-hidden="true" />
+                  <li key={c} className={"flex items-center gap-2.5 text-body-sm " + (isVenture ? "text-white/80" : "text-ink")}>
+                    <span
+                      className={
+                        "flex h-5 w-5 shrink-0 items-center justify-center rounded-full " +
+                        (isVenture ? "bg-gradient-to-br from-teal-400 to-orange-400" : t.bg)
+                      }
+                    >
+                      <Check className={"h-3 w-3 " + (isVenture ? "text-[#07110f]" : "text-paper")} strokeWidth={3.5} aria-hidden="true" />
                     </span>
                     {c}
                   </li>
                 ))}
               </ul>
 
-              <Link
-                href={s.href}
-                className={`group mt-8 inline-flex items-center gap-2 self-start rounded-sm px-5 py-3 font-semibold text-paper transition-colors ${t.bg} hover:opacity-90`}
-              >
-                Explore {s.title.split(" ")[0]}
-                <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true" />
-              </Link>
+              {isVenture ? (
+                <CinematicLink
+                  href={s.href}
+                  label="Startup & Venture Development"
+                  className="group mt-8 inline-flex items-center gap-2 self-start rounded-full bg-gradient-to-r from-teal-400 to-teal-300 px-6 py-3 font-semibold text-[#07110f] shadow-[0_0_40px_-8px_rgba(42,138,146,0.9)] transition-shadow hover:shadow-[0_0_60px_-6px_rgba(42,138,146,1)]"
+                >
+                  Enter the venture studio
+                  <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true" />
+                </CinematicLink>
+              ) : (
+                <Link
+                  href={s.href}
+                  className={`group mt-8 inline-flex items-center gap-2 self-start rounded-sm px-5 py-3 font-semibold text-paper transition-colors ${t.bg} hover:opacity-90`}
+                >
+                  Explore {s.title.split(" ")[0]}
+                  <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true" />
+                </Link>
+              )}
             </div>
           </div>
 
           {/* progress bar */}
-          <div className="h-1 w-full bg-rule/60">
+          <div className={"h-1 w-full " + (isVenture ? "bg-white/10" : "bg-rule/60")}>
             <div
               key={`bar-${active}-${cycle}`}
-              className={`h-full w-full origin-left ${t.bg} motion-safe:animate-[grow_linear]`}
+              className={
+                "h-full w-full origin-left motion-safe:animate-[grow_linear] " +
+                (isVenture ? "bg-gradient-to-r from-teal-300 to-orange-300" : t.bg)
+              }
               style={{ animationDuration: `${AUTO_MS}ms`, animationPlayState: paused ? "paused" : "running" }}
             />
           </div>

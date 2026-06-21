@@ -4,6 +4,7 @@ import { plusJakarta } from "@/lib/fonts";
 import { cn, siteConfig } from "@/lib/utils";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { CinematicTransition } from "@/components/transition/CinematicTransition";
 
 export const metadata: Metadata = {
   title: {
@@ -30,6 +31,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Header />
         <main id="main">{children}</main>
         <Footer />
+        <CinematicTransition />
       </body>
     </html>
   );

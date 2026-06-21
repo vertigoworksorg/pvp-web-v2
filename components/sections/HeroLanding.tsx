@@ -164,7 +164,18 @@ function OrbitRing({ reduce }: { reduce: boolean | null }) {
               href={node.href}
               aria-label={node.label}
               draggable={false}
-              onClick={(e) => { if (drag.current.moved) e.preventDefault(); }}
+              onClick={(e) => {
+                // A drag shouldn't fire a navigation.
+                if (drag.current.moved) { e.preventDefault(); return; }
+                // The venture node enters via the dark-cinematic transition.
+                if (node.href === "/services/innovative-startups" && !reduce) {
+                  if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+                  e.preventDefault();
+                  window.dispatchEvent(
+                    new CustomEvent("pvp:cinematic-go", { detail: { href: node.href, label: node.label } })
+                  );
+                }
+              }}
               className="group flex flex-col items-center rounded-2xl outline-none focus-visible:ring-2 focus-visible:ring-orange-600 focus-visible:ring-offset-2"
             >
               <motion.span

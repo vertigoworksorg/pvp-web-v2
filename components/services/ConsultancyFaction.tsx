@@ -12,6 +12,7 @@ import type { ServiceDetail } from "@/lib/services";
 import {
   Reveal, Magnetic, Stagger, StaggerItem, WordReveal, Marquee, Parallax,
 } from "@/components/lab/primitives";
+import { CinematicLink } from "@/components/transition/CinematicLink";
 
 export function ConsultancyFaction({
   service,
@@ -193,15 +194,32 @@ export function ConsultancyFaction({
       {next && (
         <section className="bg-paper-warm py-12">
           <div className="container-content">
-            <Link href={`/services/${next.slug}`} className="group flex items-center justify-between gap-6 border-t-2 border-ink pt-8">
-              <div>
-                <p className="text-xs font-bold uppercase tracking-wider text-orange-600">Next service</p>
-                <p className="mt-2 text-2xl font-extrabold uppercase transition-colors group-hover:text-orange-600 md:text-3xl">
-                  {next.title}
-                </p>
-              </div>
-              <ArrowRight className="h-7 w-7 transition-transform group-hover:translate-x-1" />
-            </Link>
+            {next.slug === "innovative-startups" ? (
+              // Next is the Venture faction — enter via the cinematic transition.
+              <CinematicLink
+                href={`/services/${next.slug}`}
+                label="Startup & Venture Development"
+                className="group flex items-center justify-between gap-6 border-t-2 border-ink pt-8"
+              >
+                <div>
+                  <p className="text-xs font-bold uppercase tracking-wider text-orange-600">Next service</p>
+                  <p className="mt-2 text-2xl font-extrabold uppercase transition-colors group-hover:text-orange-600 md:text-3xl">
+                    {next.title}
+                  </p>
+                </div>
+                <ArrowRight className="h-7 w-7 transition-transform group-hover:translate-x-1" />
+              </CinematicLink>
+            ) : (
+              <Link href={`/services/${next.slug}`} className="group flex items-center justify-between gap-6 border-t-2 border-ink pt-8">
+                <div>
+                  <p className="text-xs font-bold uppercase tracking-wider text-orange-600">Next service</p>
+                  <p className="mt-2 text-2xl font-extrabold uppercase transition-colors group-hover:text-orange-600 md:text-3xl">
+                    {next.title}
+                  </p>
+                </div>
+                <ArrowRight className="h-7 w-7 transition-transform group-hover:translate-x-1" />
+              </Link>
+            )}
           </div>
         </section>
       )}
