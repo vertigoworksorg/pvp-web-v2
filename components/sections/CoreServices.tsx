@@ -12,9 +12,11 @@ import { FactionLink } from "@/components/transition/FactionLink";
 //   Venture     -> dark cinematic
 //   Consultancy -> bold editorial
 //   Freelancing -> VertigoWorks kinetic (voltage/coral/acid, vortex)
+//   Software     -> Shahan Naqvi clean SaaS (electric blue/indigo, Fraunces)
 const VENTURE_HREF = "/services/innovative-startups";
 const CONSULT_HREF = "/services/consultancy";
 const FREE_HREF = "/services/digital-freelancing";
+const SOFT_HREF = "/services/software-development";
 
 type Tone = "teal" | "orange";
 
@@ -128,6 +130,7 @@ export function CoreServices() {
   const isVenture = s.href === VENTURE_HREF;
   const isConsult = s.href === CONSULT_HREF;
   const isFree = s.href === FREE_HREF;
+  const isSoft = s.href === SOFT_HREF;
 
   return (
     <section id="services" className="relative overflow-hidden bg-mist py-10 md:py-14">
@@ -172,15 +175,18 @@ export function CoreServices() {
             const venture = svc.href === VENTURE_HREF;
             const consult = svc.href === CONSULT_HREF;
             const free = svc.href === FREE_HREF;
+            const soft = svc.href === SOFT_HREF;
             // Each faction tab signals its identity when active: a dark glowing
-            // pill (venture), a hard ink block (consultancy / editorial), or a
-            // voltage block with a coral offset (freelancing / VertigoWorks).
+            // pill (venture), a hard ink block (consultancy), a voltage block
+            // with a coral offset (freelancing), or a soft blue pill (software).
             const activeClass = venture
               ? "border-teal-300/40 bg-[#07110f] text-white shadow-[0_10px_40px_-10px_rgba(42,138,146,0.7)]"
               : consult
               ? "rounded-md border-ink bg-ink text-paper shadow-[4px_4px_0_0_#e97724]"
               : free
               ? "rounded-md border-[#14141B] bg-[#1F3BFF] text-white shadow-[4px_4px_0_0_#FF4324]"
+              : soft
+              ? "rounded-full border-[#1B5AFF] bg-[#1B5AFF] text-white shadow-[0_12px_28px_-10px_rgba(27,90,255,0.7)]"
               : tt.tabActive + " shadow-lg";
             const iconActiveClass = venture
               ? "bg-gradient-to-br from-teal-400/30 to-orange-400/20 text-teal-200 ring-1 ring-white/15"
@@ -188,6 +194,8 @@ export function CoreServices() {
               ? "rounded-md bg-orange-600 text-paper"
               : free
               ? "rounded-md bg-[#E6FF3D] text-[#14141B]"
+              : soft
+              ? "rounded-full bg-white/20 text-white"
               : "bg-paper/15 text-paper";
             return (
               <button
@@ -228,6 +236,8 @@ export function CoreServices() {
               ? "rounded-none border-2 border-ink bg-paper-warm shadow-[8px_8px_0_0_#0b2a30]"
               : isFree
               ? "rounded-none border-2 border-[#14141B] bg-[#F6F2EA] shadow-[8px_8px_0_0_#1F3BFF]"
+              : isSoft
+              ? "rounded-2xl border border-[#E2E6EF] bg-white shadow-[0_40px_80px_-44px_rgba(13,17,54,0.4)]"
               : "rounded-3xl border border-rule bg-paper shadow-[0_40px_80px_-40px_rgba(11,42,48,0.3)]")
           }
           onMouseEnter={() => {
@@ -266,6 +276,8 @@ export function CoreServices() {
                     ? "linear-gradient(180deg, rgba(11,42,48,0.25) 0%, rgba(11,42,48,0.7) 100%)"
                     : isFree
                     ? "linear-gradient(180deg, rgba(31,59,255,0.30) 0%, rgba(20,20,27,0.78) 100%)"
+                    : isSoft
+                    ? "linear-gradient(180deg, rgba(27,90,255,0.20) 0%, rgba(3,24,85,0.70) 100%)"
                     : "linear-gradient(180deg, rgba(7,24,46,0.15) 0%, rgba(7,24,46,0.55) 100%)",
                 }}
               />
@@ -284,11 +296,19 @@ export function CoreServices() {
                 // hard acid VertigoWorks block accent
                 <div aria-hidden="true" className="pointer-events-none absolute right-0 top-0 h-20 w-20 bg-[#E6FF3D]" />
               )}
+              {isSoft && (
+                // soft SaaS dot-grid + indigo dot accent
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-0"
+                  style={{ backgroundImage: "radial-gradient(circle,#FFFFFF55 1.2px,transparent 1.2px)", backgroundSize: "26px 26px", opacity: 0.5 }}
+                />
+              )}
               <div className="absolute left-5 top-5 flex items-center gap-3">
                 <span
                   className={
                     "flex h-12 w-12 items-center justify-center text-paper shadow-lg " +
-                    (isConsult ? "rounded-none bg-ink" : isFree ? "rounded-none bg-[#1F3BFF]" : `rounded-xl ${t.bg}`)
+                    (isConsult ? "rounded-none bg-ink" : isFree ? "rounded-none bg-[#1F3BFF]" : isSoft ? "rounded-xl bg-[#1B5AFF]" : `rounded-xl ${t.bg}`)
                   }
                 >
                   <ActiveIcon className="h-6 w-6" strokeWidth={1.75} aria-hidden="true" />
@@ -298,7 +318,13 @@ export function CoreServices() {
               <div className="absolute inset-x-5 bottom-5">
                 <h3
                   className={"text-2xl font-bold text-paper md:text-3xl " + (isConsult || isFree ? "uppercase tracking-tight" : "font-display")}
-                  style={isFree ? { fontFamily: "var(--font-bricolage), sans-serif", fontWeight: 800 } : undefined}
+                  style={
+                    isFree
+                      ? { fontFamily: "var(--font-bricolage), sans-serif", fontWeight: 800 }
+                      : isSoft
+                      ? { fontFamily: "var(--font-fraunces), serif", fontWeight: 600 }
+                      : undefined
+                  }
                 >
                   {s.title}
                 </h3>
@@ -312,9 +338,15 @@ export function CoreServices() {
               <p
                 className={
                   "mt-8 text-[11px] uppercase tracking-[0.12em] " +
-                  (isVenture ? "font-mono text-teal-200/70" : isConsult ? "font-bold text-ink" : isFree ? "text-[#6A6A78]" : "font-mono text-ink-muted")
+                  (isVenture ? "font-mono text-teal-200/70" : isConsult ? "font-bold text-ink" : isFree ? "text-[#6A6A78]" : isSoft ? "font-bold text-[#1B5AFF]" : "font-mono text-ink-muted")
                 }
-                style={isFree ? { fontFamily: "var(--font-space-mono), monospace", letterSpacing: "0.18em" } : undefined}
+                style={
+                  isFree
+                    ? { fontFamily: "var(--font-space-mono), monospace", letterSpacing: "0.18em" }
+                    : isSoft
+                    ? { fontFamily: "var(--font-dm-sans), sans-serif", letterSpacing: "0.14em" }
+                    : undefined
+                }
               >
                 What&apos;s included
               </p>
@@ -330,6 +362,8 @@ export function CoreServices() {
                           ? "rounded-none bg-ink"
                           : isFree
                           ? "rounded-none bg-[#1F3BFF]"
+                          : isSoft
+                          ? "rounded-full bg-[#1B5AFF]"
                           : "rounded-full " + t.bg)
                       }
                     >
@@ -370,6 +404,16 @@ export function CoreServices() {
                   Hire talent
                   <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true" />
                 </FactionLink>
+              ) : isSoft ? (
+                <FactionLink
+                  href={s.href}
+                  label="Software Development"
+                  theme="saas"
+                  className="group mt-8 inline-flex items-center gap-2 self-start rounded-full bg-[#1B5AFF] px-6 py-3 font-semibold text-white shadow-[0_10px_24px_-8px_rgba(27,90,255,0.7)] transition-transform hover:-translate-y-0.5"
+                >
+                  Start a project
+                  <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true" />
+                </FactionLink>
               ) : (
                 <Link
                   href={s.href}
@@ -383,12 +427,12 @@ export function CoreServices() {
           </div>
 
           {/* progress bar */}
-          <div className={"h-1 w-full " + (isVenture ? "bg-white/10" : isConsult ? "bg-ink/15" : isFree ? "bg-[#14141B]/15" : "bg-rule/60")}>
+          <div className={"h-1 w-full " + (isVenture ? "bg-white/10" : isConsult ? "bg-ink/15" : isFree ? "bg-[#14141B]/15" : isSoft ? "bg-[#E2E6EF]" : "bg-rule/60")}>
             <div
               key={`bar-${active}-${cycle}`}
               className={
                 "h-full w-full origin-left motion-safe:animate-[grow_linear] " +
-                (isVenture ? "bg-gradient-to-r from-teal-300 to-orange-300" : isConsult ? "bg-ink" : isFree ? "bg-[#1F3BFF]" : t.bg)
+                (isVenture ? "bg-gradient-to-r from-teal-300 to-orange-300" : isConsult ? "bg-ink" : isFree ? "bg-[#1F3BFF]" : isSoft ? "bg-gradient-to-r from-[#1B5AFF] to-[#6457E8]" : t.bg)
               }
               style={{ animationDuration: `${AUTO_MS}ms`, animationPlayState: paused ? "paused" : "running" }}
             />

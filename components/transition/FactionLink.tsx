@@ -9,7 +9,7 @@
 import Link from "next/link";
 import type { ComponentProps, MouseEvent, ReactNode } from "react";
 
-type Theme = "cinematic" | "editorial" | "vertigo";
+type Theme = "cinematic" | "editorial" | "vertigo" | "saas";
 
 type Props = {
   href: string;

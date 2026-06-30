@@ -1,4 +1,4 @@
-import { Plus_Jakarta_Sans, Bricolage_Grotesque, Sora, Hanken_Grotesk, Space_Mono } from "next/font/google";
+import { Plus_Jakarta_Sans, Bricolage_Grotesque, Sora, Hanken_Grotesk, Space_Mono, Fraunces, DM_Sans } from "next/font/google";
 
 export const plusJakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -40,6 +40,25 @@ export const spaceMono = Space_Mono({
   subsets: ["latin"],
   weight: ["400", "700"],
   variable: "--font-space-mono",
+  display: "swap",
+  preload: true,
+});
+
+/* Shahan Naqvi v2 fonts for the Software Development faction (clean SaaS):
+   Fraunces (serif display) + DM Sans (body). preload:true so they load
+   eagerly with the page. */
+export const fraunces = Fraunces({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600"],
+  variable: "--font-fraunces",
+  display: "swap",
+  preload: true,
+});
+
+export const dmSans = DM_Sans({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600"],
+  variable: "--font-dm-sans",
   display: "swap",
   preload: true,
 });

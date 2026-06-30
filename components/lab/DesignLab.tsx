@@ -8,6 +8,7 @@ import { DemoEditorial } from "./DemoEditorial";
 import { DemoRefined } from "./DemoRefined";
 import { DemoHybrid } from "./DemoHybrid";
 import { DemoFreelancing } from "./DemoFreelancing";
+import { DemoSoftware } from "./DemoSoftware";
 
 const tabs = [
   { key: "cinematic", label: "A · Dark Cinematic", hint: "Near-black, glowing, spotlight cursor", accent: "from-teal-400 to-orange-400", Comp: DemoCinematic },
@@ -15,6 +16,7 @@ const tabs = [
   { key: "refined", label: "C · Refined Motion", hint: "Current palette, living orbit", accent: "from-teal-700 to-teal-500", Comp: DemoRefined },
   { key: "hybrid", label: "D · Hybrid", hint: "Dark hero + light body", accent: "from-teal-500 to-orange-500", Comp: DemoHybrid },
   { key: "freelancing", label: "E · Freelancing (VW × mHealth)", hint: "Voltage/coral, Bricolage, build-map", accent: "from-[#1F3BFF] to-[#FF4324]", Comp: DemoFreelancing },
+  { key: "software", label: "F · Software (Shahan SaaS)", hint: "Electric blue/indigo, Fraunces, clean SaaS", accent: "from-[#1B5AFF] to-[#6457E8]", Comp: DemoSoftware },
 ] as const;
 
 export function DesignLab() {

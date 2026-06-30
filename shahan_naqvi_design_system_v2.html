@@ -1,0 +1,524 @@
+
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@300;400;500;600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'DM Sans',sans-serif;background:#F0F2F7;color:#0D1136}
+:root{
+  --blue-50:#EEF3FF;--blue-100:#D6E4FF;--blue-200:#ADCBFF;--blue-400:#5B8EFF;
+  --blue-600:#1B5AFF;--blue-700:#0A3CC7;--blue-800:#062A8E;--blue-900:#031855;
+  --indigo-50:#EEF0FF;--indigo-100:#DDD9FF;--indigo-200:#C0BAFF;--indigo-400:#9089F5;
+  --indigo-500:#7B72F0;--indigo-600:#6457E8;--indigo-700:#4C3DD4;--indigo-800:#3427A8;
+  --gray-50:#FAFBFD;--gray-100:#F0F2F7;--gray-200:#E2E6EF;--gray-300:#CBD2E0;
+  --gray-400:#9AA3BC;--gray-500:#6B7594;--gray-600:#4A5174;--gray-800:#1A1F3C;--gray-900:#0D1136;
+  --white:#FFFFFF;
+  --success:#10B981;--warning:#F59E0B;--error:#EF4444;
+  --font-d:'Fraunces',sans-serif;--font-b:'DM Sans',sans-serif;
+  --r4:4px;--r8:8px;--r12:12px;--r16:16px;--r24:24px;--rpill:999px;
+}
+.tabs{display:flex;gap:2px;padding:14px 20px 0;background:#fff;border-bottom:1.5px solid var(--gray-200);position:sticky;top:0;z-index:100}
+.tab{font-family:var(--font-b);font-size:13px;font-weight:500;padding:8px 14px;border:none;background:none;cursor:pointer;color:var(--gray-400);border-bottom:2.5px solid transparent;margin-bottom:-1.5px;transition:all .2s}
+.tab.active{color:var(--blue-600);border-bottom-color:var(--blue-600)}
+.tab:hover:not(.active){color:var(--gray-800)}
+.panel{display:none;padding:24px 20px 48px}
+.panel.active{display:block}
+.sec{font-family:var(--font-b);font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gray-400);margin-bottom:14px;margin-top:28px}
+.sec:first-child{margin-top:0}
+
+/* SWATCHES */
+.crow{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap}
+.sw{border-radius:var(--r8);flex:1;min-width:52px;overflow:hidden}
+.swb{height:48px;width:100%}
+.swi{padding:5px 7px;background:#fff;border:1px solid #E2E6EF;border-top:none;border-radius:0 0 var(--r8) var(--r8)}
+.swn{font-size:10px;font-weight:600;color:var(--gray-600);display:block}
+.swh{font-size:9.5px;color:var(--gray-400);font-family:monospace}
+.star{color:var(--blue-600)}
+
+/* TYPE */
+.trow{background:#fff;border:1px solid var(--gray-200);border-radius:var(--r12);padding:14px 18px;margin-bottom:8px}
+.tlbl{font-size:10px;color:var(--gray-400);font-weight:600;margin-bottom:4px;text-transform:uppercase;letter-spacing:.08em}
+
+/* MISC */
+.card{background:#fff;border:1px solid var(--gray-200);border-radius:var(--r16);padding:18px}
+.cgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+.clbl{font-size:10px;color:var(--gray-400);font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.btn{font-family:var(--font-b);font-weight:500;border:none;cursor:pointer;transition:all .15s;display:inline-flex;align-items:center;gap:5px;line-height:1}
+.bp{background:var(--blue-600);color:#fff;padding:10px 20px;border-radius:var(--rpill);font-size:14px}
+.bs{background:var(--blue-50);color:var(--blue-700);padding:10px 20px;border-radius:var(--rpill);font-size:14px;border:1.5px solid var(--blue-200)}
+.bi{background:var(--indigo-50);color:var(--indigo-700);padding:10px 20px;border-radius:var(--rpill);font-size:14px;border:1.5px solid var(--indigo-200)}
+.bg{background:#fff;color:var(--gray-800);padding:10px 20px;border-radius:var(--rpill);font-size:14px;border:1.5px solid var(--gray-200)}
+.badge{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:600;padding:4px 10px;border-radius:var(--rpill)}
+.b-blue{background:var(--blue-50);color:var(--blue-700);border:1px solid var(--blue-100)}
+.b-ind{background:var(--indigo-50);color:var(--indigo-700);border:1px solid var(--indigo-100)}
+.b-ok{background:#D1FAE5;color:#065F46}
+.b-warn{background:#FEF3C7;color:#92400E}
+.bdot{width:5px;height:5px;border-radius:50%;background:currentColor}
+
+/* SPACING */
+.sprow{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.spb{background:var(--blue-100);border-radius:3px;height:20px;flex-shrink:0}
+.spm{font-size:12px;color:var(--gray-500)}
+.spv{font-weight:600;color:var(--gray-800);font-size:12px;min-width:32px}
+
+/* BANNER */
+.bwrap{background:#fff;border:1px solid var(--gray-200);border-radius:var(--r16);overflow:hidden;margin-bottom:16px}
+.blbl{font-size:11px;color:var(--gray-400);font-weight:600;text-transform:uppercase;letter-spacing:.08em;padding:10px 14px;border-bottom:1px solid var(--gray-200)}
+.bcon{position:relative;width:100%;overflow:hidden;aspect-ratio:4/1}
+
+/* PROMPT */
+.pbox{background:#1A1F3C;border-radius:var(--r16);padding:22px 22px 22px 22px;position:relative;overflow:hidden}
+.pbox::before{content:'';position:absolute;top:-80px;right:-80px;width:240px;height:240px;background:var(--indigo-600);border-radius:50%;opacity:.15}
+.pbox::after{content:'';position:absolute;bottom:-60px;left:-40px;width:180px;height:180px;background:var(--blue-600);border-radius:50%;opacity:.12}
+.ptxt{font-size:12.5px;line-height:1.85;color:#B8BDD4;white-space:pre-wrap;position:relative;z-index:1;font-family:'DM Sans',monospace}
+.ptxt .h1{color:#7B8FFF;font-weight:700}
+.ptxt .h2{color:#A5ADCF;font-weight:600}
+.cbtn{position:absolute;top:14px;right:14px;background:rgba(255,255,255,.08);color:#B8BDD4;border:1px solid rgba(255,255,255,.15);border-radius:var(--r8);padding:5px 12px;font-size:12px;cursor:pointer;font-family:var(--font-b);z-index:2}
+.cbtn:hover{background:rgba(255,255,255,.15);color:#fff}
+
+.info-box{background:#fff;border:1px solid var(--gray-200);border-radius:var(--r12);padding:14px 16px}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+</style>
+
+<div class="tabs" id="tb">
+  <button class="tab active" onclick="go('col')">🎨 Colors</button>
+  <button class="tab" onclick="go('typ')">Aa Type</button>
+  <button class="tab" onclick="go('com')">⬡ Components</button>
+  <button class="tab" onclick="go('ban')">🖼 Banner</button>
+  <button class="tab" onclick="go('pro')">✦ Prompt</button>
+</div>
+
+<!-- COLORS -->
+<div class="panel active" id="panel-col">
+  <div class="sec">Primary — Electric Blue</div>
+  <div class="crow">
+    <div class="sw"><div class="swb" style="background:#EEF3FF"></div><div class="swi"><span class="swn">50</span><span class="swh">#EEF3FF</span></div></div>
+    <div class="sw"><div class="swb" style="background:#D6E4FF"></div><div class="swi"><span class="swn">100</span><span class="swh">#D6E4FF</span></div></div>
+    <div class="sw"><div class="swb" style="background:#ADCBFF"></div><div class="swi"><span class="swn">200</span><span class="swh">#ADCBFF</span></div></div>
+    <div class="sw"><div class="swb" style="background:#5B8EFF"></div><div class="swi"><span class="swn">400</span><span class="swh">#5B8EFF</span></div></div>
+    <div class="sw"><div class="swb" style="background:#1B5AFF"></div><div class="swi"><span class="swn star">600 ★</span><span class="swh">#1B5AFF</span></div></div>
+    <div class="sw"><div class="swb" style="background:#0A3CC7"></div><div class="swi"><span class="swn">700</span><span class="swh">#0A3CC7</span></div></div>
+    <div class="sw"><div class="swb" style="background:#062A8E"></div><div class="swi"><span class="swn">800</span><span class="swh">#062A8E</span></div></div>
+    <div class="sw"><div class="swb" style="background:#031855"></div><div class="swi"><span class="swn">900</span><span class="swh">#031855</span></div></div>
+  </div>
+
+  <div class="sec">Accent — Soft Indigo</div>
+  <div class="crow">
+    <div class="sw"><div class="swb" style="background:#EEF0FF"></div><div class="swi"><span class="swn">50</span><span class="swh">#EEF0FF</span></div></div>
+    <div class="sw"><div class="swb" style="background:#DDD9FF"></div><div class="swi"><span class="swn">100</span><span class="swh">#DDD9FF</span></div></div>
+    <div class="sw"><div class="swb" style="background:#C0BAFF"></div><div class="swi"><span class="swn">200</span><span class="swh">#C0BAFF</span></div></div>
+    <div class="sw"><div class="swb" style="background:#9089F5"></div><div class="swi"><span class="swn">400</span><span class="swh">#9089F5</span></div></div>
+    <div class="sw"><div class="swb" style="background:#6457E8"></div><div class="swi"><span class="swn star">600 ★</span><span class="swh">#6457E8</span></div></div>
+    <div class="sw"><div class="swb" style="background:#4C3DD4"></div><div class="swi"><span class="swn">700</span><span class="swh">#4C3DD4</span></div></div>
+    <div class="sw"><div class="swb" style="background:#3427A8"></div><div class="swi"><span class="swn">800</span><span class="swh">#3427A8</span></div></div>
+  </div>
+
+  <div class="sec">Backgrounds — Clean SaaS</div>
+  <div class="crow">
+    <div class="sw"><div class="swb" style="background:#FFFFFF;border:1px solid #E2E6EF"></div><div class="swi"><span class="swn star">White ★</span><span class="swh">#FFFFFF</span></div></div>
+    <div class="sw"><div class="swb" style="background:#FAFBFD"></div><div class="swi"><span class="swn">Page BG</span><span class="swh">#FAFBFD</span></div></div>
+    <div class="sw"><div class="swb" style="background:#F0F2F7"></div><div class="swi"><span class="swn star">Gray 100 ★</span><span class="swh">#F0F2F7</span></div></div>
+    <div class="sw"><div class="swb" style="background:#E2E6EF"></div><div class="swi"><span class="swn">Divider</span><span class="swh">#E2E6EF</span></div></div>
+    <div class="sw"><div class="swb" style="background:#CBD2E0"></div><div class="swi"><span class="swn">Border</span><span class="swh">#CBD2E0</span></div></div>
+  </div>
+
+  <div class="sec">Text & Neutrals</div>
+  <div class="crow">
+    <div class="sw"><div class="swb" style="background:#0D1136"></div><div class="swi"><span class="swn star">Title ★</span><span class="swh">#0D1136</span></div></div>
+    <div class="sw"><div class="swb" style="background:#1A1F3C"></div><div class="swi"><span class="swn">Heading</span><span class="swh">#1A1F3C</span></div></div>
+    <div class="sw"><div class="swb" style="background:#4A5174"></div><div class="swi"><span class="swn">Body</span><span class="swh">#4A5174</span></div></div>
+    <div class="sw"><div class="swb" style="background:#6B7594"></div><div class="swi"><span class="swn">Muted</span><span class="swh">#6B7594</span></div></div>
+    <div class="sw"><div class="swb" style="background:#9AA3BC"></div><div class="swi"><span class="swn">Subtle</span><span class="swh">#9AA3BC</span></div></div>
+  </div>
+
+  <div class="sec">Semantic</div>
+  <div class="crow">
+    <div class="sw"><div class="swb" style="background:#10B981"></div><div class="swi"><span class="swn">Success</span><span class="swh">#10B981</span></div></div>
+    <div class="sw"><div class="swb" style="background:#F59E0B"></div><div class="swi"><span class="swn">Warning</span><span class="swh">#F59E0B</span></div></div>
+    <div class="sw"><div class="swb" style="background:#EF4444"></div><div class="swi"><span class="swn">Error</span><span class="swh">#EF4444</span></div></div>
+  </div>
+
+  <div class="info-box" style="margin-top:4px">
+    <div style="font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#9AA3BC;margin-bottom:10px">Pairing Rules</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12.5px;color:#4A5174;line-height:1.8">
+      <div><b style="color:#0D1136">Blue 600</b> — CTAs, links, key actions</div>
+      <div><b style="color:#0D1136">Indigo 600</b> — Tags, highlights, secondary</div>
+      <div><b style="color:#0D1136">White + Gray 100</b> — All backgrounds</div>
+      <div><b style="color:#0D1136">Blue 50–200</b> — Hover fills, soft cards</div>
+      <div><b style="color:#0D1136">Gray 600+</b> — All text on white BG</div>
+      <div><b style="color:#0D1136">Indigo 50</b> — Pill tags, feature callouts</div>
+    </div>
+  </div>
+</div>
+
+<!-- TYPE -->
+<div class="panel" id="panel-typ">
+  <div class="sec">Font Pairing</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px">
+    <div class="card">
+      <div class="tlbl">Display / Headings</div>
+      <div style="font-family:var(--font-d);font-size:30px;font-weight:600;color:#0D1136;line-height:1">Fraunces</div>
+      <div style="font-size:12px;color:#9AA3BC;margin-top:6px">Serif · Elegant · Distinctive</div>
+      <div style="margin-top:10px;font-size:10px;background:var(--blue-50);color:var(--blue-700);padding:3px 10px;border-radius:999px;display:inline-block;font-weight:700;border:1px solid var(--blue-100)">Google Fonts</div>
+    </div>
+    <div class="card">
+      <div class="tlbl">Body / UI Copy</div>
+      <div style="font-family:var(--font-b);font-size:26px;font-weight:500;color:#0D1136;line-height:1.1">DM Sans</div>
+      <div style="font-size:12px;color:#9AA3BC;margin-top:6px">Clean · Readable · Modern</div>
+      <div style="margin-top:10px;font-size:10px;background:var(--indigo-50);color:var(--indigo-700);padding:3px 10px;border-radius:999px;display:inline-block;font-weight:700;border:1px solid var(--indigo-100)">Google Fonts</div>
+    </div>
+  </div>
+
+  <div class="sec">Type Scale</div>
+  <div class="trow"><div class="tlbl">Display · 40px / 600 · Fraunces</div><div style="font-family:var(--font-d);font-size:38px;font-weight:600;color:#0D1136;line-height:1.05">Shahan Naqvi</div></div>
+  <div class="trow"><div class="tlbl">H1 · 28px / 600 · Fraunces</div><div style="font-family:var(--font-d);font-size:27px;font-weight:600;color:#0D1136;line-height:1.15">Building in Public</div></div>
+  <div class="trow"><div class="tlbl">H2 · 22px / 500 · Fraunces</div><div style="font-family:var(--font-d);font-size:21px;font-weight:500;color:#0D1136;line-height:1.25">Software Engineer & AI Builder</div></div>
+  <div class="trow"><div class="tlbl">H3 · 18px / 400 · Fraunces</div><div style="font-family:var(--font-d);font-size:17px;font-weight:400;color:#1A1F3C;line-height:1.35">100 Days of Rebuilding Focus</div></div>
+  <div class="trow"><div class="tlbl">Body · 15px / 400 · DM Sans</div><div style="font-family:var(--font-b);font-size:15px;font-weight:400;color:#4A5174;line-height:1.75">Building an AI self-discipline tool. 1hr of coding daily. Open-source & free for everyone.</div></div>
+  <div class="trow"><div class="tlbl">Caption · 12px / 400 · DM Sans</div><div style="font-family:var(--font-b);font-size:12px;color:#9AA3BC;line-height:1.6">Software Engineer · Next.js · Flutter · Firebase · Node.js</div></div>
+  <div class="trow"><div class="tlbl">Overline · 11px / 700 · DM Sans</div><div style="font-family:var(--font-b);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#1B5AFF">Currently Building</div></div>
+
+  <div class="sec">Blue + Indigo Accent Pairing</div>
+  <div class="card">
+    <div style="font-family:var(--font-d);font-size:26px;font-weight:600;color:#0D1136;line-height:1.2;margin-bottom:6px">
+      Shahan <span style="color:#1B5AFF">Naqvi</span>
+    </div>
+    <div style="font-family:var(--font-b);font-size:14px;color:#6B7594;margin-bottom:12px">Software Engineer · AI · Productivity</div>
+    <div style="display:flex;gap:6px;flex-wrap:wrap">
+      <span style="font-size:11px;font-weight:600;background:#EEF3FF;color:#0A3CC7;padding:3px 10px;border-radius:999px;border:1px solid #ADCBFF"># Building in Public</span>
+      <span style="font-size:11px;font-weight:600;background:#EEF0FF;color:#4C3DD4;padding:3px 10px;border-radius:999px;border:1px solid #C0BAFF"># AI Tools</span>
+      <span style="font-size:11px;font-weight:600;background:#EEF0FF;color:#4C3DD4;padding:3px 10px;border-radius:999px;border:1px solid #C0BAFF"># Productivity</span>
+    </div>
+  </div>
+</div>
+
+<!-- COMPONENTS -->
+<div class="panel" id="panel-com">
+  <div class="sec">Buttons</div>
+  <div class="card" style="margin-bottom:10px">
+    <div class="clbl">Variants</div>
+    <div class="row" style="margin-bottom:12px">
+      <button class="btn bp">Primary</button>
+      <button class="btn bs">Blue Light</button>
+      <button class="btn bi">Indigo</button>
+      <button class="btn bg">Ghost</button>
+    </div>
+    <div class="clbl">With Blue + Indigo together</div>
+    <div class="row">
+      <button class="btn bp">Follow on LinkedIn</button>
+      <button class="btn bi" style="font-size:14px;padding:10px 20px;border-radius:999px">View Project ↗</button>
+    </div>
+  </div>
+
+  <div class="sec">Badges & Tags</div>
+  <div class="card" style="margin-bottom:10px">
+    <div class="row" style="margin-bottom:8px">
+      <span class="badge b-blue"><span class="bdot"></span>Software Engineer</span>
+      <span class="badge b-ind"><span class="bdot"></span>AI Builder</span>
+      <span class="badge b-ok"><span class="bdot"></span>Building Now</span>
+      <span class="badge b-warn">Open Source</span>
+    </div>
+    <div class="row">
+      <span style="font-size:11px;font-weight:600;background:#EEF3FF;color:#0A3CC7;padding:3px 10px;border-radius:999px;border:1px solid #ADCBFF">Next.js</span>
+      <span style="font-size:11px;font-weight:600;background:#EEF3FF;color:#0A3CC7;padding:3px 10px;border-radius:999px;border:1px solid #ADCBFF">Flutter</span>
+      <span style="font-size:11px;font-weight:600;background:#EEF0FF;color:#4C3DD4;padding:3px 10px;border-radius:999px;border:1px solid #C0BAFF">Firebase</span>
+      <span style="font-size:11px;font-weight:600;background:#EEF0FF;color:#4C3DD4;padding:3px 10px;border-radius:999px;border:1px solid #C0BAFF">Node.js</span>
+      <span style="font-size:11px;font-weight:600;background:#EEF0FF;color:#4C3DD4;padding:3px 10px;border-radius:999px;border:1px solid #C0BAFF">AI / LLM</span>
+    </div>
+  </div>
+
+  <div class="sec">Cards</div>
+  <div class="cgrid">
+    <div class="card">
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#9AA3BC;margin-bottom:6px">Default</div>
+      <div style="font-family:var(--font-d);font-size:17px;font-weight:500;color:#0D1136;margin-bottom:5px">Day 42 / 100</div>
+      <div style="font-size:12px;color:#4A5174;line-height:1.65">Shipped the streak recovery feature. Staying consistent.</div>
+    </div>
+    <div style="background:var(--blue-50);border:1px solid var(--blue-100);border-radius:var(--r16);padding:18px">
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--blue-400);margin-bottom:6px">Blue Tint</div>
+      <div style="font-family:var(--font-d);font-size:17px;font-weight:500;color:var(--blue-900);margin-bottom:5px">Building in Public</div>
+      <div style="font-size:12px;color:var(--blue-700);line-height:1.65">1hr/day. Open source. Free for everyone who wants to rebuild focus.</div>
+    </div>
+    <div style="background:var(--indigo-50);border:1px solid var(--indigo-100);border-radius:var(--r16);padding:18px">
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--indigo-400);margin-bottom:6px">Indigo Tint</div>
+      <div style="font-family:var(--font-d);font-size:17px;font-weight:500;color:var(--indigo-800);margin-bottom:5px">AI Coach Feature</div>
+      <div style="font-size:12px;color:var(--indigo-700);line-height:1.65">Stick to your routine. Recover when you break the streak.</div>
+    </div>
+    <div style="background:linear-gradient(135deg,#EEF3FF 0%,#EEF0FF 100%);border:1px solid #D0CBFF;border-radius:var(--r16);padding:18px">
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--indigo-400);margin-bottom:6px">Blue × Indigo</div>
+      <div style="font-family:var(--font-d);font-size:17px;font-weight:500;color:#0D1136;margin-bottom:5px">Shahan <span style="color:#1B5AFF">Naqvi</span></div>
+      <div style="font-size:12px;color:#4C3DD4;line-height:1.65">Software Engineer building AI tools for human potential.</div>
+    </div>
+  </div>
+
+  <div class="sec">Border Radius Scale</div>
+  <div class="card">
+    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+      <div style="text-align:center"><div style="width:32px;height:32px;background:var(--blue-100);border-radius:4px;border:1.5px solid var(--blue-200)"></div><div style="font-size:10px;color:#9AA3BC;margin-top:4px">4px</div></div>
+      <div style="text-align:center"><div style="width:32px;height:32px;background:var(--blue-100);border-radius:8px;border:1.5px solid var(--blue-200)"></div><div style="font-size:10px;color:#9AA3BC;margin-top:4px">8px</div></div>
+      <div style="text-align:center"><div style="width:32px;height:32px;background:var(--blue-100);border-radius:12px;border:1.5px solid var(--blue-200)"></div><div style="font-size:10px;color:#9AA3BC;margin-top:4px">12px</div></div>
+      <div style="text-align:center"><div style="width:40px;height:32px;background:var(--blue-100);border-radius:16px;border:1.5px solid var(--blue-200)"></div><div style="font-size:10px;color:#9AA3BC;margin-top:4px">16px</div></div>
+      <div style="text-align:center"><div style="width:64px;height:32px;background:var(--blue-100);border-radius:999px;border:1.5px solid var(--blue-200)"></div><div style="font-size:10px;color:#9AA3BC;margin-top:4px">Pill</div></div>
+      <div style="margin-left:8px;font-size:12px;color:#4A5174;line-height:1.8">
+        <b style="color:#0D1136">4px</b> — inputs, small elements<br>
+        <b style="color:#0D1136">12–16px</b> — cards, panels<br>
+        <b style="color:#0D1136">Pill</b> — all buttons & tags
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BANNER -->
+<div class="panel" id="panel-ban">
+  <div style="font-size:13px;color:#4A5174;margin-bottom:16px;line-height:1.7">Clean SaaS light banner — white surface with a soft gray-blue gradient, your electric blue + indigo palette, and signature geometric accents.</div>
+  <div class="bwrap">
+    <div class="blbl">LinkedIn Cover Banner — 1584 × 396px</div>
+    <div class="bcon">
+      <svg width="100%" height="100%" viewBox="0 0 1584 396" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+        <defs>
+          <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#F8F9FD"/>
+            <stop offset="55%" stop-color="#F0F2F8"/>
+            <stop offset="100%" stop-color="#EAECf8"/>
+          </linearGradient>
+          <radialGradient id="gb1" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#1B5AFF" stop-opacity="0.1"/>
+            <stop offset="100%" stop-color="#1B5AFF" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="gb2" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#6457E8" stop-opacity="0.12"/>
+            <stop offset="100%" stop-color="#6457E8" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="gb3" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#ADCBFF" stop-opacity="0.3"/>
+            <stop offset="100%" stop-color="#ADCBFF" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+
+        <!-- Background -->
+        <rect width="1584" height="396" fill="url(#bg)"/>
+
+        <!-- Soft blobs -->
+        <ellipse cx="1350" cy="80" rx="420" ry="280" fill="url(#gb1)"/>
+        <ellipse cx="1480" cy="350" rx="300" ry="220" fill="url(#gb2)"/>
+        <ellipse cx="120" cy="320" rx="260" ry="200" fill="url(#gb3)"/>
+        <ellipse cx="750" cy="-20" rx="400" ry="200" fill="url(#gb1)" opacity="0.6"/>
+
+        <!-- Subtle dot grid -->
+        <pattern id="dots" x="0" y="0" width="32" height="32" patternUnits="userSpaceOnUse">
+          <circle cx="16" cy="16" r="1.2" fill="#1B5AFF" opacity="0.12"/>
+        </pattern>
+        <rect width="1584" height="396" fill="url(#dots)"/>
+
+        <!-- Thin horizontal lines - signature element -->
+        <line x1="0" y1="72" x2="1584" y2="72" stroke="#1B5AFF" stroke-width="0.5" opacity="0.12"/>
+        <line x1="0" y1="324" x2="1584" y2="324" stroke="#6457E8" stroke-width="0.5" opacity="0.12"/>
+
+        <!-- Left vertical accent bar (signature element) -->
+        <line x1="76" y1="112" x2="76" y2="284" stroke="#1B5AFF" stroke-width="3.5" stroke-linecap="round"/>
+        <!-- Indigo dot at top of bar -->
+        <circle cx="76" cy="108" r="5" fill="#6457E8"/>
+        <circle cx="76" cy="288" r="3.5" fill="#1B5AFF" opacity="0.4"/>
+
+        <!-- Decorative crosshair top right -->
+        <g stroke="#6457E8" stroke-width="1" opacity="0.3">
+          <line x1="1520" y1="48" x2="1520" y2="68"/>
+          <line x1="1510" y1="58" x2="1530" y2="58"/>
+          <circle cx="1520" cy="58" r="5" fill="none"/>
+        </g>
+        <!-- bottom left crosshair -->
+        <g stroke="#1B5AFF" stroke-width="1" opacity="0.2">
+          <line x1="340" y1="354" x2="340" y2="374"/>
+          <line x1="330" y1="364" x2="350" y2="364"/>
+        </g>
+        <!-- mid right crosshair -->
+        <g stroke="#6457E8" stroke-width="1" opacity="0.25">
+          <line x1="880" y1="32" x2="880" y2="48"/>
+          <line x1="872" y1="40" x2="888" y2="40"/>
+        </g>
+
+        <!-- Floating squares - subtle geometric -->
+        <rect x="1540" y="160" width="8" height="8" rx="2" fill="#6457E8" opacity="0.18"/>
+        <rect x="1556" y="180" width="5" height="5" rx="1" fill="#1B5AFF" opacity="0.15"/>
+        <rect x="60" y="48" width="6" height="6" rx="1.5" fill="#1B5AFF" opacity="0.2"/>
+
+        <!-- MAIN NAME -->
+        <text x="102" y="174" font-family="'Fraunces',sans-serif" font-size="58" font-weight="600" fill="#0D1136" letter-spacing="-1.5">Shahan</text>
+        <text x="102" y="238" font-family="'Fraunces',sans-serif" font-size="58" font-weight="600" fill="#1B5AFF" letter-spacing="-1.5">Naqvi</text>
+
+        <!-- Role line -->
+        <text x="104" y="268" font-family="'DM Sans',sans-serif" font-size="14.5" font-weight="400" fill="#6B7594" letter-spacing="0.3">Software Engineer  ·  Building in Public  ·  AI &amp; Productivity</text>
+
+        <!-- Tags -->
+        <rect x="104" y="286" width="92" height="22" rx="11" fill="#EEF3FF" stroke="#ADCBFF" stroke-width="1"/>
+        <text x="150" y="301" font-family="'DM Sans',sans-serif" font-size="10.5" font-weight="600" fill="#0A3CC7" text-anchor="middle"># AI Builder</text>
+
+        <rect x="204" y="286" width="108" height="22" rx="11" fill="#EEF0FF" stroke="#C0BAFF" stroke-width="1"/>
+        <text x="258" y="301" font-family="'DM Sans',sans-serif" font-size="10.5" font-weight="600" fill="#4C3DD4" text-anchor="middle"># Open Source</text>
+
+        <rect x="320" y="286" width="118" height="22" rx="11" fill="#EEF0FF" stroke="#C0BAFF" stroke-width="1"/>
+        <text x="379" y="301" font-family="'DM Sans',sans-serif" font-size="10.5" font-weight="600" fill="#4C3DD4" text-anchor="middle"># Next.js · Flutter</text>
+
+        <!-- DIVIDER -->
+        <line x1="560" y1="115" x2="560" y2="315" stroke="#E2E6EF" stroke-width="1" stroke-dasharray="4 4"/>
+
+        <!-- RIGHT PANEL: Currently Building -->
+        <text x="598" y="145" font-family="'DM Sans',sans-serif" font-size="11" font-weight="700" fill="#1B5AFF" letter-spacing="2.5">CURRENTLY BUILDING</text>
+
+        <!-- Project card on right -->
+        <rect x="596" y="158" width="680" height="148" rx="14" fill="#FFFFFF" opacity="0.75" stroke="#E2E6EF" stroke-width="1"/>
+
+        <text x="624" y="192" font-family="'Fraunces',sans-serif" font-size="24" font-weight="600" fill="#0D1136">100 Days of</text>
+        <text x="624" y="222" font-family="'Fraunces',sans-serif" font-size="24" font-weight="600" fill="#6457E8">Rebuilding Focus</text>
+        <text x="624" y="250" font-family="'DM Sans',sans-serif" font-size="13" fill="#6B7594">AI self-discipline tool · Open source · Built in public daily</text>
+
+        <!-- Progress bar -->
+        <rect x="624" y="268" width="320" height="5" rx="2.5" fill="#E2E6EF"/>
+        <rect x="624" y="268" width="128" height="5" rx="2.5" fill="#1B5AFF"/>
+        <!-- indigo dot on progress -->
+        <circle cx="752" cy="270.5" r="5" fill="#6457E8"/>
+        <text x="962" y="274" font-family="'DM Sans',sans-serif" font-size="11.5" fill="#9AA3BC">Day 40 / 100</text>
+
+        <!-- Website URL -->
+        <text x="1490" y="375" font-family="'DM Sans',sans-serif" font-size="12" fill="#CBD2E0" text-anchor="middle" letter-spacing="0.3">shahannaqvi.com</text>
+      </svg>
+    </div>
+  </div>
+
+  <div class="info-grid">
+    <div class="info-box">
+      <div style="font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#9AA3BC;margin-bottom:8px">What Changed</div>
+      <div style="font-size:12.5px;color:#4A5174;line-height:1.85">
+        ✦ White + soft gray background — no dark mode<br>
+        ✦ Indigo replaces cyan — more premium feel<br>
+        ✦ Blue tags → Indigo tags — clear hierarchy<br>
+        ✦ Project card floats on translucent white<br>
+        ✦ Dot grid pattern — subtle, not heavy
+      </div>
+    </div>
+    <div class="info-box">
+      <div style="font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#9AA3BC;margin-bottom:8px">Signature Elements Kept</div>
+      <div style="font-size:12.5px;color:#4A5174;line-height:1.85">
+        ✦ Vertical blue left-bar accent<br>
+        ✦ Indigo dot at bar top (new)<br>
+        ✦ Crosshair decorations<br>
+        ✦ Progress bar showing momentum<br>
+        ✦ "Currently Building" right panel
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PROMPT -->
+<div class="panel" id="panel-pro">
+  <div style="font-size:13px;color:#4A5174;margin-bottom:16px;line-height:1.7">Updated system prompt reflecting all your v2 design decisions. Copy this into any new Claude conversation.</div>
+  <div class="pbox">
+    <button class="cbtn" onclick="cp()">Copy Prompt</button>
+    <pre class="ptxt"><span class="h1">## ShananNaqvi Personal Brand Design System v2</span>
+
+<span class="h2">### Identity</span>
+Name: Shahan Naqvi  |  Role: Software Engineer · AI Builder · Building in Public
+Niche: AI-powered productivity, self-discipline, open-source development
+Audience: Developers, tech professionals, productivity enthusiasts
+Voice: Bold, direct, relatable, authentic builder
+
+<span class="h2">### Color Palette</span>
+Primary Blue:    #1B5AFF  (Electric Blue — CTAs, names, key headlines)
+Blue Light:      #EEF3FF / #D6E4FF / #ADCBFF  (fills, borders, hover)
+
+Accent Indigo:   #6457E8  (secondary accent — tags, highlights, progress)
+Indigo Light:    #EEF0FF / #DDD9FF / #C0BAFF  (fills, pill tags)
+
+Background:      #FAFBFD (page), #FFFFFF (cards), #F0F2F7 (subtle areas)
+Dividers:        #E2E6EF (borders), #CBD2E0 (stronger borders)
+
+Text Heading:    #0D1136 (primary), #1A1F3C (secondary heading)
+Text Body:       #4A5174 (body), #6B7594 (muted), #9AA3BC (subtle/caption)
+
+Semantic:        #10B981 success, #F59E0B warning, #EF4444 error
+
+<span class="h2">### Typography</span>
+Display / H1-H3: Fraunces (600 display, 500 h2, 400 h3) — elegant, refined
+Body / UI / Tags: DM Sans (400 body, 500 label, 600 badge)
+Both from Google Fonts — import both in every design.
+
+<span class="h2">### Signature Design Elements</span>
+- White + soft gray backgrounds ONLY (no dark mode, no navy BG)
+- Subtle dot grid overlay (#1B5AFF, 10-12% opacity) on hero surfaces
+- Vertical 3.5px blue (#1B5AFF) left-side bar beside name/headline
+- Indigo dot/circle accent at top of the vertical bar
+- Soft radial gradient blobs (blue + indigo, very low opacity: 8-12%)
+- Thin horizontal hairlines (#1B5AFF 12% + #6457E8 12%) across sections
+- Crosshair (+) accent marks in corners — subtle, not distracting
+- Floating small squares/dots in blue and indigo (opacity 15-20%)
+- Blue tags (#EEF3FF bg, #ADCBFF border, #0A3CC7 text)
+- Indigo tags (#EEF0FF bg, #C0BAFF border, #4C3DD4 text)
+- Progress bar: #E2E6EF track, #1B5AFF fill, #6457E8 dot at end
+- Translucent white cards (opacity 0.75-0.85) on gradient surfaces
+- Dashed divider lines between left and right content zones
+
+<span class="h2">### Content Pillars</span>
+1. 100 Days of Rebuilding Focus (active project — always feature)
+2. AI Self-Discipline Coaching Tool (building in public)
+3. Software engineering / full-stack insights
+4. Productivity, deep work, atomic habits
+5. Open source culture
+
+<span class="h2">### Asset Sizes</span>
+LinkedIn Banner:  1584 × 396px  |  LinkedIn Post: 1080 × 1080px
+Twitter/X Header: 1500 × 500px  |  Website Hero:  1440 × 800px
+Story / Reel:     1080 × 1920px |  Article Cover: 1280 × 720px
+
+<span class="h2">### Design Rules (Never Break)</span>
+✦ Background is ALWAYS white or soft gray (#F0F2F7 / #FAFBFD)
+✦ Blue (#1B5AFF) = primary actions, names, key accents
+✦ Indigo (#6457E8) = secondary accent, tags, feature highlights
+✦ Blue tags for tech/role items · Indigo tags for content/topic items
+✦ Fraunces for any display headline · DM Sans for everything else
+✦ Pill border-radius on ALL buttons and tags (border-radius: 999px)
+✦ Always include "Currently Building" section in banners
+✦ Cards use white bg + subtle border (not colored backgrounds)
+✦ No cyan, no dark backgrounds, no neon glow effects
+✦ Gradient text is allowed only for display headlines (blue to indigo)
+
+When I ask you to create a [banner / post / component / cover / UI],
+apply this system exactly. Ask about size/format if not specified.</pre>
+  </div>
+  <div class="info-grid" style="margin-top:14px">
+    <div class="info-box">
+      <div style="font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#9AA3BC;margin-bottom:8px">Quick Start Commands</div>
+      <div style="font-size:12.5px;color:#4A5174;line-height:1.9">
+        → "Create a LinkedIn post about day 50"<br>
+        → "Design a website hero section"<br>
+        → "Make a Twitter/X header banner"<br>
+        → "Create an Instagram carousel card"<br>
+        → "Build a personal website about section"
+      </div>
+    </div>
+    <div class="info-box">
+      <div style="font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#9AA3BC;margin-bottom:8px">Update This Prompt When</div>
+      <div style="font-size:12.5px;color:#4A5174;line-height:1.9">
+        → Day count changes (40 → 100)<br>
+        → New project launches post day-100<br>
+        → You add a tagline or positioning shift<br>
+        → New tech stack items added<br>
+        → You want a seasonal refresh
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function go(n){
+  const names=['col','typ','com','ban','pro'];
+  document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',names[i]===n));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active',p.id==='panel-'+n));
+}
+function cp(){
+  const t=document.querySelector('.ptxt').innerText;
+  navigator.clipboard.writeText(t).then(()=>{
+    const b=document.querySelector('.cbtn');
+    b.textContent='✓ Copied!';b.style.background='rgba(16,185,129,.2)';b.style.color='#10B981';
+    setTimeout(()=>{b.textContent='Copy Prompt';b.style.background='';b.style.color='';},2000);
+  });
+}
+</script>

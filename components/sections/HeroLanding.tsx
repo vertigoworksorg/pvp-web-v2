@@ -176,6 +176,8 @@ function OrbitRing({ reduce }: { reduce: boolean | null }) {
                     ? "editorial"
                     : node.href === "/services/digital-freelancing"
                     ? "vertigo"
+                    : node.href === "/services/software-development"
+                    ? "saas"
                     : null;
                 if (theme && !reduce) {
                   if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;

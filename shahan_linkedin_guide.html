@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shahan Naqvi — LinkedIn Content Playbook 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --blue:#1B5AFF;--blue-light:#EEF3FF;--blue-mid:#ADCBFF;--blue-dark:#0A3CC7;--blue-900:#031855;
+  --indigo:#6457E8;--indigo-light:#EEF0FF;--indigo-mid:#C0BAFF;--indigo-dark:#4C3DD4;
+  --gray-50:#FAFBFD;--gray-100:#F0F2F7;--gray-200:#E2E6EF;--gray-300:#CBD2E0;
+  --gray-400:#9AA3BC;--gray-500:#6B7594;--gray-600:#4A5174;--gray-800:#1A1F3C;--gray-900:#0D1136;
+  --white:#FFFFFF;--success:#10B981;--warning:#F59E0B;--error:#EF4444;
+  --font-d:'Fraunces',serif;--font-b:'DM Sans',sans-serif;
+  --rpill:999px;--r8:8px;--r12:12px;--r16:16px;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-b);background:var(--gray-100);color:var(--gray-900);min-height:100vh;font-size:15px;line-height:1.7}
+
+/* HERO */
+.hero{background:var(--white);position:relative;overflow:hidden;padding:64px 48px 56px;border-bottom:1.5px solid var(--gray-200)}
+.hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,#1B5AFF14 1.2px,transparent 1.2px);background-size:28px 28px;pointer-events:none}
+.hero::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--blue),var(--indigo))}
+.blob1{position:absolute;top:-60px;right:-60px;width:340px;height:340px;background:radial-gradient(circle,#1B5AFF10,transparent 70%);border-radius:50%;pointer-events:none}
+.blob2{position:absolute;bottom:-80px;left:-40px;width:280px;height:280px;background:radial-gradient(circle,#6457E810,transparent 70%);border-radius:50%;pointer-events:none}
+.hero-inner{position:relative;z-index:1;max-width:920px;margin:0 auto}
+.vbar-wrap{display:flex;flex-direction:column;align-items:center;flex-shrink:0}
+.vbar-dot{width:9px;height:9px;background:var(--indigo);border-radius:50%;margin-bottom:0}
+.vbar{width:4px;height:56px;background:var(--blue);border-radius:2px}
+.hero-bar{display:flex;align-items:flex-start;gap:16px;margin-bottom:8px}
+.hero-label{font-family:var(--font-b);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);margin-bottom:8px}
+.hero-title{font-family:var(--font-d);font-size:44px;font-weight:600;color:var(--gray-900);line-height:1.05;}
+.hero-title span{color:var(--blue)}
+.hero-sub{font-size:14.5px;color:var(--gray-500);margin-top:10px;max-width:580px;line-height:1.75}
+.hero-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.tag{font-size:11px;font-weight:600;padding:4px 12px;border-radius:var(--rpill);display:inline-flex;align-items:center;gap:5px}
+.tag-blue{background:var(--blue-light);color:var(--blue-dark);border:1px solid var(--blue-mid)}
+.tag-ind{background:var(--indigo-light);color:var(--indigo-dark);border:1px solid var(--indigo-mid)}
+.tag-gray{background:var(--gray-100);color:var(--gray-600);border:1px solid var(--gray-200)}
+.ch{position:absolute;pointer-events:none}
+.ch::before,.ch::after{content:'';position:absolute;background:var(--indigo)}
+.ch::before{width:1px;height:14px;top:-7px;left:0}
+.ch::after{width:14px;height:1px;top:0;left:-7px}
+.ch1{top:44px;right:200px;opacity:.3}
+.ch2{bottom:36px;left:280px;opacity:.18}
+.ch3{top:90px;right:90px;opacity:.22}
+
+/* NAV */
+.nav-wrap{position:sticky;top:0;z-index:100;background:var(--white);border-bottom:1.5px solid var(--gray-200);box-shadow:0 2px 10px #0D113606}
+.nav-inner{max-width:960px;margin:0 auto;display:flex;gap:2px;padding:0 24px;overflow-x:auto;scrollbar-width:none}
+.nav-inner::-webkit-scrollbar{display:none}
+.nav-btn{font-family:var(--font-b);font-size:13px;font-weight:500;color:var(--gray-400);background:none;border:none;padding:14px 15px;cursor:pointer;white-space:nowrap;border-bottom:2.5px solid transparent;margin-bottom:-1.5px;transition:color .15s,border-color .15s}
+.nav-btn:hover{color:var(--gray-800)}
+.nav-btn.active{color:var(--blue);border-bottom-color:var(--blue)}
+
+/* LAYOUT */
+.main{max-width:960px;margin:0 auto;padding:32px 24px 80px}
+.section{display:none}
+.section.active{display:block}
+
+/* SECTION HEADERS */
+.sec-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);margin-bottom:8px}
+.sec-title{font-family:var(--font-d);font-size:28px;font-weight:600;color:var(--gray-900);line-height:1.15}
+.sec-sub{font-size:14px;color:var(--gray-500);margin-top:8px;max-width:640px;line-height:1.65}
+.sec-head{margin-bottom:28px}
+.divider{height:1px;background:var(--gray-200);margin:28px 0}
+
+/* STAT CARDS */
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:28px}
+.stat-card{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--r16);padding:16px 18px}
+.stat-num{font-family:var(--font-d);font-size:27px;font-weight:600;color:var(--blue);line-height:1}
+.stat-lbl{font-size:12px;color:var(--gray-500);margin-top:4px;line-height:1.4}
+.stat-note{font-size:11px;color:var(--indigo);font-weight:500;margin-top:3px}
+
+/* BAR CHART */
+.bar-chart{display:flex;flex-direction:column;gap:10px;margin:8px 0 24px}
+.bar-row{display:flex;align-items:center;gap:10px}
+.bar-lbl{font-size:12px;color:var(--gray-600);min-width:170px;flex-shrink:0}
+.bar-track{flex:1;height:22px;background:var(--gray-100);border-radius:var(--rpill);overflow:hidden}
+.bar-fill{height:100%;border-radius:var(--rpill);display:flex;align-items:center;padding-left:10px;font-size:11px;font-weight:700;color:#fff}
+.bar-fill.bl{background:var(--blue)}
+.bar-fill.in{background:var(--indigo)}
+.bar-fill.gy{background:var(--gray-300)}
+.bar-val{font-size:12px;font-weight:600;color:var(--gray-600);min-width:52px;text-align:right}
+
+/* INFO BLOCKS */
+.info-block{background:var(--gray-50);border:1px solid var(--gray-200);border-radius:var(--r12);padding:14px 16px;font-size:13.5px;color:var(--gray-600);line-height:1.75}
+.info-block strong{color:var(--gray-900);font-weight:600}
+.info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px}
+.tip-box{background:var(--blue-light);border:1px solid var(--blue-mid);border-radius:var(--r12);padding:14px 16px;font-size:13px;color:var(--blue-dark);line-height:1.65}
+.tip-box strong{font-weight:600}
+.caution{background:#FFFBEB;border:1px solid #FDE68A;border-radius:var(--r12);padding:14px 16px;font-size:13px;color:#78350F;line-height:1.65}
+.caution strong{font-weight:600}
+
+/* FORMAT CARDS */
+.format-grid{display:flex;flex-direction:column;gap:14px}
+.fc{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--r16);overflow:hidden;transition:box-shadow .15s}
+.fc:hover{box-shadow:0 3px 20px #1B5AFF0C}
+.fc-header{display:flex;align-items:center;gap:14px;padding:18px 20px;cursor:pointer;user-select:none}
+.fc-num{width:36px;height:36px;border-radius:50%;background:var(--blue-light);color:var(--blue-dark);font-family:var(--font-d);font-size:14px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.fc-num.ind{background:var(--indigo-light);color:var(--indigo-dark)}
+.fc-meta{flex:1;min-width:0}
+.fc-name{font-family:var(--font-d);font-size:15px;font-weight:600;color:var(--gray-900)}
+.fc-desc{font-size:12px;color:var(--gray-500);margin-top:1px}
+.fc-badges{display:flex;gap:6px;flex-wrap:wrap;margin-top:5px}
+.bdg{font-size:10px;font-weight:600;padding:2px 8px;border-radius:var(--rpill)}
+.bdg-bl{background:var(--blue-light);color:var(--blue-dark);border:1px solid var(--blue-mid)}
+.bdg-in{background:var(--indigo-light);color:var(--indigo-dark);border:1px solid var(--indigo-mid)}
+.bdg-gn{background:#D1FAE5;color:#065F46}
+.bdg-am{background:#FEF3C7;color:#92400E}
+.bdg-rd{background:#FEE2E2;color:#991B1B}
+.fc-chev{font-size:20px;color:var(--gray-300);transition:transform .2s;flex-shrink:0;line-height:1}
+.fc.open .fc-chev{transform:rotate(180deg)}
+.fc-body{display:none;padding:0 20px 22px;border-top:1px solid var(--gray-100)}
+.fc.open .fc-body{display:block}
+
+/* FORMAT INTERNALS */
+.f-lbl{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gray-400);margin:20px 0 8px}
+.f-lbl:first-child{margin-top:16px}
+.topic-list{display:flex;flex-direction:column;gap:8px}
+.topic{background:var(--blue-light);border:1px solid var(--blue-mid);border-radius:var(--r12);padding:12px 14px}
+.topic.ind{background:var(--indigo-light);border-color:var(--indigo-mid)}
+.topic-n{font-size:10px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px}
+.topic.ind .topic-n{color:var(--indigo)}
+.topic-t{font-size:13px;color:var(--blue-dark);line-height:1.6}
+.topic.ind .topic-t{color:var(--indigo-dark)}
+.topic-t strong{font-weight:600}
+.hook-box{background:var(--gray-900);border-radius:var(--r12);padding:15px 18px;margin-top:4px}
+.hook-lbl{font-size:10px;font-weight:700;color:var(--gray-500);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px}
+.hook-txt{font-size:13px;color:#B8BDD4;font-style:italic;line-height:1.7}
+.hook-txt em{color:#7B8FFF;font-style:normal;font-weight:600}
+.steps{display:flex;flex-direction:column}
+.step{display:flex;gap:12px;padding:9px 0;border-bottom:1px solid var(--gray-100)}
+.step:last-child{border-bottom:none}
+.step-dot{width:22px;height:22px;min-width:22px;border-radius:50%;background:var(--indigo-light);color:var(--indigo-dark);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:1px}
+.step-txt{font-size:13px;color:var(--gray-600);line-height:1.65}
+.step-txt strong{color:var(--gray-900);font-weight:600}
+.angles{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px}
+.angle{border-radius:var(--r12);padding:12px 14px}
+.angle.vir{background:#FEF3C7;border:1px solid #FDE68A}
+.angle.evr{background:#D1FAE5;border:1px solid #A7F3D0}
+.angle-t{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px}
+.angle.vir .angle-t{color:#92400E}
+.angle.evr .angle-t{color:#065F46}
+.angle-txt{font-size:12.5px;line-height:1.6}
+.angle.vir .angle-txt{color:#78350F}
+.angle.evr .angle-txt{color:#064E3B}
+.blist{list-style:none;display:flex;flex-direction:column;gap:8px}
+.blist li{font-size:13.5px;color:var(--gray-600);display:flex;gap:10px;line-height:1.65}
+.blist li::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--blue);flex-shrink:0;margin-top:9px}
+.blist li strong{color:var(--gray-900);font-weight:600}
+
+/* TRENDS */
+.trend-list{display:flex;flex-direction:column;gap:12px}
+.trend{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--r16);padding:18px 20px}
+.trend-n{font-family:var(--font-d);font-size:11px;font-weight:600;color:var(--blue);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px}
+.trend-t{font-family:var(--font-d);font-size:15px;font-weight:600;color:var(--gray-900);margin-bottom:6px}
+.trend-txt{font-size:13px;color:var(--gray-600);line-height:1.7}
+.trend-txt strong{color:var(--gray-900);font-weight:600}
+.trend-txt em{color:var(--blue);font-style:normal;font-weight:500}
+
+/* CREATORS */
+.creator-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px}
+.creator{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--r12);padding:14px 16px;display:flex;gap:12px;align-items:flex-start}
+.av{width:38px;height:38px;min-width:38px;border-radius:50%;background:var(--blue-light);color:var(--blue-dark);font-family:var(--font-d);font-size:13px;font-weight:600;display:flex;align-items:center;justify-content:center;border:2px solid var(--blue-mid)}
+.av.ind{background:var(--indigo-light);color:var(--indigo-dark);border-color:var(--indigo-mid)}
+.creator-name{font-size:13px;font-weight:600;color:var(--gray-900)}
+.creator-why{font-size:12px;color:var(--gray-500);line-height:1.55;margin-top:2px}
+
+/* CALENDAR */
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}
+.cal-day{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--r12);padding:14px 10px;text-align:center}
+.cal-day.hi{border-color:var(--blue-mid);background:var(--blue-light)}
+.cal-day.so{border-color:var(--indigo-mid);background:var(--indigo-light)}
+.cal-day.re{background:var(--gray-50)}
+.cal-dname{font-family:var(--font-d);font-size:11px;font-weight:700;color:var(--gray-400);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em}
+.cal-day.hi .cal-dname{color:var(--blue-dark)}
+.cal-day.so .cal-dname{color:var(--indigo-dark)}
+.cal-fmt{font-size:12px;font-weight:600;color:var(--gray-900);line-height:1.4;margin-bottom:4px}
+.cal-day.hi .cal-fmt{color:var(--blue-dark)}
+.cal-day.so .cal-fmt{color:var(--indigo-dark)}
+.cal-day.re .cal-fmt{color:var(--gray-400)}
+.cal-anc{font-size:10px;color:var(--gray-400);line-height:1.4}
+
+/* DATA TABLE */
+.dt{width:100%;border-collapse:collapse;font-size:13px;background:var(--white);border-radius:var(--r16);overflow:hidden;border:1px solid var(--gray-200)}
+.dt th{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gray-400);text-align:left;padding:10px 12px;border-bottom:1.5px solid var(--gray-200);background:var(--gray-50)}
+.dt td{padding:10px 12px;border-bottom:1px solid var(--gray-100);color:var(--gray-600);vertical-align:top;line-height:1.6}
+.dt tr:last-child td{border-bottom:none}
+.dt td strong{color:var(--gray-900);font-weight:600}
+.dt td em{color:var(--blue);font-style:normal;font-weight:500}
+
+/* PILLARS */
+.pillar-list{display:flex;flex-direction:column;gap:8px}
+.pillar-row{display:flex;gap:12px;background:var(--white);border:1px solid var(--gray-200);border-radius:var(--r12);padding:14px 16px;align-items:flex-start;flex-wrap:wrap}
+.pillar-name{font-size:13px;font-weight:600;color:var(--gray-900);min-width:210px;flex-shrink:0;padding-top:2px}
+.pillar-tags{display:flex;flex-wrap:wrap;gap:6px}
+
+/* RULES */
+.rules-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.rule{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--r12);padding:16px 18px}
+.rule-icon{font-size:20px;margin-bottom:8px;line-height:1}
+.rule-t{font-family:var(--font-d);font-size:13px;font-weight:700;color:var(--gray-900);margin-bottom:4px}
+.rule-txt{font-size:12.5px;color:var(--gray-500);line-height:1.65}
+.rule-txt strong{color:var(--gray-900);font-weight:600}
+
+/* PROGRESS */
+.prog-track{height:6px;background:var(--gray-200);border-radius:var(--rpill);margin:10px 0 0}
+.prog-fill{height:100%;border-radius:var(--rpill);background:linear-gradient(90deg,var(--blue),var(--indigo))}
+
+/* FOOTER */
+.footer{max-width:960px;margin:0 auto;padding:20px 24px 48px;display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--gray-200);flex-wrap:wrap;gap:8px}
+.footer-note{font-size:12px;color:var(--gray-400)}
+.footer-brand{font-family:var(--font-d);font-size:13px;font-weight:700;color:var(--gray-900)}
+.footer-brand span{color:var(--blue)}
+
+@media(max-width:700px){
+  .hero{padding:40px 20px 36px}.hero-title{font-size:32px}
+  .main{padding:20px 16px 60px}
+  .angles{grid-template-columns:1fr}
+  .cal-grid{grid-template-columns:repeat(3,1fr)}
+  .pillar-row{flex-direction:column}
+  .pillar-name{min-width:auto}
+}
+</style>
+</head>
+<body>
+<!-- HERO -->
+<div class="hero">
+  <div class="blob1"></div><div class="blob2"></div>
+  <div class="ch ch1"></div><div class="ch ch2"></div><div class="ch ch3"></div>
+  <div class="hero-inner">
+    <div class="hero-bar">
+      <div class="vbar-wrap"><div class="vbar-dot"></div><div class="vbar"></div></div>
+      <div>
+        <div class="hero-label">LinkedIn Content System &middot; May 2026</div>
+        <h1 class="hero-title">Shahan <span>Naqvi</span><br>Playbook</h1>
+        <p class="hero-sub">12 post formats with topics, step-by-step build guides, viral angles, and evergreen strategies &mdash; built from 2026 engagement data and tuned to land founding-engineer roles while growing a real audience.</p>
+      </div>
+    </div>
+    <div class="hero-tags">
+      <span class="tag tag-blue">&#x2726; 12 Post Formats</span>
+      <span class="tag tag-ind">3&ndash;5 Topics Each</span>
+      <span class="tag tag-blue">Step-by-Step Build Guides</span>
+      <span class="tag tag-ind">Viral + Evergreen Angles</span>
+      <span class="tag tag-gray">Updated May 2026</span>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<div class="nav-wrap">
+  <div class="nav-inner">
+    <button class="nav-btn active" onclick="show('data',this)">&#x1F4CA; Data First</button>
+    <button class="nav-btn" onclick="show('trends',this)">&#x1F525; Trends Now</button>
+    <button class="nav-btn" onclick="show('formats',this)">&#x1F4CB; 12 Formats</button>
+    <button class="nav-btn" onclick="show('creators',this)">&#x1F465; Creators</button>
+    <button class="nav-btn" onclick="show('calendar',this)">&#x1F4C5; Calendar</button>
+    <button class="nav-btn" onclick="show('pillars',this)">&#x1F3DB; Pillars</button>
+    <button class="nav-btn" onclick="show('rules',this)">&#x26A1; Rules</button>
+  </div>
+</div>
+
+<div class="main">
+
+<!-- ══════════ DATA FIRST ══════════ -->
+<div id="s-data" class="section active">
+  <div class="sec-head">
+    <div class="sec-label">Read this first</div>
+    <h2 class="sec-title">What the 2026 Data Says</h2>
+    <p class="sec-sub">Numbers from 3M+ posts analyzed across AuthoredUp, SocialInsider, Brenton Way, and Postiv. These shape every format decision below.</p>
+  </div>
+  <div class="stat-grid">
+    <div class="stat-card"><div class="stat-num">24%</div><div class="stat-lbl">Carousel engagement rate</div><div class="stat-note">3.5&ndash;4&times; above text-only</div></div>
+    <div class="stat-card"><div class="stat-num">6.8%</div><div class="stat-lbl">Multi-image engagement</div><div class="stat-note">SocialInsider Q1 2026</div></div>
+    <div class="stat-card"><div class="stat-num">6.5%</div><div class="stat-lbl">Short native video</div><div class="stat-note">Under 60s, vertical 9:16</div></div>
+    <div class="stat-card"><div class="stat-num">+30%</div><div class="stat-lbl">Text-only vs single image</div><div class="stat-note">Strong hook required</div></div>
+    <div class="stat-card"><div class="stat-num">5.2%</div><div class="stat-lbl">Platform avg engagement</div><div class="stat-note">+8% YoY growth</div></div>
+    <div class="stat-card"><div class="stat-num">210</div><div class="stat-lbl">Hook character ceiling</div><div class="stat-note">"See more" truncation</div></div>
+  </div>
+  <div class="divider"></div>
+  <div class="sec-label" style="margin-bottom:12px">Format Performance &mdash; Engagement Rate</div>
+  <div class="bar-chart">
+    <div class="bar-row"><div class="bar-lbl">Carousel / Document</div><div class="bar-track"><div class="bar-fill bl" style="width:96%">24.4%</div></div><div class="bar-val">24.4%</div></div>
+    <div class="bar-row"><div class="bar-lbl">Multi-Image Post</div><div class="bar-track"><div class="bar-fill in" style="width:28%">6.8%</div></div><div class="bar-val">6.8%</div></div>
+    <div class="bar-row"><div class="bar-lbl">Short Native Video</div><div class="bar-track"><div class="bar-fill in" style="width:27%">6.5%</div></div><div class="bar-val">6.5%</div></div>
+    <div class="bar-row"><div class="bar-lbl">Text-Only (strong hook)</div><div class="bar-track"><div class="bar-fill bl" style="width:18%">~4.2%</div></div><div class="bar-val">~4.2%</div></div>
+    <div class="bar-row"><div class="bar-lbl">Single Decorative Image</div><div class="bar-track"><div class="bar-fill gy" style="width:13%">~3.1%</div></div><div class="bar-val">~3.1%</div></div>
+    <div class="bar-row"><div class="bar-lbl">Poll</div><div class="bar-track"><div class="bar-fill gy" style="width:6%"></div></div><div class="bar-val">low qual</div></div>
+  </div>
+  <div class="divider"></div>
+  <div class="sec-label" style="margin-bottom:12px">Key Rules from the Data</div>
+  <div class="info-grid">
+    <div class="info-block"><strong>Hook ceiling is 120&ndash;210 chars.</strong> Two consecutive newlines kill the preview early. Keep your hook in a single paragraph for maximum visibility before "see more".</div>
+    <div class="info-block"><strong>Body sweet spot: 1,300&ndash;1,900 chars.</strong> Per van der Blom&rsquo;s 1.8M-post dataset. Longer tanks engagement; shorter feels thin and unfinished.</div>
+    <div class="info-block"><strong>Native uploads always beat link-outs.</strong> ~38% engagement lift, ~42% visibility lift. Never link to YouTube &mdash; upload video directly to LinkedIn.</div>
+    <div class="info-block"><strong>Comments >> Likes.</strong> Comments in the first 60&ndash;90 min are the strongest distribution signal. Block 15 min post-publish to engage every reply.</div>
+    <div class="info-block"><strong>Saves drive reshares.</strong> Saves are the #1 reach driver. Named frameworks, checklists, and playbooks earn saves. Generic opinion takes don&rsquo;t.</div>
+    <div class="info-block"><strong>Dwell time is king.</strong> Carousels earn 15&ndash;20s vs 8&ndash;10s for text. LinkedIn rewards how long people stay on your post, not just that they clicked.</div>
+  </div>
+</div>
+
+<!-- ══════════ TRENDS ══════════ -->
+<div id="s-trends" class="section">
+  <div class="sec-head">
+    <div class="sec-label">May 2026 &middot; AI Engineering LinkedIn</div>
+    <h2 class="sec-title">What&rsquo;s Going Viral Right Now</h2>
+    <p class="sec-sub">Five dominant storylines in the AI engineering / founding engineer space. Each is a content seam you can mine for months &mdash; and your actual work maps directly to all five.</p>
+  </div>
+  <div class="trend-list">
+    <div class="trend">
+      <div class="trend-n">Trend 01</div>
+      <div class="trend-t">The Claude Code / Cursor / Codex consolidation war</div>
+      <div class="trend-txt">Per The Pragmatic Engineer&rsquo;s survey of 906 engineers (Jan&ndash;Feb 2026), <strong>Claude Code went from zero to #1 AI coding tool in 8 months</strong> &mdash; 46% "love" rate vs Cursor at 19%. GPT-5.5 launched April 23 leading Terminal-Bench 2.0 at 82.7%; Claude Opus 4.7 launched April 16 with 64.3% on SWE-bench Pro. Posts dissecting <em>"Cursor for inline, Claude Code for autonomous, Codex for cloud"</em> workflows are everywhere. Your CLAUDE.md screenshots and real agent setups land directly here.</div>
+    </div>
+    <div class="trend">
+      <div class="trend-n">Trend 02</div>
+      <div class="trend-t">Multi-agent orchestration moving from demo &rarr; production</div>
+      <div class="trend-txt"><strong>Ruflo (formerly Claude Flow) hit #1 trending on GitHub with 47K stars in May 2026.</strong> Anthropic shipped managed multi-agent sessions with the managed-agents-2026-04-01 beta header. The "I ran 86 sessions of Claude + GPT + Gemini in parallel" post format is a recurring viral structure. <em>Your AI Blog Builder &mdash; 8 agents, 3 looped, Claude + GPT + Gemini routing</em> &mdash; is the exact real-production proof this audience wants. You shipped this. Most people posting about agents haven&rsquo;t.</div>
+    </div>
+    <div class="trend">
+      <div class="trend-n">Trend 03</div>
+      <div class="trend-t">The "AI Engineer vs Software Engineer" identity debate</div>
+      <div class="trend-txt">Glassdoor May 2026: AI Engineer avg <strong>$142,668 US</strong>. Levels.fyi ML/AI median total comp <strong>$245,000</strong>. The dominant hot take: "code is becoming a commodity, product thinking is the edge." The "43% of AI-generated changes still need debugging in production" stat (Lightrun 2026, 200 enterprise SRE/DevOps directors) is fueling the backlash to AI hype. Your angle: <em>you&rsquo;ve shipped real enterprise AI work and have been hands-on since Jan 2023</em>. You have credibility to speak to both sides without sounding like a vendor.</div>
+    </div>
+    <div class="trend">
+      <div class="trend-n">Trend 04</div>
+      <div class="trend-t">Founding engineer hiring market shift</div>
+      <div class="trend-txt">Seed-to-Series-B AI startups now explicitly demand <strong>"2+ years hands-on with LLMs, RAG, agents, prompt engineering"</strong> in founding engineer job specs. Remote AI engineer roles paying USD salaries are appearing in Pakistan listings. The signal recruiters need is <em>shipped agentic work</em>, not credentials. Your CloudFix Finders/Fixers, AI Blog Builder, and QueryLens UX are the exact artifacts that close this signal gap &mdash; they just need to be visible on LinkedIn.</div>
+    </div>
+    <div class="trend">
+      <div class="trend-n">Trend 05</div>
+      <div class="trend-t">Outcome-first prompting + the model wars take cycle</div>
+      <div class="trend-txt">Anthropic&rsquo;s April 2026 docs explicitly say: <strong>delete "think step by step" and "you are a world-class expert"</strong> &mdash; raise the effort level instead. GPT-5.5&rsquo;s "tell me your prompt" mockery went viral in May 2026. The "I prompt-injected my LinkedIn bio in Old English to troll recruiter bots" post (May 15) drove massive engagement. Hot-take carousels and video monologues riffing on model-specific prompting strategies are surging &mdash; and dying within 2 weeks as the next model drops. Move fast on these.</div>
+    </div>
+  </div>
+  <div class="divider"></div>
+  <div class="sec-label" style="margin-bottom:12px">Evergreen Topics That Always Perform</div>
+  <ul class="blist">
+    <li><strong>The hard-won lesson with a specific number.</strong> "$400K in customer savings in Q1 2025 at CloudFix. Here&rsquo;s the one architectural mistake we kept seeing across 500+ enterprise AWS accounts." Specific numbers beat round numbers; named platforms beat vague references.</li>
+    <li><strong>Career-stage content.</strong> Job hunting as an engineer in Pakistan targeting US/EU remote, salary negotiation as a remote contractor, what "founding engineer" actually means, the CCAT and what it doesn&rsquo;t measure.</li>
+    <li><strong>"How I&rsquo;d start over" posts.</strong> "If I had to learn multi-agent orchestration from scratch in 2026, here&rsquo;s the exact 30-day plan I&rsquo;d follow." Compresses your experience into a gift for people earlier in the journey.</li>
+    <li><strong>The unsexy fundamentals you defend.</strong> "Everyone is talking about agents. Almost nobody is talking about evals. Here&rsquo;s why your agent will fail in production without them." Hamel Husain&rsquo;s lane &mdash; wide open on LinkedIn right now.</li>
+    <li><strong>Public failure with the fix.</strong> "We shipped the MVP in 5 days. Then we hit a wall on day 12 with agent context bleed. Here&rsquo;s what we changed." Vulnerability + technical specificity is the highest-trust format on LinkedIn.</li>
+  </ul>
+</div>
+<!-- ══════════ 12 FORMATS ══════════ -->
+<div id="s-formats" class="section">
+  <div class="sec-head">
+    <div class="sec-label">Your Entire Format Library</div>
+    <h2 class="sec-title">12 Post Formats</h2>
+    <p class="sec-sub">Click any format to expand topics, a step-by-step build guide, your example hook, viral angle, and evergreen angle. Every topic is tailored to your actual work history.</p>
+  </div>
+  <div class="format-grid">
+
+    <!-- F1 -->
+    <div class="fc" id="fc1">
+      <div class="fc-header" onclick="tog('fc1')">
+        <div class="fc-num">01</div>
+        <div class="fc-meta">
+          <div class="fc-name">Educational Carousel</div>
+          <div class="fc-desc">6&ndash;10 swipeable PDF slides &middot; frameworks &middot; your flagship format</div>
+          <div class="fc-badges"><span class="bdg bdg-bl">24% eng. rate</span><span class="bdg bdg-gn">Weekly</span><span class="bdg bdg-am">Highest-leverage</span></div>
+        </div>
+        <div class="fc-chev">&#x2304;</div>
+      </div>
+      <div class="fc-body">
+        <div class="f-lbl">What it is</div>
+        <div class="info-block">6&ndash;10 swipeable slides uploaded as a native PDF document. Cover slide is the hook, last slide is the CTA. One idea per slide. Use it every week without exception &mdash; this is your highest-leverage format and the single strongest signal to hiring managers that you can structure and communicate complex ideas.</div>
+        <div class="f-lbl">Topic Ideas</div>
+        <div class="topic-list">
+          <div class="topic"><div class="topic-n">Topic 01 &middot; Viral angle</div><div class="topic-t"><strong>"The 8-Agent Orchestration Pattern Behind the AI Blog Builder"</strong> &mdash; One slide per agent (researcher &rarr; outliner &rarr; drafter &rarr; SEO optimizer &rarr; editor &rarr; fact-checker &rarr; image gen &rarr; publisher). Claude vs GPT vs Gemini routing logic per role. The one prompt change that 10&times;&rsquo;d output quality. Last slide: link to ai-blog.shahannaqvi.com.</div></div>
+          <div class="topic"><div class="topic-n">Topic 02 &middot; Enterprise authority</div><div class="topic-t"><strong>"How CloudFix Found $400K in AWS Waste in Q1 2025 &mdash; The Finder/Fixer Framework"</strong> &mdash; One waste pattern per slide (idle RDS, untagged S3, NAT Gateway dead-ends, oversized EC2, stale snapshots). FinOps credibility territory. Lands hard with anyone running infra at scale.</div></div>
+          <div class="topic"><div class="topic-n">Topic 03 &middot; Design credibility</div><div class="topic-t"><strong>"The QueryLens UX Spec: 7 Decisions That Made an AI DB Upgrade Assistant Actually Usable"</strong> &mdash; Real design decisions, the rationale, the trade-offs. Closes the "AI engineer who owns UI/UX end-to-end" loop that founding-engineer roles pay a premium for.</div></div>
+          <div class="topic"><div class="topic-n">Topic 04 &middot; Trending</div><div class="topic-t"><strong>"Multi-Agent Orchestration in Production: 5 Lessons from 8-Agent Pipelines"</strong> &mdash; Reference Anthropic&rsquo;s managed-agents-2026-04-01 API. Quote Hamel Husain on evals. AI Blog Builder as the live case study.</div></div>
+          <div class="topic"><div class="topic-n">Topic 05 &middot; Founding eng proof</div><div class="topic-t"><strong>"The 5-Day MVP Sprint: How We Shipped AI Blog Builder from Zero to Production"</strong> &mdash; Day-by-day scope cuts, FastAPI + Angular decisions, what got deferred. Your "I ship fast" proof for founding-engineer interviews.</div></div>
+        </div>
+        <div class="f-lbl">Example Hook</div>
+        <div class="hook-box"><div class="hook-lbl">Caption hook (max 210 chars)</div><div class="hook-txt">"I shipped <em>20 AWS cost-saving Fixers</em> that drove <em>$400K in customer savings</em> in one quarter at CloudFix. Here&rsquo;s the 5-step pattern I used every time. &darr;"</div></div>
+        <div class="f-lbl">How to Build It</div>
+        <div class="steps">
+          <div class="step"><div class="step-dot">1</div><div class="step-txt"><strong>Outline before you design.</strong> Plain doc. Title (slide 1), CTA (slide N), one-sentence headline per middle slide. If reading just the headlines follows the argument, you&rsquo;ve earned the right to open Figma.</div></div>
+          <div class="step"><div class="step-dot">2</div><div class="step-txt"><strong>Cut to 6&ndash;10 slides.</strong> Morphica 2026 data: under 5 feels thin, over 12 loses people mid-swipe. Sweet spot is 8.</div></div>
+          <div class="step"><div class="step-dot">3</div><div class="step-txt"><strong>Design at 1080&times;1350 portrait (4:5).</strong> Portrait occupies ~25% more feed real estate than square. Figma or Canva. Min text 28px. One accent color + white base &mdash; pick your palette once and reuse.</div></div>
+          <div class="step"><div class="step-dot">4</div><div class="step-txt"><strong>Slide 1 is a billboard.</strong> Bold specific claim + number + subtle swipe indicator ("&rarr; swipe"). No logos crowding the cover. Fraunces 600 for the headline.</div></div>
+          <div class="step"><div class="step-dot">5</div><div class="step-txt"><strong>Add a slide counter.</strong> "1 / 8" on bottom-right of each slide. Gives readers a finish line so they keep swiping &mdash; removing this one element measurably drops completion rate.</div></div>
+          <div class="step"><div class="step-dot">6</div><div class="step-txt"><strong>Final slide = save + DM CTA.</strong> "Save this. DM me &lsquo;PLAYBOOK&rsquo; if you want the full Notion doc." Never put external links in the post body &mdash; first comment only.</div></div>
+          <div class="step"><div class="step-dot">7</div><div class="step-txt"><strong>Export as single PDF under 10MB.</strong> LinkedIn allows 100MB but heavy files fail thumbnail generation and kill engagement.</div></div>
+          <div class="step"><div class="step-dot">8</div><div class="step-txt"><strong>Caption: 3&ndash;5 lines, under 150 words.</strong> Hook line &rarr; one sentence of context &rarr; "&rarr; Swipe through" &rarr; 2&ndash;3 niche hashtags.</div></div>
+          <div class="step"><div class="step-dot">9</div><div class="step-txt"><strong>Post Tuesday or Wednesday 8&ndash;9 AM US Eastern (5&ndash;6 PM PKT).</strong> Schedule in advance. Set a phone alarm to engage for 15 minutes immediately after publishing.</div></div>
+          <div class="step"><div class="step-dot">10</div><div class="step-txt"><strong>Work the first 90 minutes.</strong> Reply to every comment with a sentence + question. This is what moves you from Stage 1 to Stage 2 distribution.</div></div>
+        </div>
+        <div class="f-lbl">Angles</div>
+        <div class="angles">
+          <div class="angle vir"><div class="angle-t">&#x1F525; Viral &mdash; May 2026</div><div class="angle-txt">Tie a carousel to the Claude Code vs Cursor vs Codex war. "I rebuilt our 8-agent pipeline three times &mdash; once on Claude Code subagents, once on Codex, once on Cursor + MCP hybrid. Here&rsquo;s the framework I wish I had on day 1."</div></div>
+          <div class="angle evr"><div class="angle-t">&#x1F33F; Evergreen</div><div class="angle-txt">Named frameworks. Naming a framework ("The 5-Pattern CloudFix Audit") drives saves and reposts harder than anything else. Saves are the #1 reach driver in 2026&rsquo;s algorithm.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- F2 -->
+    <div class="fc" id="fc2">
+      <div class="fc-header" onclick="tog('fc2')">
+        <div class="fc-num ind">02</div>
+        <div class="fc-meta">
+          <div class="fc-name">Multi-Image Storytelling Post</div>
+          <div class="fc-desc">3&ndash;5 native images &middot; project showcases &middot; before/afters</div>
+          <div class="fc-badges"><span class="bdg bdg-in">6.8% eng. rate</span><span class="bdg bdg-gn">Weekly</span><span class="bdg bdg-bl">#2 Engagement</span></div>
+        </div>
+        <div class="fc-chev">&#x2304;</div>
+      </div>
+      <div class="fc-body">
+        <div class="f-lbl">What it is</div>
+        <div class="info-block">3&ndash;5 native images uploaded together (not a PDF). LinkedIn shows them in an expandable grid. Each image stands on its own. Cheaper to make than a carousel and ranks #2 in engagement. Best for project showcases and before/afters where you want the swipe without needing slide-deck structure.</div>
+        <div class="f-lbl">Topic Ideas</div>
+        <div class="topic-list">
+          <div class="topic ind"><div class="topic-n">Topic 01 &middot; Launch</div><div class="topic-t"><strong>"VertigoWorks MVP #1: Three Screens, Built in 18 Days"</strong> &mdash; Image 1: Figma wireframe. Image 2: in-progress screenshot. Image 3: shipped product. Image 4: first-week metrics dashboard.</div></div>
+          <div class="topic ind"><div class="topic-n">Topic 02 &middot; Portfolio proof</div><div class="topic-t"><strong>"QueryLens, Before and After"</strong> &mdash; Image 1: messy SQL upgrade tickets. Image 2: the diff-review UI. Image 3: a redacted Slack customer reaction. Image 4: production dashboard. Shows enterprise product ownership at its most visual.</div></div>
+          <div class="topic ind"><div class="topic-n">Topic 03 &middot; Remote narrative</div><div class="topic-t"><strong>"My Workstation in Islamabad, Synced to a US Startup at 3 AM PKT"</strong> &mdash; Desk wide shot &rarr; Claude Code mid-loop &rarr; Linear sprint board &rarr; tea + Remote Playbook draft. Humanizes you for founders skeptical of remote-from-Pakistan.</div></div>
+          <div class="topic ind"><div class="topic-n">Topic 04 &middot; Build in public</div><div class="topic-t"><strong>"100 Days of Rebuilding Focus: Day 1 vs Day 60"</strong> &mdash; Side-by-side of the UI evolution, daily ritual sheet, focus-time chart, a journal entry. Builds the persona while showcasing the product.</div></div>
+        </div>
+        <div class="f-lbl">Example Hook</div>
+        <div class="hook-box"><div class="hook-lbl">Caption hook</div><div class="hook-txt">"Built <em>QueryLens</em> end-to-end at Trilogy &mdash; owned every pixel of the UI. Five screens that took me from blank Figma to shipped product:"</div></div>
+        <div class="f-lbl">How to Build It</div>
+        <div class="steps">
+          <div class="step"><div class="step-dot">1</div><div class="step-txt"><strong>Sketch the story arc first, before picking images.</strong> Arcs that work: setup &rarr; problem &rarr; fix &rarr; result; before &rarr; during &rarr; after; concept &rarr; in-progress &rarr; shipped.</div></div>
+          <div class="step"><div class="step-dot">2</div><div class="step-txt"><strong>Shoot or screenshot 4 images at a consistent aspect ratio</strong> (1:1 or 4:5). Mix raw native shots with one designed image. Avoid stock &mdash; your authenticity is the asset.</div></div>
+          <div class="step"><div class="step-dot">3</div><div class="step-txt"><strong>First image is the hook image.</strong> Usually the "after" or the "shipped" shot, or the wide environment shot. People decide to keep looking from image 1 alone.</div></div>
+          <div class="step"><div class="step-dot">4</div><div class="step-txt"><strong>Caption: line 1 hook (under 210 chars), then 3&ndash;4 paragraphs of story, then the lesson, then a question CTA.</strong> 600&ndash;1,200 chars total. No external links &mdash; first comment only.</div></div>
+        </div>
+        <div class="f-lbl">Angles</div>
+        <div class="angles">
+          <div class="angle vir"><div class="angle-t">&#x1F525; Viral</div><div class="angle-txt">"Behind the scenes of building a real product from Pakistan for US users" &mdash; the remote-first founder narrative is hot in 2026, and founders are actively looking for proof of cross-timezone shipping.</div></div>
+          <div class="angle evr"><div class="angle-t">&#x1F33F; Evergreen</div><div class="angle-txt">The before/after transformation. One of the 8 patterns that consistently outperform on LinkedIn regardless of trend cycle. Before = the mess; After = the shipped thing. Let images carry the argument.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- F3 -->
+    <div class="fc" id="fc3">
+      <div class="fc-header" onclick="tog('fc3')">
+        <div class="fc-num">03</div>
+        <div class="fc-meta">
+          <div class="fc-name">Behind-the-Scenes / Build-in-Public</div>
+          <div class="fc-desc">Weekly cadence &middot; day counter &middot; messy middle</div>
+          <div class="fc-badges"><span class="bdg bdg-bl">Weekly anchor</span><span class="bdg bdg-gn">Audience builder</span><span class="bdg bdg-am">100 Days tie-in</span></div>
+        </div>
+        <div class="fc-chev">&#x2304;</div>
+      </div>
+      <div class="fc-body">
+        <div class="f-lbl">What it is</div>
+        <div class="info-block">A weekly cadence post showing what you&rsquo;re working on right now &mdash; the messy middle, not the polished launch. Single image + 800&ndash;1,200 characters of honest reflection. This is the format that builds a following over time more than any other: people invest in journeys, not announcements. You already have the serial: "100 Days of Rebuilding Focus."</div>
+        <div class="f-lbl">Topic Ideas</div>
+        <div class="topic-list">
+          <div class="topic"><div class="topic-n">Topic 01 &middot; 100 Days</div><div class="topic-t"><strong>"Day 47/100 &mdash; The Rebuilding Focus Habit Loop is Broken (Here&rsquo;s the Fix)"</strong> &mdash; Show the bug. Share the data (your own focus-session logs). Walk through the redesign. End with "what I&rsquo;m shipping this week."</div></div>
+          <div class="topic"><div class="topic-n">Topic 02 &middot; VertigoWorks</div><div class="topic-t"><strong>"VertigoWorks Week 6: First MVP Demo, Three Things Broke Live"</strong> &mdash; Honest messy-middle update. Screen recording of the demo, the moment it broke, the diff that fixed it.</div></div>
+          <div class="topic"><div class="topic-n">Topic 03 &middot; Newsletter</div><div class="topic-t"><strong>"The Remote Playbook Just Hit [X] Subscribers &mdash; Here&rsquo;s the Acquisition Loop I Didn&rsquo;t Plan For"</strong> &mdash; Show the funnel, the post that drove a spike, the email reply that surprised you. Use at every milestone: 100, 500, 1K subs.</div></div>
+          <div class="topic"><div class="topic-n">Topic 04 &middot; Systems</div><div class="topic-t"><strong>"How I Stack 100 Days of Rebuilding Focus + VertigoWorks + a Founding-Engineer Job Hunt"</strong> &mdash; Pull back the curtain on the actual calendar. Vulnerable, specific, showcases time-management as a hireable skill.</div></div>
+        </div>
+        <div class="f-lbl">Example Hook</div>
+        <div class="hook-box"><div class="hook-lbl">Caption hook</div><div class="hook-txt">"Day <em>42 / 100</em>. Today I rebuilt the streak-recovery feature for the third time. The first two versions were elegant. This one actually works."</div></div>
+        <div class="f-lbl">How to Build It</div>
+        <div class="steps">
+          <div class="step"><div class="step-dot">1</div><div class="step-txt"><strong>Pick a permanent weekly cadence.</strong> Recommended: Friday afternoon US Eastern (Saturday morning PKT). Less noise; post compounds over the weekend when founders catch up.</div></div>
+          <div class="step"><div class="step-dot">2</div><div class="step-txt"><strong>Use a recurring format slug.</strong> "Day X/100 &mdash;" or "VertigoWorks W6:" or "Remote Playbook Week N:". Recurrence builds anticipation and trains the algorithm to attribute topical authority to your profile.</div></div>
+          <div class="step"><div class="step-dot">3</div><div class="step-txt"><strong>Structure: WHAT &rarr; OBSTACLE &rarr; LESSON &rarr; NEXT.</strong> Four short sections. 800&ndash;1,000 chars total. Don&rsquo;t pad.</div></div>
+          <div class="step"><div class="step-dot">4</div><div class="step-txt"><strong>Include one screenshot or workspace photo.</strong> Should not be polished. Polish reads as marketing. Authenticity is the entire format.</div></div>
+          <div class="step"><div class="step-dot">5</div><div class="step-txt"><strong>End with a question that costs the reader nothing.</strong> "What&rsquo;s your hardest week-12 lesson?" Comments dwarf likes in 2026&rsquo;s ranking algorithm.</div></div>
+          <div class="step"><div class="step-dot">6</div><div class="step-txt"><strong>Reply to every comment in the first 90 minutes</strong> with a sentence + question. Loop-Back replies are the strongest 2026 distribution signal.</div></div>
+        </div>
+        <div class="f-lbl">Angles</div>
+        <div class="angles">
+          <div class="angle vir"><div class="angle-t">&#x1F525; Viral</div><div class="angle-txt">Tie the week&rsquo;s update to a trending news anchor &mdash; "GPT-5.5 dropped this week. I rewrote three Rebuilding Focus prompts to use outcome-first prompting. Here&rsquo;s the diff." Trending model releases give your update unearned reach.</div></div>
+          <div class="angle evr"><div class="angle-t">&#x1F33F; Evergreen</div><div class="angle-txt">The day counter itself. "Day X/Y" creates a story arc (Will he finish? What&rsquo;s at Day 100?). Audiences that join at Day 30 stay through Day 100. The most reliable build-in-public trope in 2026.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- F4 -->
+    <div class="fc" id="fc4">
+      <div class="fc-header" onclick="tog('fc4')">
+        <div class="fc-num ind">04</div>
+        <div class="fc-meta">
+          <div class="fc-name">Short Video Monologue</div>
+          <div class="fc-desc">30&ndash;60s &middot; talking head &middot; vertical 9:16 &middot; one strong opinion</div>
+          <div class="fc-badges"><span class="bdg bdg-in">6.5% eng. rate</span><span class="bdg bdg-am">Algo boosted</span><span class="bdg bdg-bl">Trust builder</span></div>
+        </div>
+        <div class="fc-chev">&#x2304;</div>
+      </div>
+      <div class="fc-body">
+        <div class="f-lbl">What it is</div>
+        <div class="info-block">30&ndash;60 seconds, vertical 9:16 (1080&times;1920), you on camera, one idea. Native upload only &mdash; never YouTube links. LinkedIn is actively boosting video in the algorithm. 73% of LinkedIn video views happen on mobile. First 3 seconds determine ~65% of retention. Also proves to US/EU founders that you can communicate on camera &mdash; the #1 unspoken filter for remote hires from Pakistan.</div>
+        <div class="f-lbl">Topic Ideas</div>
+        <div class="topic-list">
+          <div class="topic ind"><div class="topic-n">Topic 01 &middot; Hot take</div><div class="topic-t"><strong>"Why I think 90% of multi-agent demos on LinkedIn are bullshit"</strong> &mdash; Set up the conventional wisdom (more agents = better), present the counter (orchestration overhead, context bleed from your AI Blog Builder experience), land the punchline: "If your agent system would work as a single Claude Code session with a good CLAUDE.md, it doesn&rsquo;t need to be a system."</div></div>
+          <div class="topic ind"><div class="topic-n">Topic 02 &middot; Specific technique</div><div class="topic-t"><strong>"The one prompt change that 10&times;&rsquo;d our Blog Builder output"</strong> &mdash; A single concrete technique. Show the before/after on screen if possible. Maximum value-per-second format.</div></div>
+          <div class="topic ind"><div class="topic-n">Topic 03 &middot; Career signal</div><div class="topic-t"><strong>"What &lsquo;Founding Engineer&rsquo; actually means at seed vs Series B &mdash; from someone interviewing for both right now"</strong> &mdash; Speak directly to founders watching. Defines the role honestly. Positions you as a peer of founders, not a candidate.</div></div>
+          <div class="topic ind"><div class="topic-n">Topic 04 &middot; Tool wars</div><div class="topic-t"><strong>"Claude Code vs Cursor vs Codex &mdash; what I actually use each one for"</strong> &mdash; Most-searched conversation in dev tools in 2026. 60 seconds of honest opinion from someone who actually uses all three professionally.</div></div>
+        </div>
+        <div class="f-lbl">How to Build It</div>
+        <div class="steps">
+          <div class="step"><div class="step-dot">1</div><div class="step-txt"><strong>Script in 4 lines:</strong> Hook (5s) &rarr; Setup (10s) &rarr; Payload (30s) &rarr; CTA (10s). Write it down &mdash; don&rsquo;t wing it.</div></div>
+          <div class="step"><div class="step-dot">2</div><div class="step-txt"><strong>Hook rule: start with the conclusion or a sharp question.</strong> Never "Hi, I&rsquo;m Shahan..." &mdash; those words are death. First 3 seconds determine the entire watch curve.</div></div>
+          <div class="step"><div class="step-dot">3</div><div class="step-txt"><strong>Film vertical 9:16.</strong> Phone is fine. Natural light from a window facing you. Wireless mic if available; phone mic at 30cm is acceptable.</div></div>
+          <div class="step"><div class="step-dot">4</div><div class="step-txt"><strong>Edit with auto-captions burned in.</strong> Use Captions.ai, Vizard, or CapCut. Do NOT rely on LinkedIn&rsquo;s auto-generated captions &mdash; they&rsquo;re unreliable.</div></div>
+          <div class="step"><div class="step-dot">5</div><div class="step-txt"><strong>Add 1&ndash;2 screen overlay moments.</strong> A Claude Code terminal recording cut in mid-monologue dramatically lifts dwell time and proves technical credibility.</div></div>
+          <div class="step"><div class="step-dot">6</div><div class="step-txt"><strong>Thumbnail/first frame:</strong> Bold text overlay of your claim on frame 1. This is what people see before deciding to play.</div></div>
+        </div>
+        <div class="f-lbl">Angles</div>
+        <div class="angles">
+          <div class="angle vir"><div class="angle-t">&#x1F525; Viral</div><div class="angle-txt">Hot takes on the AI-coding tool wars or the "AI engineer vs software engineer" salary/role debate. Take a defensible position &mdash; empty contrarianism gets called out fast. Bring your real CloudFix/Blog Builder data as evidence.</div></div>
+          <div class="angle evr"><div class="angle-t">&#x1F33F; Evergreen</div><div class="angle-txt">The "what I wish I knew" personal POV. A founding engineer talking honestly about an interview, a mistake, or a tool decision is the most parasocial-trust format that exists on LinkedIn.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- F5 -->
+    <div class="fc" id="fc5">
+      <div class="fc-header" onclick="tog('fc5')">
+        <div class="fc-num">05</div>
+        <div class="fc-meta">
+          <div class="fc-name">Text-Only Story Post</div>
+          <div class="fc-desc">1,300&ndash;1,900 chars &middot; story + lesson &middot; no media</div>
+          <div class="fc-badges"><span class="bdg bdg-bl">+30% vs single image</span><span class="bdg bdg-gn">High trust</span></div>
+        </div>
+        <div class="fc-chev">&#x2304;</div>
+      </div>
+      <div class="fc-body">
+        <div class="f-lbl">What it is</div>
+        <div class="info-block">No image, no video &mdash; pure text. Lives or dies on the hook and storytelling. Outperforms single decorative images by ~30% in 2026. Rewards writing skill &mdash; which separates you from the 95% of LinkedIn AI engineers who don&rsquo;t write. The format Justin Welsh, Lara Acosta, and Jasmin Ali&cacute; built their audiences with.</div>
+        <div class="f-lbl">Topic Ideas</div>
+        <div class="topic-list">
+          <div class="topic"><div class="topic-n">Topic 01 &middot; Enterprise stakes</div><div class="topic-t"><strong>"The enterprise ticket I almost shipped wrong at CloudFix"</strong> &mdash; Real-stakes story. Setup (ticket landed Friday), conflict (you found the bug at 11 PM PKT, customer opens Monday US morning), resolution (the diff, the lesson). Lesson: enterprise AI engineering is 80% reading existing code. Generalize the customer name if NDA-sensitive.</div></div>
+          <div class="topic"><div class="topic-n">Topic 02 &middot; Credential + lesson</div><div class="topic-t"><strong>"I scored 92nd percentile on a proctored CCAT. Then I bombed my first founding-engineer interview."</strong> &mdash; Contrarian wisdom. CCAT measured cognitive speed; the interview measured product instinct. Lesson: credentials open doors, product thinking closes offers.</div></div>
+          <div class="topic"><div class="topic-n">Topic 03 &middot; Mentor moment</div><div class="topic-t"><strong>"How a Slack message from a Trilogy/Crossover EM rewired how I scope work"</strong> &mdash; A specific 2-line piece of advice that changed your approach. Format: "He said: &lsquo;____&rsquo;. At first I didn&rsquo;t get it. Then on the next ticket, I tried it. Here&rsquo;s what changed."</div></div>
+          <div class="topic"><div class="topic-n">Topic 04 &middot; Honest failure</div><div class="topic-t"><strong>"What I learned about myself after pausing MyThrive"</strong> &mdash; Done right: the honest reason it paused, what it taught you, why it makes you a better founding engineer today. Vulnerability + specific lesson = #1 LinkedIn story pattern.</div></div>
+          <div class="topic"><div class="topic-n">Topic 05 &middot; Technical lesson</div><div class="topic-t"><strong>"The night QueryLens broke and I learned the difference between AI-assisted and AI-owned"</strong> &mdash; The bug, the choice (let Claude Code keep trying vs take over), the fix, the lesson about when to seize the wheel from your agent.</div></div>
+        </div>
+        <div class="f-lbl">How to Build It</div>
+        <div class="steps">
+          <div class="step"><div class="step-dot">1</div><div class="step-txt"><strong>Write it in a doc, not the LinkedIn composer.</strong> LinkedIn&rsquo;s composer eats line breaks and discourages revision. Paste in when ready.</div></div>
+          <div class="step"><div class="step-dot">2</div><div class="step-txt"><strong>Structure: Hook &rarr; Story &rarr; Insight &rarr; CTA.</strong> First 210 characters must earn the "see more" click. Specific numbers and names in the first 3 lines: "$400K," "11 PM PKT," "92nd percentile."</div></div>
+          <div class="step"><div class="step-dot">3</div><div class="step-txt"><strong>One thought per line. Double line breaks between paragraphs.</strong> Mobile readability is non-negotiable. Dense text = nobody reads.</div></div>
+          <div class="step"><div class="step-dot">4</div><div class="step-txt"><strong>End with the lesson in one bold line + a question.</strong> Avoid "agree?" &mdash; ask something requiring a real reply.</div></div>
+          <div class="step"><div class="step-dot">5</div><div class="step-txt"><strong>No hashtags, or 1&ndash;2 niche ones max.</strong> Conversational posts break with hashtag spam. Zero is also fine.</div></div>
+          <div class="step"><div class="step-dot">6</div><div class="step-txt"><strong>Post Tuesday 8 AM US ET / 5 PM PKT.</strong> Text-only posts have a longer reach tail; Tuesday gives 2 working days for the algorithm to expand.</div></div>
+        </div>
+        <div class="f-lbl">Angles</div>
+        <div class="angles">
+          <div class="angle vir"><div class="angle-t">&#x1F525; Viral</div><div class="angle-txt">"What I learned working on a product that handled $2B+ in spend." Enterprise scale + personal lesson is rare on LinkedIn and immediately positions you as senior. FinOps people will fact-check &mdash; that fact-check is itself a comment that boosts reach if your numbers are accurate.</div></div>
+          <div class="angle evr"><div class="angle-t">&#x1F33F; Evergreen</div><div class="angle-txt">The piece of advice that rewired you. Justin Welsh&rsquo;s analysis: "the best career advice I ever received was ___" and its variants are the most consistently high-engagement story pattern across all niches.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- F6 -->
+    <div class="fc" id="fc6">
+      <div class="fc-header" onclick="tog('fc6')">
+        <div class="fc-num ind">06</div>
+        <div class="fc-meta">
+          <div class="fc-name">Portrait with Text Overlay</div>
+          <div class="fc-desc">Single designed image &middot; identity &middot; manifesto &middot; positioning</div>
+          <div class="fc-badges"><span class="bdg bdg-in">Quarterly anchor</span><span class="bdg bdg-bl">Featured section</span></div>
+        </div>
+        <div class="fc-chev">&#x2304;</div>
+      </div>
+      <div class="fc-body">
+        <div class="f-lbl">What it is</div>
+        <div class="info-block">Your positioning post &mdash; the one that goes in Featured and that recruiters screenshot. Only 3&ndash;4 per year, but each is a sharp single-image statement. Designed image + manifesto overcomes the "single image is dead" problem because it&rsquo;s built to be saved and shared, not just scrolled.</div>
+        <div class="f-lbl">Topic Ideas</div>
+        <div class="topic-list">
+          <div class="topic ind"><div class="topic-n">Topic 01 &middot; Identity</div><div class="topic-t"><strong>"Full-Stack AI Engineer. Based in Islamabad. Building for the next wave of agentic startups."</strong> &mdash; Portrait + 3 lines of positioning + stack icons (Claude, GPT, Gemini, FastAPI, Next.js, AWS).</div></div>
+          <div class="topic ind"><div class="topic-n">Topic 02 &middot; Reverse job ad</div><div class="topic-t"><strong>"What I Look For in the Next Startup I Join"</strong> &mdash; List 5 things: mission, founder calibre, agentic product surface, remote-first, paid in USD. Founders self-select to your DMs.</div></div>
+          <div class="topic ind"><div class="topic-n">Topic 03 &middot; Hard credentials</div><div class="topic-t"><strong>"4 Years. 500+ Enterprises. $2B+ in Cloud Spend. One Founding-Engineer Mindset."</strong> &mdash; Quarterly credential anchor post. Use during active job search periods.</div></div>
+          <div class="topic ind"><div class="topic-n">Topic 04 &middot; Manifesto</div><div class="topic-t"><strong>"My Engineering Manifesto: Ship the boring 80% before you decorate the exciting 20%."</strong> &mdash; 5&ndash;6 principles overlaid on a clean portrait. Highly screenshotable.</div></div>
+        </div>
+        <div class="f-lbl">How to Build It</div>
+        <div class="steps">
+          <div class="step"><div class="step-dot">1</div><div class="step-txt"><strong>Get one good portrait.</strong> Hire a local photographer for 90 min; cost in PKR is trivial. Natural light, neutral background. Reusable for 18 months. Your existing cafe-with-laptop photo has the right energy already.</div></div>
+          <div class="step"><div class="step-dot">2</div><div class="step-txt"><strong>Design in Figma at 1080&times;1350 portrait.</strong> 4-element rule: Portrait (40%), Headline (large, Fraunces 600), Manifesto text (3&ndash;6 lines max), subtle stack bar at bottom.</div></div>
+          <div class="step"><div class="step-dot">3</div><div class="step-txt"><strong>Caption: 2&ndash;3 sentences max.</strong> Not a story post &mdash; a billboard. End with CTA: "Comment FOUNDING if you&rsquo;re hiring one."</div></div>
+          <div class="step"><div class="step-dot">4</div><div class="step-txt"><strong>Pin to Featured section for at least a quarter.</strong> Post Sunday evening US time / Monday morning PKT for calmer feed and higher dwell per impression.</div></div>
+        </div>
+        <div class="f-lbl">Angles</div>
+        <div class="angles">
+          <div class="angle vir"><div class="angle-t">&#x1F525; Viral</div><div class="angle-txt">"Built in Islamabad, shipped to US enterprise." Remote-first narrative + global enterprise reach is a rare flex that founders actively respond to in 2026.</div></div>
+          <div class="angle evr"><div class="angle-t">&#x1F33F; Evergreen</div><div class="angle-txt">The personal manifesto. Never goes stale. Repost every 90 days as your audience grows. One of the most reliably saved post types on LinkedIn.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- F7 -->
+    <div class="fc" id="fc7">
+      <div class="fc-header" onclick="tog('fc7')">
+        <div class="fc-num">07</div>
+        <div class="fc-meta">
+          <div class="fc-name">Work-Update Shot</div>
+          <div class="fc-desc">Screen or photo of actual work &middot; tight 2&ndash;4 line caption</div>
+          <div class="fc-badges"><span class="bdg bdg-bl">2&ndash;3&times;/week</span><span class="bdg bdg-gn">Lowest effort</span><span class="bdg bdg-am">Proof of work</span></div>
+        </div>
+        <div class="fc-chev">&#x2304;</div>
+      </div>
+      <div class="fc-body">
+        <div class="f-lbl">What it is</div>
+        <div class="info-block">Lowest-effort, highest-frequency format. A screenshot or photo of the work itself (UI, terminal, Figma, architecture diagram) + a tight caption. Proof-of-work currency that lets you skip "I&rsquo;m available for roles" and let the work do the asking. Chris Frantz at Loops has built a multi-million-dollar SaaS partly on this rhythm.</div>
+        <div class="f-lbl">Topic Ideas</div>
+        <div class="topic-list">
+          <div class="topic"><div class="topic-n">Topic 01</div><div class="topic-t"><strong>"100 Days of Rebuilding Focus &mdash; Day 53 build screenshot."</strong> Just the screen, two lines: what shipped, what&rsquo;s next. Post every 3&ndash;4 days during the challenge.</div></div>
+          <div class="topic"><div class="topic-n">Topic 02</div><div class="topic-t"><strong>"The actual CLAUDE.md we use for the Blog Builder pipeline."</strong> Screenshot a redacted CLAUDE.md. Devs save this kind of post obsessively &mdash; it&rsquo;s a save-bait masterclass in 3 lines.</div></div>
+          <div class="topic"><div class="topic-n">Topic 03</div><div class="topic-t"><strong>"Three-hour focused build session &mdash; what closed three tickets at once."</strong> Screenshot of a multi-file diff with a tight summary. Shows speed + code quality in one image.</div></div>
+          <div class="topic"><div class="topic-n">Topic 04</div><div class="topic-t"><strong>"What a Linear sprint at 3 AM PKT looks like."</strong> Wide screen-and-environment shot. Humanizes the work, builds the remote-founder narrative that US startups respond to.</div></div>
+        </div>
+        <div class="f-lbl">How to Build It</div>
+        <div class="steps">
+          <div class="step"><div class="step-dot">1</div><div class="step-txt"><strong>Capture during the work, not after.</strong> Set a habit: every time you ship something you&rsquo;re proud of, screenshot within 60 seconds. Authenticity is lost when you stage it.</div></div>
+          <div class="step"><div class="step-dot">2</div><div class="step-txt"><strong>Redact what needs redacting.</strong> Customer names, API keys, internal URLs. Use CleanShot to draw boxes. Non-negotiable.</div></div>
+          <div class="step"><div class="step-dot">3</div><div class="step-txt"><strong>Caption: 2&ndash;4 lines, &le; 400 chars.</strong> What it is. Why it matters. What&rsquo;s next. No hashtags &mdash; conversational only.</div></div>
+          <div class="step"><div class="step-dot">4</div><div class="step-txt"><strong>Reply to "what&rsquo;s that tool?" comments within 30 min.</strong> Devs will always ask. Have your stack list ready. Each reply adds dwell time.</div></div>
+        </div>
+        <div class="f-lbl">Angles</div>
+        <div class="angles">
+          <div class="angle vir"><div class="angle-t">&#x1F525; Viral</div><div class="angle-txt">"Today&rsquo;s session with Claude Code." Tying a work-update shot to the current AI-tool conversation surfaces it to audiences already engaged in that thread.</div></div>
+          <div class="angle evr"><div class="angle-t">&#x1F33F; Evergreen</div><div class="angle-txt">Real code on a real screen always outperforms anything that looks like marketing. The closest thing to a guaranteed-nonzero post on LinkedIn in any year.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- F8 -->
+    <div class="fc" id="fc8">
+      <div class="fc-header" onclick="tog('fc8')">
+        <div class="fc-num ind">08</div>
+        <div class="fc-meta">
+          <div class="fc-name">Cartoon / Comic Frame Post</div>
+          <div class="fc-desc">2&ndash;4 panel comic &middot; relatable engineer moment &middot; shareable in DMs</div>
+          <div class="fc-badges"><span class="bdg bdg-in">Every 2&ndash;3 weeks</span><span class="bdg bdg-am">High shareability</span></div>
+        </div>
+        <div class="fc-chev">&#x2304;</div>
+      </div>
+      <div class="fc-body">
+        <div class="f-lbl">What it is</div>
+        <div class="info-block">Comics break LinkedIn corporate sameness and are highly shareable in DMs and Slack ("word-of-Slack" virality). They humanize you in a way pure tech content can&rsquo;t and signal you have a designer brain &mdash; a bonus for your "creative lead / MVP engineer" positioning.</div>
+        <div class="f-lbl">Topic Ideas</div>
+        <div class="topic-list">
+          <div class="topic ind"><div class="topic-n">Topic 01</div><div class="topic-t"><strong>"The Founding Engineer Interview" (3 panels)</strong> &mdash; Panel 1: "Can you ship fast?" Panel 2: "Can you also do UI?" Panel 3: "Can you also handle DevOps, hiring, and our parents&rsquo; dinner reservations?"</div></div>
+          <div class="topic ind"><div class="topic-n">Topic 02</div><div class="topic-t"><strong>"Multi-Agent Orchestration: Expectation vs Reality" (4 panels)</strong> &mdash; Expectation: beautiful agent diagram. Reality: same security bug found three times because agents don&rsquo;t share context. Drawn from real AI Blog Builder experience.</div></div>
+          <div class="topic ind"><div class="topic-n">Topic 03</div><div class="topic-t"><strong>"How Cloud Bills Grow" (3 panels)</strong> &mdash; Day 1: 3 EC2 instances. Day 30: 47 instances, 12 nobody remembers. Day 90: CFO panic. Day 91: CloudFix invoice.</div></div>
+          <div class="topic ind"><div class="topic-n">Topic 04</div><div class="topic-t"><strong>"Working Remote from Pakistan to US Startup" (4 panels)</strong> &mdash; Standup at 9 PM PKT, code review at midnight, async retro at 4 AM, "your CEO is online" at 7 AM.</div></div>
+        </div>
+        <div class="f-lbl">How to Build It</div>
+        <div class="steps">
+          <div class="step"><div class="step-dot">1</div><div class="step-txt"><strong>Don&rsquo;t try to draw it.</strong> Use ChatGPT/DALL-E or Gemini for panels in a consistent style, or commission a Fiverr illustrator for ~$30/comic. Consistency of style matters more than craft.</div></div>
+          <div class="step"><div class="step-dot">2</div><div class="step-txt"><strong>Write the joke first, then the panels.</strong> Setup &rarr; setup &rarr; punchline. Punchline must land within 1 second of reading. Dialogue &le; 10 words per panel.</div></div>
+          <div class="step"><div class="step-dot">3</div><div class="step-txt"><strong>Single image upload (1:1 or 4:5).</strong> Stitch panels in Figma into one image &mdash; NOT a PDF. LinkedIn renders this best.</div></div>
+          <div class="step"><div class="step-dot">4</div><div class="step-txt"><strong>Caption: short setup + actual lesson underneath.</strong> "The real point: scope confusion is the #1 failure mode at seed stage." Post Thursday or Friday &mdash; humor lands better end-of-week.</div></div>
+        </div>
+        <div class="f-lbl">Angles</div>
+        <div class="angles">
+          <div class="angle vir"><div class="angle-t">&#x1F525; Viral</div><div class="angle-txt">Comics riffing on the GPT-5.5 "you are a world-class expert" mockery (Marc Andreessen got memed hard in May 2026), Claude Code cheatsheet meta-jokes, or "AI engineer LinkedIn culture" itself.</div></div>
+          <div class="angle evr"><div class="angle-t">&#x1F33F; Evergreen</div><div class="angle-txt">Expectation vs Reality two-panel. Universal across engineering audiences, works in any year. So reliable it&rsquo;s basically a meme primitive at this point.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- F9 -->
+    <div class="fc" id="fc9">
+      <div class="fc-header" onclick="tog('fc9')">
+        <div class="fc-num">09</div>
+        <div class="fc-meta">
+          <div class="fc-name">Image Meme</div>
+          <div class="fc-desc">Current template &middot; niche-specific &middot; insight inside every joke</div>
+          <div class="fc-badges"><span class="bdg bdg-bl">Every 2 weeks</span><span class="bdg bdg-rd">High risk/reward</span></div>
+        </div>
+        <div class="fc-chev">&#x2304;</div>
+      </div>
+      <div class="fc-body">
+        <div class="f-lbl">What it is</div>
+        <div class="info-block">A classic meme template with engineering/AI/remote-work captions you&rsquo;ve written. The fastest way to attract follows from the right people. A good niche meme can put you in front of 50K AI engineers in 24 hours. Rule: every meme must encode an insight only an insider would catch. Generic memes make you look junior.</div>
+        <div class="f-lbl">Topic Ideas</div>
+        <div class="topic-list">
+          <div class="topic"><div class="topic-n">Topic 01</div><div class="topic-t"><strong>Drake meme: "Adding more agents" / "Tightening one prompt"</strong> &mdash; Caption: "Most teams default to the first. The 80% gain is in the second." Simple, specific, shareable by anyone who&rsquo;s built agents.</div></div>
+          <div class="topic"><div class="topic-n">Topic 02</div><div class="topic-t"><strong>Galaxy brain meme on prompt engineering</strong> &mdash; Tier 1: "Be a world-class expert." Tier 2: "Think step by step." Tier 3: "Use XML tags." Tier 4: "Just describe the outcome." Ties directly to Anthropic&rsquo;s April 2026 outcome-first prompting guidance.</div></div>
+          <div class="topic"><div class="topic-n">Topic 03</div><div class="topic-t"><strong>"This Is Fine" dog: CTO realizing AWS bill is up 340% this month</strong> &mdash; Caption: "I&rsquo;ve seen this room. I&rsquo;ve helped clean it up at CloudFix. Here&rsquo;s the first thing I&rsquo;d check." Humor + immediate value.</div></div>
+          <div class="topic"><div class="topic-n">Topic 04</div><div class="topic-t"><strong>"They&rsquo;re the same picture" meme: "AI engineer" / "Software engineer who reads the model docs"</strong> &mdash; Land with the actual point: the discipline is what matters, not the title.</div></div>
+        </div>
+        <div class="f-lbl">How to Build It</div>
+        <div class="steps">
+          <div class="step"><div class="step-dot">1</div><div class="step-txt"><strong>Source current templates from KnowYourMeme, r/ProgrammerHumor, ImgFlip.</strong> Don&rsquo;t use templates more than 6 months old &mdash; staleness reads as out-of-touch.</div></div>
+          <div class="step"><div class="step-dot">2</div><div class="step-txt"><strong>Caption it yourself in ImgFlip or Figma.</strong> No watermarks from meme-maker apps. No AI-generated meme images &mdash; format relies on familiar visual language.</div></div>
+          <div class="step"><div class="step-dot">3</div><div class="step-txt"><strong>Caption below the image is where you add authority.</strong> "We genuinely shipped 4 fewer agents and got 30% better output. Anyone else stripping agents out instead of adding?" Meme = hook; caption = substance.</div></div>
+          <div class="step"><div class="step-dot">4</div><div class="step-txt"><strong>Test on 2 engineer friends first.</strong> If they don&rsquo;t get it immediately, it won&rsquo;t land at scale. Post Friday 3 PM US ET.</div></div>
+        </div>
+        <div class="f-lbl">Angles</div>
+        <div class="angles">
+          <div class="angle vir"><div class="angle-t">&#x1F525; Viral</div><div class="angle-txt">Anything riffing on the Andreessen "world-class expert" incident (May 2026), Claude Code cheatsheet meta-jokes, or "I prompt-injected my LinkedIn bio and got Old English recruiter messages" (viral May 15, 2026).</div></div>
+          <div class="angle evr"><div class="angle-t">&#x1F33F; Evergreen</div><div class="angle-txt">Engineer pain memes not tied to any release: debugging at 3 AM, off-by-one errors, "it works on my machine," code review trauma. These never go out of style per ProgrammerHumor data.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- F10 -->
+    <div class="fc" id="fc10">
+      <div class="fc-header" onclick="tog('fc10')">
+        <div class="fc-num ind">10</div>
+        <div class="fc-meta">
+          <div class="fc-name">Video Meme / Reaction Clip</div>
+          <div class="fc-desc">5&ndash;15s &middot; screen recording or face cam &middot; highest variance</div>
+          <div class="fc-badges"><span class="bdg bdg-in">Monthly</span><span class="bdg bdg-rd">High variance</span><span class="bdg bdg-am">Best reach when it hits</span></div>
+        </div>
+        <div class="fc-chev">&#x2304;</div>
+      </div>
+      <div class="fc-body">
+        <div class="f-lbl">What it is</div>
+        <div class="info-block">A short (5&ndash;15s) video clip &mdash; you filming a reaction, or a screen-recording with meme energy, or a quick stitched clip. Highest variance format: when it hits it travels further than any other; when it misses it looks try-hard. The caption carries the LinkedIn-appropriate framing &mdash; same clip with a one-line work observation reads as insight instead of just funny.</div>
+        <div class="f-lbl">Topic Ideas</div>
+        <div class="topic-list">
+          <div class="topic ind"><div class="topic-n">Topic 01</div><div class="topic-t"><strong>"POV: You ran Claude Code in a fresh repo without a CLAUDE.md"</strong> &mdash; 8-second screen recording of agent flailing + deadpan face cam. Caption: "Day 1 lesson."</div></div>
+          <div class="topic ind"><div class="topic-n">Topic 02</div><div class="topic-t"><strong>"When the founder asks &lsquo;can you also do mobile?&rsquo;"</strong> &mdash; Face cam, 5-second reaction, no words. Universal founding-engineer experience. Caption adds the real point.</div></div>
+          <div class="topic ind"><div class="topic-n">Topic 03</div><div class="topic-t"><strong>"Multi-agent system actually working for 90 seconds straight."</strong> &mdash; Screen recording sped up 20&times; to 6 seconds. Caption: "This feeling. Every single time." Pure celebration energy.</div></div>
+          <div class="topic ind"><div class="topic-n">Topic 04</div><div class="topic-t"><strong>"2026 dev workflow."</strong> &mdash; You typing "claude help me build" &rarr; smash-cut to finished SaaS dashboard. Under 10 seconds. No words needed.</div></div>
+        </div>
+        <div class="f-lbl">How to Build It</div>
+        <div class="steps">
+          <div class="step"><div class="step-dot">1</div><div class="step-txt"><strong>Capture raw clips with no plan.</strong> Best reactions are unrehearsed. Keep phone or QuickTime ready at all times.</div></div>
+          <div class="step"><div class="step-dot">2</div><div class="step-txt"><strong>Edit in CapCut or Captions.ai &mdash; 5&ndash;15 seconds max.</strong> Algorithm rewards completion rate. Short clips win on completion every time. Burn captions in.</div></div>
+          <div class="step"><div class="step-dot">3</div><div class="step-txt"><strong>Vertical 9:16. Exaggerate facial expressions.</strong> Subtle doesn&rsquo;t read on mobile feeds. Caption below: single short setup line. Don&rsquo;t explain the joke.</div></div>
+        </div>
+        <div class="f-lbl">Angles</div>
+        <div class="angles">
+          <div class="angle vir"><div class="angle-t">&#x1F525; Viral</div><div class="angle-txt">Reaction clips to specific model releases &mdash; "Trying GPT-5.5 vs Claude Opus 4.7 for the first time" face-cam; the ARC-AGI-2 leaderboard reaction; "trying Ruflo (47K GitHub stars) for the first time."</div></div>
+          <div class="angle evr"><div class="angle-t">&#x1F33F; Evergreen</div><div class="angle-txt">The "POV: you are an engineer at moment X" template. Doesn&rsquo;t depend on the latest tool. Works for any year as long as the moment is universal (3 AM debug, first customer, code review from hell).</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- F11 -->
+    <div class="fc" id="fc11">
+      <div class="fc-header" onclick="tog('fc11')">
+        <div class="fc-num">11</div>
+        <div class="fc-meta">
+          <div class="fc-name">Clickbait Image + Text</div>
+          <div class="fc-desc">High-contrast design &middot; bold claim/number &middot; algo-engineered</div>
+          <div class="fc-badges"><span class="bdg bdg-bl">Every 2 weeks</span><span class="bdg bdg-am">Recruiter magnet</span></div>
+        </div>
+        <div class="fc-chev">&#x2304;</div>
+      </div>
+      <div class="fc-body">
+        <div class="f-lbl">What it is</div>
+        <div class="info-block">A high-contrast single image designed to function as a hook &mdash; bold text on solid background, a shocking stat in 80pt type &mdash; paired with a text post that delivers on the promise. The bar: every number must be real and the post must deliver more than the image promises. Otherwise it reads as spam and people remember it.</div>
+        <div class="f-lbl">Topic Ideas</div>
+        <div class="topic-list">
+          <div class="topic"><div class="topic-n">Topic 01 &middot; Enterprise proof</div><div class="topic-t"><strong>"$400K in 90 days. 20 Finders. 500+ enterprises."</strong> &mdash; Hard credentials in an unmissable image; text post delivers the lesson breakdown. Only post when you can defend every number under scrutiny.</div></div>
+          <div class="topic"><div class="topic-n">Topic 02 &middot; MVP speed</div><div class="topic-t"><strong>"5 Days. 8 Agents. 1 MVP."</strong> &mdash; Three numbers stacked vertically on a dark background. Text post: day-by-day build log of the AI Blog Builder sprint.</div></div>
+          <div class="topic"><div class="topic-n">Topic 03 &middot; Identity flex</div><div class="topic-t"><strong>"$2B+ Cloud Spend. 4 Years. 1 Job-Hunting Founding Engineer."</strong> &mdash; Identity + credential + ask, all in one billboard. Use during active job search periods.</div></div>
+          <div class="topic"><div class="topic-n">Topic 04 &middot; Cognitive credential</div><div class="topic-t"><strong>"I Ranked 92nd Percentile on a Proctored CCAT. Here Are the 3 Skills It Didn&rsquo;t Measure."</strong> &mdash; Credential as hook + a payoff that actually delivers the 3 skills in the post body.</div></div>
+        </div>
+        <div class="f-lbl">How to Build It</div>
+        <div class="steps">
+          <div class="step"><div class="step-dot">1</div><div class="step-txt"><strong>Design at 1080&times;1350 portrait.</strong> One number, huge (300&ndash;400pt Fraunces 600). Supporting line &le; 6 words. Your name + role tag at bottom. High contrast &mdash; readable in 0.5 seconds on a phone.</div></div>
+          <div class="step"><div class="step-dot">2</div><div class="step-txt"><strong>No icons, no clipart, no stock photos.</strong> A pure typographic post outperforms decoration every time. White text on your navy (#0D1136) or blue text on white.</div></div>
+          <div class="step"><div class="step-dot">3</div><div class="step-txt"><strong>The text post MUST deliver on the number.</strong> If the image says "$400K," the post explains the framework that produced it. Bait-and-switch is penalized by 2026 dwell-time tracking.</div></div>
+          <div class="step"><div class="step-dot">4</div><div class="step-txt"><strong>Caption: bold opening &rarr; 4&ndash;6 short paragraphs &rarr; bold closing &rarr; save-bait CTA.</strong> 1,200&ndash;1,800 chars. Post Tuesday 8 AM US ET / 5 PM PKT.</div></div>
+        </div>
+        <div class="f-lbl">Angles</div>
+        <div class="angles">
+          <div class="angle vir"><div class="angle-t">&#x1F525; Viral</div><div class="angle-txt">"I [shipped/saved/built] [specific big number] working at [specific enterprise scale]." The mid-2026 hiring market pays premium for proven enterprise impact &mdash; a credible big-number post puts you in founder DMs within 48 hours.</div></div>
+          <div class="angle evr"><div class="angle-t">&#x1F33F; Evergreen</div><div class="angle-txt">Big-number-with-payoff. As long as the number is real and the substance lands, this has been the highest-conversion attention magnet on LinkedIn for five years running.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- F12 -->
+    <div class="fc" id="fc12">
+      <div class="fc-header" onclick="tog('fc12')">
+        <div class="fc-num ind">12</div>
+        <div class="fc-meta">
+          <div class="fc-name">New-Update / Launch Announcement</div>
+          <div class="fc-desc">Shipped-it post &middot; milestone &middot; "live now" &middot; Pietro template</div>
+          <div class="fc-badges"><span class="bdg bdg-in">On launch</span><span class="bdg bdg-gn">Highest compound value</span></div>
+        </div>
+        <div class="fc-chev">&#x2304;</div>
+      </div>
+      <div class="fc-body">
+        <div class="f-lbl">What it is</div>
+        <div class="info-block">The "shipped it" post. You have 4 active launches incoming: 2 VertigoWorks MVPs, Rebuilding Focus Day 100, Remote Playbook milestones. Launch posts compound &mdash; every launch adds proof to your profile. Pietro Schirano&rsquo;s "Introducing X. No Y. No Z. Just W." is the cleanest template on the platform.</div>
+        <div class="f-lbl">Topic Ideas</div>
+        <div class="topic-list">
+          <div class="topic ind"><div class="topic-n">Topic 01 &middot; Product launch</div><div class="topic-t"><strong>"Introducing [VertigoWorks MVP #1]. The fastest way to [outcome]. No [pain]. No [pain]. Just [magic]."</strong> &mdash; Steal Pietro&rsquo;s exact template. Caption 3&ndash;4 sentences + Loom + "DM me &lsquo;EARLY&rsquo; for access."</div></div>
+          <div class="topic ind"><div class="topic-n">Topic 02 &middot; Milestone</div><div class="topic-t"><strong>"Day 100/100 of Rebuilding Focus is live."</strong> &mdash; The capstone of the challenge. Show the full product, the 100-day journey timeline, what&rsquo;s next. This is the post you&rsquo;ve been building toward for months.</div></div>
+          <div class="topic ind"><div class="topic-n">Topic 03 &middot; Newsletter</div><div class="topic-t"><strong>"The Remote Playbook just hit [milestone] subscribers."</strong> &mdash; Numbers + the one post that drove the spike + thank-you list of repost amplifiers. Use at 100, 500, 1K subs.</div></div>
+          <div class="topic ind"><div class="topic-n">Topic 04 &middot; Recruiting</div><div class="topic-t"><strong>"VertigoWorks is hiring its first engineer (remote, anywhere, paid USD)."</strong> &mdash; Recruiting post doubles as positioning. You&rsquo;re hiring = you&rsquo;re a founder = founders treat you as a peer.</div></div>
+        </div>
+        <div class="f-lbl">How to Build It (Pietro Schirano Template)</div>
+        <div class="steps">
+          <div class="step"><div class="step-dot">1</div><div class="step-txt"><strong>Open with "Introducing [Name]."</strong> Bold, single line. Never "I&rsquo;m excited to announce" &mdash; dead language that signals corporate. Never.</div></div>
+          <div class="step"><div class="step-dot">2</div><div class="step-txt"><strong>"No [pain]. No [pain]. Just [magic]."</strong> Three-beat dismissal of the old way + a sharp positive frame.</div></div>
+          <div class="step"><div class="step-dot">3</div><div class="step-txt"><strong>One hero image or 15s screen recording.</strong> Show the product, not you smiling. This is a billboard for a moment.</div></div>
+          <div class="step"><div class="step-dot">4</div><div class="step-txt"><strong>CTA: "DM me &lsquo;EARLY&rsquo; for access."</strong> Drives DMs &mdash; a massive 2026 trust signal. Tag co-founders, early users (with permission), and the tools you used.</div></div>
+          <div class="step"><div class="step-dot">5</div><div class="step-txt"><strong>Link in the first comment, not the body.</strong> Post Wednesday 9 AM US ET. Have your 48-hour follow-up content ready: a BTS carousel, a thank-you post, and a "what we learned in launch week" post. Launches are 3-post arcs.</div></div>
+        </div>
+        <div class="f-lbl">Angles</div>
+        <div class="angles">
+          <div class="angle vir"><div class="angle-t">&#x1F525; Viral</div><div class="angle-txt">Tie the launch to an AI-tools moment: "Built on Claude Opus 4.5 + Codex + a custom MCP server." Naming the stack draws engineers in. Reference Anthropic&rsquo;s managed-agents-2026-04-01 beta explicitly if your product uses it.</div></div>
+          <div class="angle evr"><div class="angle-t">&#x1F33F; Evergreen</div><div class="angle-txt">Vulnerability + launch. "I almost gave up at week 4" honesty drives 2&ndash;3&times; the comments of pure celebration posts. Per Postiv&rsquo;s 2026 launch-post analysis.</div></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /format-grid -->
+</div>
+<!-- ══════════ CREATORS ══════════ -->
+<div id="s-creators" class="section">
+  <div class="sec-head">
+    <div class="sec-label">12 Accounts to Study</div>
+    <h2 class="sec-title">Creators to Learn From</h2>
+    <p class="sec-sub">Don&rsquo;t copy &mdash; borrow the pattern and make it yours. Each creator has one specific thing they do exceptionally well that maps directly to your positioning.</p>
+  </div>
+  <div class="creator-grid">
+    <div class="creator"><div class="av">HH</div><div><div class="creator-name">Hamel Husain</div><div class="creator-why">Tone model for technical authority. Evals-first philosophy. His "Generic metrics like BERTScore are not useful" posts are canon. Steal his specificity and willingness to say what others won&rsquo;t.</div></div></div>
+    <div class="creator"><div class="av ind">MW</div><div><div class="creator-name">Mckay Wrigley</div><div class="creator-why">Claude Code/Cursor power-user voice. Template: "o1 pro thought for 5m 25s, modified 14 files, 64,852 input tokens, saved me 2 hours." Raw metrics + screen recording = your Format #7.</div></div></div>
+    <div class="creator"><div class="av">PS</div><div><div class="creator-name">Pietro Schirano</div><div class="creator-why">Designer-engineer-founder archetype. "Introducing X. No Y. No Z. Just W." launch template is the cleanest on LinkedIn. Study every launch post he does &mdash; Format #12 is modeled on him.</div></div></div>
+    <div class="creator"><div class="av ind">AK</div><div><div class="creator-name">Allie K. Miller</div><div class="creator-why">~2M followers. Translates engineer content for business decision-makers. Tier-list posts highly cloneable. Her clickbait-image + text format is what Format #11 is modeled on.</div></div></div>
+    <div class="creator"><div class="av">GI</div><div><div class="creator-name">Greg Isenberg</div><div class="creator-why">Authority on "what AI agent startups are getting funded." Lowercase numbered-list style. Study his comment-to-carousel repurposing system and how he frames startup ideas.</div></div></div>
+    <div class="creator"><div class="av ind">JW</div><div><div class="creator-name">Justin Welsh</div><div class="creator-why">~800K followers. Canonical carousel template (PAIPS). "1 idea &rarr; 7 pieces of content" repurposing system. Study his hooks &mdash; first-line specificity is the entire technique.</div></div></div>
+    <div class="creator"><div class="av">LA</div><div><div class="creator-name">Lara Acosta</div><div class="creator-why">~400K. Best LinkedIn carousel aesthetic &mdash; consistent palette, big text, one idea per slide, POV first-person hooks. Your visual system is already aligned with hers. Study slide-count discipline.</div></div></div>
+    <div class="creator"><div class="av ind">JA</div><div><div class="creator-name">Jasmin Ali&#263;</div><div class="creator-why">"Hey Jay," ~500K. Re-Hook structure: agree &rarr; challenge &rarr; explain &rarr; steps &rarr; power line. Most copy-paste-able template for technical carousels. His text-only post structure is the model for Format #5.</div></div></div>
+    <div class="creator"><div class="av">CF</div><div><div class="creator-name">Chris Frantz (Loops)</div><div class="creator-why">Build-in-public cadence: ship feature &rarr; screenshot loop &rarr; 2-line caption &rarr; repeat weekly. Format #7 (Work-Update Shot) is modeled directly on his approach. Built a real company on this rhythm.</div></div></div>
+    <div class="creator"><div class="av ind">ML</div><div><div class="creator-name">Michelle Lim</div><div class="creator-why">Ex-Warp, now Flint. Founding-engineer interview-prep authority via The Pragmatic Engineer. Study how she frames the founding eng role for different company stages &mdash; your Format #4 territory.</div></div></div>
+    <div class="creator"><div class="av">RV</div><div><div class="creator-name">Richard van der Blom</div><div class="creator-why">Algorithm intelligence &mdash; his Algorithm InSights Report (1.8M posts, 58K profiles) is the primary data source for cadence and format guidance in this entire playbook.</div></div></div>
+    <div class="creator"><div class="av ind">PW</div><div><div class="creator-name">Pat Walls (Starter Story)</div><div class="creator-why">Short founder-story video format. Template for your "Day X of 100 Days" video clips. His vulnerability + specificity formula is directly applicable to your Format #3 build-in-public updates.</div></div></div>
+  </div>
+</div>
+
+<!-- ══════════ CALENDAR ══════════ -->
+<div id="s-calendar" class="section">
+  <div class="sec-head">
+    <div class="sec-label">7-Day Rotation</div>
+    <h2 class="sec-title">Weekly Calendar</h2>
+    <p class="sec-sub">Post Tuesday&ndash;Thursday 8&ndash;10 AM US Eastern (5&ndash;6 PM Pakistan). Friday for humor. Sunday for identity posts. Run 4 weeks, then double down on whichever format gets the most saves and DMs.</p>
+  </div>
+  <div class="cal-grid">
+    <div class="cal-day hi"><div class="cal-dname">Mon</div><div class="cal-fmt">Work-Update Shot</div><div class="cal-anc">Format #7<br>CloudFix or VertigoWorks screen</div></div>
+    <div class="cal-day hi"><div class="cal-dname">Tue</div><div class="cal-fmt">Educational Carousel</div><div class="cal-anc">Format #1<br>Rotating frameworks<br>8 AM US ET</div></div>
+    <div class="cal-day so"><div class="cal-dname">Wed</div><div class="cal-fmt">Behind-the-Scenes</div><div class="cal-anc">Format #3<br>100 Days counter<br>9 AM US ET</div></div>
+    <div class="cal-day hi"><div class="cal-dname">Thu</div><div class="cal-fmt">Text-Only Story</div><div class="cal-anc">Format #5<br>Career lesson<br>8 AM US ET</div></div>
+    <div class="cal-day so"><div class="cal-dname">Fri</div><div class="cal-fmt">Video or Meme</div><div class="cal-anc">Format #4 or #9<br>Hot take / humor<br>3 PM US ET</div></div>
+    <div class="cal-day re"><div class="cal-dname">Sat</div><div class="cal-fmt">Off</div><div class="cal-anc">&mdash;</div></div>
+    <div class="cal-day so"><div class="cal-dname">Sun</div><div class="cal-fmt">Portrait or Work Update</div><div class="cal-anc">Format #6 or #7<br>Positioning<br>Eve US time</div></div>
+  </div>
+  <div class="divider"></div>
+  <div class="sec-label" style="margin-bottom:12px">30-Day Starter Calendar</div>
+  <div style="overflow-x:auto">
+  <table class="dt">
+    <thead><tr><th>Week</th><th>Monday</th><th>Tuesday</th><th>Wednesday</th><th>Thursday</th><th>Friday</th></tr></thead>
+    <tbody>
+      <tr><td><strong>W1</strong></td><td><em>#7</em> CLAUDE.md screenshot</td><td><em>#1</em> 8-Agent AI Blog Builder</td><td><em>#3</em> Day counter opens</td><td><em>#5</em> CloudFix story</td><td><em>#9</em> Drake meme: agents</td></tr>
+      <tr><td><strong>W2</strong></td><td><em>#7</em> VertigoWorks screen</td><td><em>#1</em> CloudFix Finder framework</td><td><em>#3</em> Day 14/100 update</td><td><em>#5</em> CCAT lesson story</td><td><em>#8</em> Founding eng comic</td></tr>
+      <tr><td><strong>W3</strong></td><td><em>#7</em> 3 AM PKT sprint</td><td><em>#1</em> QueryLens UX decisions</td><td><em>#3</em> Day 21/100 update</td><td><em>#5</em> Mentor advice story</td><td><em>#4</em> Tool wars monologue</td></tr>
+      <tr><td><strong>W4</strong></td><td><em>#11</em> $400K clickbait</td><td><em>#1</em> 5-Day MVP sprint</td><td><em>#3</em> Day 28/100 update</td><td><em>#2</em> QueryLens before/after</td><td><em>#6</em> Identity manifesto</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="tip-box" style="margin-top:16px"><strong>Scheduling tip for Pakistan &rarr; US timing:</strong> Use LinkedIn&rsquo;s native scheduler or Buffer. Set a phone alarm to engage at the moment of publishing &mdash; your first 5 comments matter more than your next 50. The 60&ndash;90 minute golden hour decides Stage 2 distribution.</div>
+</div>
+
+<!-- ══════════ PILLARS ══════════ -->
+<div id="s-pillars" class="section">
+  <div class="sec-head">
+    <div class="sec-label">Format &times; Pillar Mapping</div>
+    <h2 class="sec-title">Content Pillars</h2>
+    <p class="sec-sub">Your existing content pillars mapped to the formats that serve them best. Every post should reinforce one pillar. These are your four authority anchors: CloudFix, Multi-Agent Systems, 100 Days of Rebuilding Focus, Remote Playbook.</p>
+  </div>
+  <div class="pillar-list">
+    <div class="pillar-row"><div class="pillar-name">100 Days of Rebuilding Focus</div><div class="pillar-tags"><span class="tag tag-blue">#3 Behind-the-scenes (weekly anchor)</span><span class="tag tag-ind">#7 Work-update shot</span><span class="tag tag-blue">#12 Launch (Day 100 milestone)</span></div></div>
+    <div class="pillar-row"><div class="pillar-name">AI Self-Discipline Tool</div><div class="pillar-tags"><span class="tag tag-ind">#1 Carousel (how it works)</span><span class="tag tag-blue">#4 Video monologue (philosophy)</span><span class="tag tag-ind">#11 Clickbait image (results)</span></div></div>
+    <div class="pillar-row"><div class="pillar-name">Full-Stack Engineering</div><div class="pillar-tags"><span class="tag tag-blue">#1 Carousel (frameworks)</span><span class="tag tag-ind">#5 Text-only (lessons)</span><span class="tag tag-blue">#7 Work-update shot (code)</span></div></div>
+    <div class="pillar-row"><div class="pillar-name">Productivity / Deep Work</div><div class="pillar-tags"><span class="tag tag-ind">#5 Text-only</span><span class="tag tag-blue">#6 Portrait with overlay</span><span class="tag tag-ind">#8 Comic</span></div></div>
+    <div class="pillar-row"><div class="pillar-name">Open Source / Building in Public</div><div class="pillar-tags"><span class="tag tag-blue">#2 Multi-image storytelling</span><span class="tag tag-ind">#3 Behind-the-scenes</span><span class="tag tag-blue">#12 Launch announcements</span></div></div>
+    <div class="pillar-row"><div class="pillar-name">Remote Playbook Newsletter</div><div class="pillar-tags"><span class="tag tag-ind">#1 Carousel (per edition)</span><span class="tag tag-blue">#5 Text-only (one lesson)</span><span class="tag tag-ind">#11 Clickbait (subscriber milestones)</span></div></div>
+    <div class="pillar-row"><div class="pillar-name">Multi-Agent / AI Engineering</div><div class="pillar-tags"><span class="tag tag-blue">#1 Carousel (orchestration patterns)</span><span class="tag tag-ind">#4 Video (hot takes)</span><span class="tag tag-blue">#7 Work-update (CLAUDE.md, logs)</span></div></div>
+    <div class="pillar-row"><div class="pillar-name">Founding Engineer Positioning</div><div class="pillar-tags"><span class="tag tag-ind">#6 Portrait + manifesto</span><span class="tag tag-blue">#11 Clickbait ($2B+ credential)</span><span class="tag tag-ind">#5 Text-only (interview stories)</span></div></div>
+  </div>
+  <div class="divider"></div>
+  <div class="sec-label" style="margin-bottom:12px">Staged Growth Thresholds</div>
+  <div style="display:flex;flex-direction:column;gap:10px">
+    <div class="info-block"><strong>Weeks 1&ndash;4 (audience floor + identity):</strong> Hit the calendar 5&times;/week. One carousel + one build-in-public post per week, non-negotiable. Benchmark: any post breaking 1,000 impressions = green light to make a sequel. Under 200 impressions twice in a row = the angle is wrong, not the format.<div class="prog-track"><div class="prog-fill" style="width:25%"></div></div></div>
+    <div class="info-block"><strong>Weeks 5&ndash;8 (signal to founders):</strong> Post one clickbait-image + text (#11) per fortnight anchored to a verified CloudFix/AI Blog Builder number. Drop one launch post (#12) per VertigoWorks milestone. Threshold: 3+ inbound founder DMs per week, or any founding-engineer reply on a thread.<div class="prog-track"><div class="prog-fill" style="width:50%"></div></div></div>
+    <div class="info-block"><strong>Weeks 9&ndash;12 (compound and convert):</strong> Start weekly newsletter cross-posts from Remote Playbook &rarr; LinkedIn article. Run one video monologue per week. Threshold: if at 5K+ followers with &lt;1 founder DM/week, you have a positioning problem, not a content problem &mdash; rewrite your headline and Featured section first.<div class="prog-track"><div class="prog-fill" style="width:75%"></div></div></div>
+  </div>
+</div>
+
+<!-- ══════════ RULES ══════════ -->
+<div id="s-rules" class="section">
+  <div class="sec-head">
+    <div class="sec-label">Platform-wide</div>
+    <h2 class="sec-title">Rules for Every Format</h2>
+    <p class="sec-sub">These don&rsquo;t belong to any specific format. They&rsquo;re the meta-rules that make every post work better regardless of what you&rsquo;re posting.</p>
+  </div>
+  <div class="rules-grid">
+    <div class="rule"><div class="rule-icon">&#x1FA9D;</div><div class="rule-t">Hooks: Write them last</div><div class="rule-txt">The first <strong>120&ndash;210 characters</strong> carry ~95% of the post&rsquo;s success. Write the hook after the body &mdash; you&rsquo;ll know what the post is actually about. Test: if this were the whole post, would I keep reading?</div></div>
+    <div class="rule"><div class="rule-icon">&#x1F550;</div><div class="rule-t">Post time: Tue&ndash;Thu 8&ndash;10 AM US ET</div><div class="rule-txt">That&rsquo;s <strong>5&ndash;6 PM Pakistan</strong>. Schedule with LinkedIn&rsquo;s native scheduler or Buffer. Friday 3 PM for humor. Sunday evening for identity posts. Never put external links in the post body &mdash; first comment only.</div></div>
+    <div class="rule"><div class="rule-icon">&#x1F4AC;</div><div class="rule-t">Golden hour is everything</div><div class="rule-txt">Reply to every comment within <strong>60 minutes of posting</strong>. Comments in the first hour are the strongest reach signal LinkedIn has. Block 15 minutes in your calendar after each post. Set a phone alarm.</div></div>
+    <div class="rule"><div class="rule-icon">&#x1F4C5;</div><div class="rule-t">Consistency &gt; quality</div><div class="rule-txt"><strong>3 decent posts a week outperforms 1 great post</strong> a week. Accounts posting 5&times;/week grow 12&times; faster than those posting 1&ndash;2&times;/week. Set the bar at "above-average," not "viral."</div></div>
+    <div class="rule"><div class="rule-icon">4&#xFE0F;&#x20E3;</div><div class="rule-t">The 4-1-1 rule</div><div class="rule-txt">For every 6 posts: <strong>4 educational/storytelling, 1 soft promo</strong> (build-update), 1 direct ask (hiring, launching). Most engineers flip this ratio and wonder why nobody engages.</div></div>
+    <div class="rule"><div class="rule-icon">&#x267B;&#xFE0F;</div><div class="rule-t">Repost your best hits</div><div class="rule-txt">A post that performed well <strong>3+ months ago</strong> can be reposted with a fresh hook. LinkedIn doesn&rsquo;t penalize this if the body is substantially rewritten. Keep a "best hits" doc and recycle.</div></div>
+    <div class="rule"><div class="rule-icon">#&#xFE0F;&#x20E3;</div><div class="rule-t">Hashtags: 3 max, niche-specific</div><div class="rule-txt"><strong>#aiengineering</strong> and <strong>#buildinpublic</strong> beat #tech and #career. Hashtags are for searchability in 2026, not reach. More than 3 reads as spam. Zero is fine for story posts.</div></div>
+    <div class="rule"><div class="rule-icon">&#x1F4AD;</div><div class="rule-t">Comments-as-content</div><div class="rule-txt">Leaving thoughtful comments on mid-sized accounts in your niche <strong>drives more profile views</strong> than most of your own posts. Budget 15 min/day for this. Highest-ROI activity nobody does.</div></div>
+    <div class="rule"><div class="rule-icon">&#x1F512;</div><div class="rule-t">NDA discipline</div><div class="rule-txt">Never post specifics that violate your CloudFix/Trilogy NDA. Use <strong>percentages and generic stack descriptions</strong>. Don&rsquo;t name Mastercard/Ryanair/Western Digital without written permission. "An enterprise customer with $10M+ AWS spend" is fine.</div></div>
+    <div class="rule"><div class="rule-icon">&#x1F6AB;</div><div class="rule-t">No pods, no bait phrases</div><div class="rule-txt">LinkedIn&rsquo;s March 2026 Authenticity Update <strong>aggressively detects</strong> engagement pods, AI-generated comments, and phrases like "agree?" and "let me know in the comments below." It throttles posts that use them. Your edge is real work.</div></div>
+    <div class="rule"><div class="rule-icon">&#x1F4CA;</div><div class="rule-t">Track saves, not likes</div><div class="rule-txt">After each post, check <strong>saves and profile views</strong> rather than just likes. Saves signal "I need this later." Profile views after a post signal the audience is vetting you for a role. These are your real signals.</div></div>
+    <div class="rule"><div class="rule-icon">&#x1F680;</div><div class="rule-t">Launches = 3-post arcs</div><div class="rule-txt">Never treat a launch as one post. Have <strong>48-hour follow-up content ready</strong>: a behind-the-scenes carousel, a thank-you to early users, a "what we learned in launch week" post. The arc drives 3&times; total engagement.</div></div>
+  </div>
+  <div class="caution" style="margin-top:24px"><strong>On algorithm data in this playbook:</strong> All figures are aggregated from third-party 2026 analyses (Richard van der Blom&rsquo;s Algorithm InSights Report &mdash; 1.8M posts; Brenton Way; SocialInsider Q1 2026; Postiv; Teract). LinkedIn does not publish its ranking weights directly. Treat all multipliers as directional, not precise. If LinkedIn ships a major algorithm update (they do ~3&times;/year), reassess format priorities.</div>
+</div>
+
+</div><!-- /main -->
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footer-note">Last updated May 2026 &middot; Revisit quarterly</div>
+  <div class="footer-brand">Shahan <span>Naqvi</span> &middot; LinkedIn Playbook 2026</div>
+</div>
+
+<script>
+function show(id, btn){
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('s-' + id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({ top: document.querySelector('.nav-wrap').offsetTop - 10, behavior: 'smooth' });
+}
+function tog(id){
+  const card = document.getElementById(id);
+  const wasOpen = card.classList.contains('open');
+  document.querySelectorAll('.fc.open').forEach(c => { if(c.id !== id) c.classList.remove('open'); });
+  card.classList.toggle('open', !wasOpen);
+  if(!wasOpen){
+    setTimeout(() => {
+      const rect = card.getBoundingClientRect();
+      const top = rect.top + window.scrollY - 80;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }, 80);
+  }
+}
+</script>
+</body>
+</html>

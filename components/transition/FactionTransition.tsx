@@ -14,7 +14,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 
-type Theme = "cinematic" | "editorial" | "vertigo";
+type Theme = "cinematic" | "editorial" | "vertigo" | "saas";
 type GoDetail = { href: string; label?: string; theme?: Theme };
 
 // Every link to a faction route plays its themed transition — no per-link
@@ -23,6 +23,7 @@ const FACTION_ROUTES: Record<string, { theme: Theme; label: string }> = {
   "/services/innovative-startups": { theme: "cinematic", label: "Startup & Venture Development" },
   "/services/consultancy": { theme: "editorial", label: "Consultancy & Advisory" },
   "/services/digital-freelancing": { theme: "vertigo", label: "Freelancing Services" },
+  "/services/software-development": { theme: "saas", label: "Software Development" },
 };
 const stripSlash = (p: string) => (p.length > 1 && p.endsWith("/") ? p.slice(0, -1) : p);
 
@@ -110,6 +111,7 @@ export function FactionTransition() {
       {state.active && state.theme === "cinematic" && <CinematicOverlay key="cin" label={state.label} />}
       {state.active && state.theme === "editorial" && <EditorialOverlay key="edi" label={state.label} />}
       {state.active && state.theme === "vertigo" && <VertigoOverlay key="vrt" label={state.label} />}
+      {state.active && state.theme === "saas" && <SaasOverlay key="saas" label={state.label} />}
     </AnimatePresence>
   );
 }
@@ -313,6 +315,76 @@ function VertigoOverlay({ label }: { label: string }) {
             </span>
           ))}
         </h2>
+      </div>
+    </motion.div>
+  );
+}
+
+/* ---------- Clean SaaS (Software Development — Shahan Naqvi v2) ---------- */
+function SaasOverlay({ label }: { label: string }) {
+  const ease = [0.22, 1, 0.36, 1] as const;
+  return (
+    <motion.div
+      aria-hidden="true"
+      className="fixed inset-0 z-[100] flex items-center justify-center overflow-hidden"
+      style={{ background: "#FAFBFD", color: "#0D1136" }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.4, ease }}
+    >
+      {/* top blue->indigo hairline */}
+      <div className="absolute inset-x-0 top-0 h-[3px]" style={{ background: "linear-gradient(90deg,#1B5AFF,#6457E8)" }} />
+      {/* dot grid */}
+      <div className="pointer-events-none absolute inset-0" style={{ backgroundImage: "radial-gradient(circle,#1B5AFF14 1.2px,transparent 1.2px)", backgroundSize: "28px 28px" }} />
+      {/* soft blobs */}
+      <div className="pointer-events-none absolute -right-24 -top-24 h-[420px] w-[420px] rounded-full" style={{ background: "radial-gradient(circle,#1B5AFF14,transparent 70%)" }} />
+      <div className="pointer-events-none absolute -left-20 bottom-[-100px] h-[360px] w-[360px] rounded-full" style={{ background: "radial-gradient(circle,#6457E814,transparent 70%)" }} />
+
+      <div className="relative flex items-center gap-5 px-6">
+        {/* vertical bar + indigo dot */}
+        <div className="flex flex-col items-center gap-2">
+          <motion.span className="h-[9px] w-[9px] rounded-full" style={{ background: "#6457E8" }} initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ duration: 0.35, delay: 0.1 }} />
+          <motion.span className="w-[4px] rounded" style={{ background: "#1B5AFF" }} initial={{ height: 0 }} animate={{ height: 64 }} transition={{ duration: 0.5, delay: 0.12, ease }} />
+        </div>
+        <div>
+          <motion.p
+            className="text-[11px] font-bold uppercase"
+            style={{ fontFamily: "var(--font-dm-sans), sans-serif", letterSpacing: "0.18em", color: "#1B5AFF" }}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: 0.16 }}
+          >
+            Opening
+          </motion.p>
+          <h2 style={{ fontFamily: "var(--font-fraunces), serif", fontWeight: 600, fontSize: "clamp(2rem,6vw,4rem)", lineHeight: 1.04, letterSpacing: "-0.01em" }}>
+            {label.split(" ").map((w, i) => (
+              <span key={i} className="mr-[0.25em] inline-block overflow-hidden py-[0.08em] align-bottom">
+                <motion.span
+                  className="inline-block"
+                  style={i === 0 ? { background: "linear-gradient(90deg,#1B5AFF,#6457E8)", WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" } : undefined}
+                  initial={{ y: "110%" }}
+                  animate={{ y: 0 }}
+                  transition={{ duration: 0.55, delay: 0.12 + i * 0.07, ease }}
+                >
+                  {w}
+                </motion.span>
+              </span>
+            ))}
+          </h2>
+          {/* progress bar */}
+          <div className="mt-5 h-[5px] w-56 overflow-hidden rounded-full" style={{ background: "#E2E6EF" }}>
+            <motion.div
+              className="relative h-full rounded-full"
+              style={{ background: "#1B5AFF" }}
+              initial={{ width: "0%" }}
+              animate={{ width: "100%" }}
+              transition={{ duration: 1.1, ease }}
+            >
+              <span className="absolute right-0 top-1/2 h-[10px] w-[10px] -translate-y-1/2 translate-x-1/2 rounded-full" style={{ background: "#6457E8" }} />
+            </motion.div>
+          </div>
+        </div>
       </div>
     </motion.div>
   );
