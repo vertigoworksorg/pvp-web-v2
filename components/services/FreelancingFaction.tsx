@@ -48,7 +48,7 @@ export function FreelancingFaction({
           background:var(--vwpaper); color:var(--vwink); font-family:var(--vwbody); line-height:1.5;
         }
         .vw-root ::selection{background:var(--acid);color:var(--vwink)}
-        .vw-wrap{max-width:1180px;margin:0 auto;padding:0 clamp(1rem,4vw,2rem)}
+        .vw-wrap{max-width:1180px;margin:0 auto;padding-inline:clamp(1rem,4vw,2rem)}
         .vw-kicker{font-family:var(--vwmono);font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--vwslate)}
         .vw-sec{padding:84px 0;border-top:1.5px solid var(--vwmist)}
         .vw-sechead{display:flex;align-items:baseline;gap:16px;margin-bottom:44px}
@@ -81,7 +81,7 @@ export function FreelancingFaction({
       <header className="relative overflow-hidden">
         <div aria-hidden="true" className="pointer-events-none absolute -right-24 -top-24 h-[360px] w-[360px] rounded-full blur-2xl" style={{ background: "radial-gradient(circle,rgba(31,59,255,.18),transparent 70%)" }} />
         <div aria-hidden="true" className="pointer-events-none absolute -left-20 bottom-0 h-[300px] w-[300px] rounded-full blur-2xl" style={{ background: "radial-gradient(circle,rgba(255,67,36,.16),transparent 70%)" }} />
-        <div className="vw-wrap relative grid items-center gap-10 py-36 md:grid-cols-[1.2fr_.8fr] md:py-52">
+        <div className="vw-wrap relative grid items-center gap-10 py-24 md:grid-cols-[1.2fr_.8fr] md:py-40">
           <div>
             <Reveal>
               <p className="vw-kicker">What we offer · {service.number} · Freelancing Services</p>

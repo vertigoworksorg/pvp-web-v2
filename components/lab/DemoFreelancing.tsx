@@ -66,7 +66,7 @@ export function DemoFreelancing() {
           background:var(--paper); color:var(--ink); font-family:var(--body); line-height:1.5;
         }
         .vwf ::selection{background:var(--acid);color:var(--ink)}
-        .vwf-wrap{max-width:1180px;margin:0 auto;padding:0 clamp(1rem,4vw,2rem)}
+        .vwf-wrap{max-width:1180px;margin:0 auto;padding-inline:clamp(1rem,4vw,2rem)}
         .vwf-kick{font-family:var(--mono);font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--coral)}
         .vwf h1,.vwf h2,.vwf h3{font-family:var(--disp)}
         .vwf-sec{padding:64px 0;border-top:1.5px solid var(--mist)}
