@@ -140,6 +140,7 @@ function OrbitRing({ reduce }: { reduce: boolean | null }) {
   return (
     <motion.div
       ref={ringRef}
+      data-faction-manual
       className="absolute inset-0 cursor-grab touch-none active:cursor-grabbing"
       style={{ rotate: rotation }}
       onPointerDown={onPointerDown}

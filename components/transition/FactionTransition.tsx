@@ -17,6 +17,15 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 type Theme = "cinematic" | "editorial" | "vertigo";
 type GoDetail = { href: string; label?: string; theme?: Theme };
 
+// Every link to a faction route plays its themed transition — no per-link
+// wiring needed. A global capture-phase click handler (below) catches them all.
+const FACTION_ROUTES: Record<string, { theme: Theme; label: string }> = {
+  "/services/innovative-startups": { theme: "cinematic", label: "Startup & Venture Development" },
+  "/services/consultancy": { theme: "editorial", label: "Consultancy & Advisory" },
+  "/services/digital-freelancing": { theme: "vertigo", label: "Freelancing Services" },
+};
+const stripSlash = (p: string) => (p.length > 1 && p.endsWith("/") ? p.slice(0, -1) : p);
+
 const ENTER_MS = 620; // cover the screen, then navigate
 const TOTAL_MS = 1500; // begin lifting the cover
 
@@ -57,10 +66,41 @@ export function FactionTransition() {
   );
 
   useEffect(() => {
+    // Explicit dispatches (e.g. the hero orbit, which must stay drag-aware).
     const handler = (e: Event) => run((e as CustomEvent<GoDetail>).detail);
     window.addEventListener("pvp:faction-go", handler as EventListener);
+
+    // Global interceptor: ANY link to a faction route plays its transition.
+    // Capture phase so it runs before next/link's own click handler.
+    const onCapture = (e: MouseEvent) => {
+      if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      const el = e.target as Element | null;
+      const a = el?.closest?.("a[href]") as HTMLAnchorElement | null;
+      if (!a) return;
+      // The hero orbit manages its own clicks (drag-aware) — leave it alone.
+      if (a.closest("[data-faction-manual]")) return;
+      const target = a.getAttribute("target");
+      if ((target && target !== "_self") || a.hasAttribute("download")) return;
+      let url: URL;
+      try {
+        url = new URL(a.getAttribute("href") || "", window.location.href);
+      } catch {
+        return;
+      }
+      if (url.origin !== window.location.origin) return;
+      const path = stripSlash(url.pathname);
+      const info = FACTION_ROUTES[path];
+      if (!info) return;
+      if (path === stripSlash(window.location.pathname)) return; // already here
+      e.preventDefault();
+      e.stopPropagation();
+      run({ href: url.pathname, label: info.label, theme: info.theme });
+    };
+    document.addEventListener("click", onCapture, true);
+
     return () => {
       window.removeEventListener("pvp:faction-go", handler as EventListener);
+      document.removeEventListener("click", onCapture, true);
       clearTimers();
     };
   }, [run]);
