@@ -8,15 +8,16 @@ export const plusJakarta = Plus_Jakarta_Sans({
   preload: true,
 });
 
-/* VertigoWorks design-system fonts — used only by the Freelancing faction page.
-   preload:false so they aren't fetched site-wide; the browser downloads them
-   only when an element actually references their CSS variable. */
+/* VertigoWorks × mHealth fonts for the Freelancing faction (page + CoreServices
+   slide + vertigo transition + design-lab demo). preload:true so they load
+   eagerly with the page instead of flashing in after paint — matching how the
+   default font loads on the other faction pages. */
 export const bricolage = Bricolage_Grotesque({
   subsets: ["latin"],
   weight: ["400", "600", "700", "800"],
   variable: "--font-bricolage",
   display: "swap",
-  preload: false,
+  preload: true,
 });
 
 export const sora = Sora({
@@ -24,7 +25,7 @@ export const sora = Sora({
   weight: ["600", "700", "800"],
   variable: "--font-sora",
   display: "swap",
-  preload: false,
+  preload: true,
 });
 
 export const hankenGrotesk = Hanken_Grotesk({
@@ -32,7 +33,7 @@ export const hankenGrotesk = Hanken_Grotesk({
   weight: ["400", "500", "600", "700"],
   variable: "--font-hanken",
   display: "swap",
-  preload: false,
+  preload: true,
 });
 
 export const spaceMono = Space_Mono({
@@ -40,5 +41,5 @@ export const spaceMono = Space_Mono({
   weight: ["400", "700"],
   variable: "--font-space-mono",
   display: "swap",
-  preload: false,
+  preload: true,
 });
