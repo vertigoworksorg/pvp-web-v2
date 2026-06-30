@@ -173,6 +173,8 @@ function OrbitRing({ reduce }: { reduce: boolean | null }) {
                     ? "cinematic"
                     : node.href === "/services/consultancy"
                     ? "editorial"
+                    : node.href === "/services/digital-freelancing"
+                    ? "vertigo"
                     : null;
                 if (theme && !reduce) {
                   if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;

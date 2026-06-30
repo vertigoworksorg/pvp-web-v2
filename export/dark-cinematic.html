@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>PVP — Dark Cinematic</title>
+<meta name="description" content="Dark cinematic design system — extracted, standalone." />
+
+<!--
+  PVP "Dark Cinematic" design — STANDALONE EXPORT.
+  Single file, no build. Opens in any modern browser.
+  Styling: Tailwind Play CDN (one <script>) + brand tokens below.
+  Interactions: vanilla JS (cursor spotlight, 3D tilt+glare, scroll reveals,
+  count-up, magnetic buttons, living orbit). Respects prefers-reduced-motion.
+  Replace copy/links freely. Needs internet only for the Tailwind + font CDNs;
+  to go fully offline, swap the Tailwind CDN for a compiled stylesheet.
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: { sans: ['"Plus Jakarta Sans"', "ui-sans-serif", "system-ui", "sans-serif"] },
+        colors: {
+          ink: "#0b2a30",
+          paper: "#ffffff",
+          teal: { 100:"#c2dadc",200:"#9ec9cc",300:"#6fb3b8",400:"#3f989f",500:"#2a8a92",700:"#1f7077",900:"#1a5b64",950:"#103e44" },
+          orange: { 200:"#fde2cf",300:"#fbcba6",400:"#f9a86a",500:"#f58a3d",600:"#e97724",700:"#c95f12" },
+        },
+        maxWidth: { content: "1280px" },
+      },
+    },
+  };
+</script>
+
+<style>
+  :root { color-scheme: dark; }
+  html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+  body { background:#07110f; color:#fff; font-family:"Plus Jakarta Sans",sans-serif; overflow-x:hidden; }
+  .container-content { width:100%; max-width:1280px; margin-inline:auto; padding-inline:clamp(1rem,4vw,2rem); }
+
+  /* keyframes */
+  @keyframes spin    { to { transform: rotate(360deg); } }
+  @keyframes spinrev { to { transform: rotate(-360deg); } }
+  @keyframes drift1  { 0%,100%{ transform:translate(0,0) scale(1); } 50%{ transform:translate(60px,40px) scale(1.1); } }
+  @keyframes drift2  { 0%,100%{ transform:translate(0,0) scale(1); } 50%{ transform:translate(-50px,-30px) scale(1.12); } }
+  @keyframes sheen   { to { background-position: 200% center; } }
+  @keyframes marquee { to { transform: translateX(-50%); } }
+  @keyframes ping    { 0%{ transform:scale(.4); opacity:.8; } 100%{ transform:scale(2.6); opacity:0; } }
+  @keyframes floaty  { 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-10px); } }
+  @keyframes rise    { 0%{ transform:translateY(0); opacity:0; } 20%{ opacity:1; } 100%{ transform:translateY(-480px); opacity:0; } }
+  @keyframes pulse   { 0%,100%{ transform:scale(1); } 50%{ transform:scale(1.04); } }
+
+  .anim-spin    { animation: spin 50s linear infinite; }
+  .anim-spinrev { animation: spinrev 50s linear infinite; }
+  .anim-spin-slow { animation: spin 24s linear infinite; }
+  .anim-drift1  { animation: drift1 14s ease-in-out infinite; }
+  .anim-drift2  { animation: drift2 16s ease-in-out infinite; }
+  .anim-floaty  { animation: floaty 5s ease-in-out infinite; }
+  .anim-pulse   { animation: pulse 4s ease-in-out infinite; }
+
+  .sheen {
+    background: linear-gradient(90deg,#6fb3b8,#9ec9cc,#fbcba6,#9ec9cc,#6fb3b8);
+    background-size: 200% auto;
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    animation: sheen 5s linear infinite;
+  }
+  .grad-text {
+    background:linear-gradient(90deg,#9ec9cc,#fbcba6);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+
+  /* scroll reveal */
+  .reveal { opacity:0; transform:translateY(24px); transition:opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1); }
+  .reveal.in { opacity:1; transform:none; }
+
+  /* marquee */
+  .marquee-track { display:flex; width:max-content; animation: marquee 28s linear infinite; }
+
+  /* tilt */
+  .tilt { transition: transform .2s ease-out; transform-style:preserve-3d; will-change:transform; }
+  .glare { position:absolute; inset:0; border-radius:inherit; pointer-events:none; }
+
+  .magnetic { transition: transform .2s ease-out; will-change:transform; }
+
+  /* spotlight overlay driven by --mx/--my */
+  .spotlight::before {
+    content:""; position:absolute; inset:0; z-index:0; pointer-events:none;
+    background: radial-gradient(620px circle at var(--mx,50%) var(--my,50%), rgba(42,138,146,.22), transparent 70%);
+  }
+
+  .grid-mask {
+    background-image:
+      linear-gradient(rgba(255,255,255,.6) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(255,255,255,.6) 1px,transparent 1px);
+    background-size:60px 60px;
+    -webkit-mask-image: radial-gradient(ellipse at center, black, transparent 75%);
+    mask-image: radial-gradient(ellipse at center, black, transparent 75%);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation:none !important; transition-duration:.001ms !important; }
+    .reveal { opacity:1; transform:none; }
+  }
+</style>
+</head>
+
+<body>
+
+<!-- ===== HERO ===== -->
+<section id="hero" class="spotlight relative overflow-hidden">
+  <div aria-hidden="true" class="pointer-events-none absolute inset-0">
+    <div class="anim-drift1 absolute -left-40 -top-40 h-[560px] w-[560px] rounded-full blur-3xl" style="background:radial-gradient(circle,rgba(42,138,146,.45),transparent 65%)"></div>
+    <div class="anim-drift2 absolute -right-40 top-1/4 h-[500px] w-[500px] rounded-full blur-3xl" style="background:radial-gradient(circle,rgba(233,119,36,.4),transparent 65%)"></div>
+    <div class="grid-mask absolute inset-0 opacity-[0.15]"></div>
+  </div>
+
+  <div class="container-content relative grid items-center gap-12 py-24 md:grid-cols-12 md:py-28">
+    <div class="md:col-span-7">
+      <span class="reveal inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-teal-100 backdrop-blur">
+        <span class="h-1.5 w-1.5 rounded-full bg-orange-500" style="animation:ping 1.6s ease-out infinite"></span>
+        AI-First Innovation Ecosystem
+      </span>
+      <h1 class="reveal mt-7 max-w-3xl text-5xl font-extrabold leading-[1.04] tracking-tight md:text-7xl" style="transition-delay:.08s">
+        Building the future through
+        <span class="sheen">technology &amp; venture</span>
+      </h1>
+      <p class="reveal mt-7 max-w-xl text-lg text-white/60" style="transition-delay:.16s">
+        Software, consultancy, freelancing and startup development — engineered for sustainable
+        growth and digital transformation.
+      </p>
+      <div class="reveal mt-10 flex flex-wrap items-center gap-4" style="transition-delay:.24s">
+        <a href="#" data-magnetic class="group inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-teal-400 to-teal-300 px-7 py-3.5 font-semibold text-[#07110f] shadow-[0_0_40px_-8px_rgba(42,138,146,.9)] transition-shadow hover:shadow-[0_0_60px_-6px_rgba(42,138,146,1)]">
+          Explore Services →
+        </a>
+        <a href="#" data-magnetic class="inline-flex items-center gap-2 rounded-full border border-white/20 px-7 py-3.5 font-semibold text-white backdrop-blur transition-colors hover:bg-white/10">
+          Partner With Us
+        </a>
+      </div>
+    </div>
+
+    <!-- glowing orbit -->
+    <div class="reveal md:col-span-5" style="transition-delay:.2s">
+      <div class="relative mx-auto aspect-square w-full max-w-[420px]">
+        <div class="anim-spin-slow pointer-events-none absolute inset-[8%] rounded-full opacity-60 blur-2xl" style="background:conic-gradient(from 0deg,rgba(42,138,146,.25),rgba(233,119,36,.25),rgba(42,138,146,.25))"></div>
+        <div class="anim-spin absolute inset-0 rounded-full border border-white/10"></div>
+        <div class="anim-spinrev absolute inset-[16%] rounded-full border border-teal-300/20"></div>
+        <div class="absolute left-1/2 top-1/2 flex h-28 w-28 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full ring-1 ring-white/15 backdrop-blur" style="background:linear-gradient(135deg,rgba(42,138,146,.3),rgba(233,119,36,.2))">
+          <span class="grad-text text-3xl font-extrabold">PVP</span>
+          <span class="absolute inset-0 rounded-full ring-2 ring-teal-300/40" style="animation:ping 2.6s ease-out infinite"></span>
+        </div>
+        <div class="anim-spin absolute inset-0" id="orbit">
+          <!-- nodes injected by JS so they counter-rotate -->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== MARQUEE ===== -->
+<div class="border-y border-white/10 py-5">
+  <div class="marquee-track">
+    <span class="flex shrink-0 items-center gap-8 pr-8 text-2xl font-bold text-white/30" id="mq1"></span>
+    <span class="flex shrink-0 items-center gap-8 pr-8 text-2xl font-bold text-white/30" id="mq2"></span>
+  </div>
+</div>
+
+<!-- ===== SERVICES (bento, tilt) ===== -->
+<section class="container-content py-24">
+  <div class="reveal">
+    <p class="text-xs font-bold uppercase tracking-[0.18em] text-orange-400">What we do</p>
+    <h2 class="mt-3 text-4xl font-extrabold md:text-5xl">Core Services</h2>
+  </div>
+  <div class="mt-12 grid auto-rows-[200px] gap-5 sm:grid-cols-2 lg:grid-cols-3" id="services"></div>
+</section>
+
+<!-- ===== PILLARS ===== -->
+<section class="border-y border-white/10 bg-white/[0.02] py-20">
+  <div class="container-content grid gap-6 md:grid-cols-3" id="pillars"></div>
+</section>
+
+<!-- ===== PROCESS TIMELINE ===== -->
+<section class="container-content py-24">
+  <div class="reveal">
+    <p class="text-xs font-bold uppercase tracking-[0.18em] text-orange-400">How we work</p>
+    <h2 class="mt-3 text-4xl font-extrabold md:text-5xl">From idea to scale</h2>
+  </div>
+  <div class="relative mt-14">
+    <div aria-hidden="true" class="absolute left-0 right-0 top-7 hidden h-px bg-gradient-to-r from-teal-300/40 via-white/15 to-orange-300/40 md:block"></div>
+    <div class="grid gap-10 md:grid-cols-4" id="steps"></div>
+  </div>
+</section>
+
+<!-- ===== TESTIMONIAL ===== -->
+<section class="container-content pb-24">
+  <div class="reveal">
+    <div data-tilt class="tilt relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-white/[0.06] to-transparent p-10 backdrop-blur md:p-16">
+      <span class="glare"></span>
+      <div class="text-5xl text-orange-400/70">“</div>
+      <p class="mt-2 max-w-3xl text-2xl font-medium leading-snug md:text-3xl">
+        PVP didn’t just build our platform — they helped us think like a venture. We shipped in weeks, not quarters.
+      </p>
+      <div class="mt-8 flex items-center gap-3">
+        <span class="flex h-11 w-11 items-center justify-center rounded-full font-bold text-[#07110f]" style="background:linear-gradient(135deg,#3f989f,#f9a86a)">A</span>
+        <div>
+          <p class="font-semibold">Aisha Khan</p>
+          <p class="text-sm text-white/50">Founder, NorthStar Labs</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== STATS ===== -->
+<section class="border-t border-white/10 bg-gradient-to-b from-white/[0.03] to-transparent py-20">
+  <div class="container-content grid grid-cols-2 gap-8 md:grid-cols-4" id="stats"></div>
+</section>
+
+<!-- ===== CTA ===== -->
+<section class="relative overflow-hidden py-28">
+  <div aria-hidden="true" class="pointer-events-none absolute left-1/2 top-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-3xl" style="background:radial-gradient(circle,rgba(42,138,146,.35),transparent 60%)"></div>
+  <div class="container-content relative text-center">
+    <div class="anim-floaty mx-auto mb-6 inline-flex">
+      <span class="rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-teal-100">Let’s build</span>
+    </div>
+    <h2 class="reveal mx-auto max-w-2xl text-4xl font-extrabold md:text-6xl">Ready to build the future together?</h2>
+    <a href="#" data-magnetic class="mt-10 inline-flex items-center gap-2 rounded-full px-9 py-4 font-bold text-[#07110f] shadow-[0_0_50px_-10px_rgba(42,138,146,1)] transition-transform hover:scale-105" style="background:linear-gradient(90deg,#3f989f,#f9a86a)">
+      Start a project →
+    </a>
+  </div>
+</section>
+
+<footer class="border-t border-white/10 py-8 text-center text-sm text-white/40">
+  PVP — Dark Cinematic · standalone export
+</footer>
+
+<script>
+(function () {
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // ---- data ----
+  var ICON = {
+    code: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" class="h-6 w-6"><path d="m18 16 4-4-4-4M6 8l-4 4 4 4M14.5 4l-5 16"/></svg>',
+    users:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" class="h-6 w-6"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13A4 4 0 0 1 16 11"/></svg>',
+    compass:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" class="h-6 w-6"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>',
+    spark:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" class="h-6 w-6"><path d="M12 3v18M3 12h18M5.6 5.6l12.8 12.8M18.4 5.6 5.6 18.4"/></svg>',
+    zap:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" class="h-5 w-5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>',
+    globe:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" class="h-5 w-5"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20"/></svg>',
+    shield:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" class="h-5 w-5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/></svg>',
+    arrow:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-5 w-5"><path d="M7 17 17 7M7 7h10v10"/></svg>'
+  };
+
+  var orbit = [ {icon:"code",a:-90},{icon:"compass",a:0},{icon:"spark",a:90},{icon:"users",a:180} ];
+  var services = [
+    {icon:"code", title:"Software Development", blurb:"Smart, scalable, secure digital products.", span:"lg:col-span-2"},
+    {icon:"users", title:"Freelancing Services", blurb:"Vetted remote talent on demand.", span:""},
+    {icon:"compass", title:"Consultancy & Advisory", blurb:"Strategy that compounds into growth.", span:""},
+    {icon:"spark", title:"Venture Development", blurb:"We incubate, build and scale ideas.", span:"lg:col-span-2"}
+  ];
+  var pillars = [
+    {icon:"zap", title:"AI-first", text:"Automation baked into every build."},
+    {icon:"globe", title:"Global delivery", text:"Teams that ship across time zones."},
+    {icon:"shield", title:"Enterprise-grade", text:"Security and reliability by default."}
+  ];
+  var steps = [
+    {n:"01",title:"Discover",text:"We map the problem, market and metrics."},
+    {n:"02",title:"Design",text:"Architecture and experience, prototyped fast."},
+    {n:"03",title:"Build",text:"Ship in tight, measurable increments."},
+    {n:"04",title:"Scale",text:"Optimize, automate and grow."}
+  ];
+  var stats = [
+    {to:120,suffix:"+",label:"Projects shipped"},
+    {to:45,suffix:"+",label:"Ventures backed"},
+    {to:30,suffix:"+",label:"Expert team"},
+    {to:98,suffix:"%",label:"Client retention"}
+  ];
+  var marquee = ["Software","Consultancy","Freelancing","Ventures","AI Automation","Cloud","Strategy"];
+
+  // ---- orbit nodes (counter-rotate so icons stay upright) ----
+  var orbitEl = document.getElementById("orbit");
+  orbit.forEach(function (o) {
+    var rad = o.a * Math.PI / 180;
+    var left = (50 + Math.cos(rad) * 42) + "%";
+    var top  = (50 + Math.sin(rad) * 42) + "%";
+    var wrap = document.createElement("div");
+    wrap.className = "absolute flex h-14 w-14 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.06] text-teal-200 backdrop-blur" + (reduce ? "" : " anim-spinrev");
+    wrap.style.left = left; wrap.style.top = top;
+    wrap.innerHTML = ICON[o.icon];
+    orbitEl.appendChild(wrap);
+  });
+
+  // ---- marquee ----
+  function mq(el){ marquee.forEach(function(t){ var s=document.createElement("span"); s.className="flex items-center gap-8"; s.innerHTML = t + ' <span class="text-orange-500">✦</span>'; el.appendChild(s); }); }
+  mq(document.getElementById("mq1")); mq(document.getElementById("mq2"));
+
+  // ---- services bento ----
+  var sv = document.getElementById("services");
+  services.forEach(function (s, i) {
+    var cell = document.createElement("div");
+    cell.className = "reveal " + s.span;
+    cell.style.transitionDelay = (i * 0.08) + "s";
+    cell.innerHTML =
+      '<div data-tilt class="tilt group relative flex h-full flex-col justify-between overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] p-7 backdrop-blur transition-colors hover:border-teal-300/40">' +
+        '<span class="glare"></span>' +
+        '<span class="flex h-12 w-12 items-center justify-center rounded-xl text-teal-200 ring-1 ring-white/10" style="background:linear-gradient(135deg,rgba(42,138,146,.3),rgba(233,119,36,.2))">' + ICON[s.icon] + '</span>' +
+        '<div><h3 class="text-xl font-bold">' + s.title + '</h3><p class="mt-2 text-sm text-white/55">' + s.blurb + '</p></div>' +
+        '<span class="absolute right-6 top-6 text-white/30 group-hover:text-orange-400">' + ICON.arrow + '</span>' +
+      '</div>';
+    sv.appendChild(cell);
+  });
+
+  // ---- pillars ----
+  var pl = document.getElementById("pillars");
+  pillars.forEach(function (p, i) {
+    var d = document.createElement("div");
+    d.className = "reveal"; d.style.transitionDelay = (i*0.1)+"s";
+    d.innerHTML =
+      '<div class="flex gap-4">' +
+        '<span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-teal-400/15 text-teal-200 ring-1 ring-teal-300/20">' + ICON[p.icon] + '</span>' +
+        '<div><h3 class="font-bold">' + p.title + '</h3><p class="mt-1 text-sm text-white/55">' + p.text + '</p></div>' +
+      '</div>';
+    pl.appendChild(d);
+  });
+
+  // ---- steps ----
+  var st = document.getElementById("steps");
+  steps.forEach(function (s, i) {
+    var d = document.createElement("div");
+    d.className = "reveal"; d.style.transitionDelay = (i*0.12)+"s";
+    d.innerHTML =
+      '<span class="relative z-10 flex h-14 w-14 items-center justify-center rounded-full border border-white/15 bg-[#07110f] text-lg font-extrabold text-teal-200">' + s.n + '</span>' +
+      '<h3 class="mt-5 text-lg font-bold">' + s.title + '</h3>' +
+      '<p class="mt-2 text-sm text-white/55">' + s.text + '</p>';
+    st.appendChild(d);
+  });
+
+  // ---- stats ----
+  var sc = document.getElementById("stats");
+  stats.forEach(function (s, i) {
+    var d = document.createElement("div");
+    d.className = "reveal text-center"; d.style.transitionDelay = (i*0.1)+"s";
+    d.innerHTML =
+      '<div class="grad-text text-5xl font-extrabold md:text-6xl"><span class="count" data-to="' + s.to + '" data-suffix="' + s.suffix + '">0' + s.suffix + '</span></div>' +
+      '<p class="mt-2 text-sm uppercase tracking-wide text-white/50">' + s.label + '</p>';
+    sc.appendChild(d);
+  });
+
+  // ---- scroll reveals ----
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
+  }, { rootMargin: "-60px" });
+  document.querySelectorAll(".reveal").forEach(function (el) { io.observe(el); });
+
+  // ---- count-up ----
+  function countUp(el) {
+    var to = +el.dataset.to, suf = el.dataset.suffix || "", start = null, dur = 1600;
+    if (reduce) { el.textContent = to.toLocaleString() + suf; return; }
+    function step(t) {
+      if (!start) start = t;
+      var p = Math.min((t - start) / dur, 1), e = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(e * to).toLocaleString() + suf;
+      if (p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  var cio = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) { if (e.isIntersecting) { countUp(e.target); cio.unobserve(e.target); } });
+  }, { rootMargin: "-40px" });
+  document.querySelectorAll(".count").forEach(function (el) { cio.observe(el); });
+
+  if (reduce) return; // skip pointer-driven effects
+
+  // ---- cursor spotlight ----
+  var hero = document.getElementById("hero");
+  hero.addEventListener("mousemove", function (e) {
+    var r = hero.getBoundingClientRect();
+    hero.style.setProperty("--mx", (e.clientX - r.left) + "px");
+    hero.style.setProperty("--my", (e.clientY - r.top) + "px");
+  });
+
+  // ---- 3D tilt + glare ----
+  document.querySelectorAll("[data-tilt]").forEach(function (card) {
+    var max = 12;
+    card.addEventListener("mousemove", function (e) {
+      var r = card.getBoundingClientRect();
+      var px = (e.clientX - r.left) / r.width, py = (e.clientY - r.top) / r.height;
+      card.style.transform = "perspective(900px) rotateY(" + ((px - .5) * max * 2) + "deg) rotateX(" + (-(py - .5) * max * 2) + "deg)";
+      var g = card.querySelector(".glare");
+      if (g) g.style.background = "radial-gradient(circle at " + (px*100) + "% " + (py*100) + "%, rgba(255,255,255,.35), transparent 55%)";
+    });
+    card.addEventListener("mouseleave", function () {
+      card.style.transform = "";
+      var g = card.querySelector(".glare"); if (g) g.style.background = "";
+    });
+  });
+
+  // ---- magnetic ----
+  document.querySelectorAll("[data-magnetic]").forEach(function (el) {
+    el.addEventListener("mousemove", function (e) {
+      var r = el.getBoundingClientRect();
+      el.classList.add("magnetic");
+      el.style.transform = "translate(" + ((e.clientX - (r.left + r.width/2)) * .3) + "px," + ((e.clientY - (r.top + r.height/2)) * .3) + "px)";
+    });
+    el.addEventListener("mouseleave", function () { el.style.transform = ""; });
+  });
+})();
+</script>
+</body>
+</html>

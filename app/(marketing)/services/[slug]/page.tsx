@@ -7,17 +7,20 @@ import { IconBadge } from "@/components/ui/IconBadge";
 import { ConnectStrip } from "@/components/sections/ConnectStrip";
 import { VentureFaction } from "@/components/services/VentureFaction";
 import { ConsultancyFaction } from "@/components/services/ConsultancyFaction";
+import { FreelancingFaction } from "@/components/services/FreelancingFaction";
 import { FactionLink } from "@/components/transition/FactionLink";
 import { serviceDetails, serviceOrder } from "@/lib/services";
 
 // Next-service links into a faction page enter via its themed transition.
-const FACTION_THEME: Record<string, "cinematic" | "editorial"> = {
+const FACTION_THEME: Record<string, "cinematic" | "editorial" | "vertigo"> = {
   "innovative-startups": "cinematic",
   consultancy: "editorial",
+  "digital-freelancing": "vertigo",
 };
 const FACTION_LABEL: Record<string, string> = {
   "innovative-startups": "Startup & Venture Development",
   consultancy: "Consultancy & Advisory",
+  "digital-freelancing": "Freelancing Services",
 };
 
 const iconMap: Record<string, LucideIcon> = {
@@ -65,6 +68,9 @@ export default async function ServiceDetailPage({
   }
   if (slug === "consultancy") {
     return <ConsultancyFaction service={service} next={nextRef} />;
+  }
+  if (slug === "digital-freelancing") {
+    return <FreelancingFaction service={service} next={nextRef} />;
   }
 
   const isTeal = service.theme === "ocean" || service.theme === "earth";

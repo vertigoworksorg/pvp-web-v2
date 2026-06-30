@@ -14,7 +14,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 
-type Theme = "cinematic" | "editorial";
+type Theme = "cinematic" | "editorial" | "vertigo";
 type GoDetail = { href: string; label?: string; theme?: Theme };
 
 const ENTER_MS = 620; // cover the screen, then navigate
@@ -69,6 +69,7 @@ export function FactionTransition() {
     <AnimatePresence>
       {state.active && state.theme === "cinematic" && <CinematicOverlay key="cin" label={state.label} />}
       {state.active && state.theme === "editorial" && <EditorialOverlay key="edi" label={state.label} />}
+      {state.active && state.theme === "vertigo" && <VertigoOverlay key="vrt" label={state.label} />}
     </AnimatePresence>
   );
 }
@@ -210,6 +211,68 @@ function EditorialOverlay({ label }: { label: string }) {
           animate={{ scaleX: 1 }}
           transition={{ duration: 0.6, delay: 0.35, ease }}
         />
+      </div>
+    </motion.div>
+  );
+}
+
+/* ---------- VertigoWorks kinetic (Freelancing Services) ---------- */
+function VertigoOverlay({ label }: { label: string }) {
+  const ease = [0.76, 0, 0.24, 1] as const;
+  return (
+    <motion.div
+      aria-hidden="true"
+      className="fixed inset-0 z-[100] flex items-center justify-center overflow-hidden"
+      style={{ background: "#1F3BFF", color: "#F6F2EA" }}
+      initial={{ y: "100%" }}
+      animate={{ y: 0 }}
+      exit={{ y: "-100%" }}
+      transition={{ duration: 0.5, ease }}
+    >
+      {/* hard coral leading edge */}
+      <div className="absolute inset-x-0 top-0 h-3" style={{ background: "#FF4324" }} />
+      {/* spinning vortex */}
+      <motion.svg
+        viewBox="0 0 100 100"
+        className="pointer-events-none absolute h-[120vmin] w-[120vmin] opacity-20"
+        animate={{ rotate: 360 }}
+        transition={{ duration: 9, repeat: Infinity, ease: "linear" }}
+      >
+        <g fill="none" strokeWidth={2} strokeLinecap="round">
+          <circle cx="50" cy="50" r="46" stroke="#fff" />
+          <circle cx="54" cy="46" r="35" stroke="#FF4324" />
+          <circle cx="58" cy="43" r="24" stroke="#fff" />
+          <circle cx="61" cy="41" r="13" stroke="#E6FF3D" />
+        </g>
+      </motion.svg>
+
+      <div className="relative px-6 text-center">
+        <motion.p
+          className="text-xs font-bold uppercase"
+          style={{ fontFamily: "var(--font-space-mono), monospace", letterSpacing: "0.22em", color: "#E6FF3D" }}
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.16 }}
+        >
+          Entering · Freelancing Studio
+        </motion.p>
+        <h2
+          className="mt-4"
+          style={{ fontFamily: "var(--font-syne), sans-serif", fontWeight: 800, fontSize: "clamp(2.25rem,7vw,5.5rem)", lineHeight: 0.92, letterSpacing: "-0.035em" }}
+        >
+          {label.split(" ").map((w, i) => (
+            <span key={i} className="mr-[0.25em] inline-block overflow-hidden py-[0.08em] align-bottom">
+              <motion.span
+                className="inline-block"
+                initial={{ y: "110%" }}
+                animate={{ y: 0 }}
+                transition={{ duration: 0.55, delay: 0.12 + i * 0.07, ease }}
+              >
+                {w}
+              </motion.span>
+            </span>
+          ))}
+        </h2>
       </div>
     </motion.div>
   );

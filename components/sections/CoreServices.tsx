@@ -11,8 +11,10 @@ import { FactionLink } from "@/components/transition/FactionLink";
 // learn to expect it before clicking:
 //   Venture     -> dark cinematic
 //   Consultancy -> bold editorial
+//   Freelancing -> VertigoWorks kinetic (voltage/coral/acid, vortex)
 const VENTURE_HREF = "/services/innovative-startups";
 const CONSULT_HREF = "/services/consultancy";
+const FREE_HREF = "/services/digital-freelancing";
 
 type Tone = "teal" | "orange";
 
@@ -125,6 +127,7 @@ export function CoreServices() {
   const ActiveIcon = s.icon;
   const isVenture = s.href === VENTURE_HREF;
   const isConsult = s.href === CONSULT_HREF;
+  const isFree = s.href === FREE_HREF;
 
   return (
     <section id="services" className="relative overflow-hidden bg-mist py-10 md:py-14">
@@ -168,17 +171,23 @@ export function CoreServices() {
             const tt = tone[svc.tone];
             const venture = svc.href === VENTURE_HREF;
             const consult = svc.href === CONSULT_HREF;
+            const free = svc.href === FREE_HREF;
             // Each faction tab signals its identity when active: a dark glowing
-            // pill (venture) or a hard ink block (consultancy / editorial).
+            // pill (venture), a hard ink block (consultancy / editorial), or a
+            // voltage block with a coral offset (freelancing / VertigoWorks).
             const activeClass = venture
               ? "border-teal-300/40 bg-[#07110f] text-white shadow-[0_10px_40px_-10px_rgba(42,138,146,0.7)]"
               : consult
               ? "rounded-md border-ink bg-ink text-paper shadow-[4px_4px_0_0_#e97724]"
+              : free
+              ? "rounded-md border-[#14141B] bg-[#1F3BFF] text-white shadow-[4px_4px_0_0_#FF4324]"
               : tt.tabActive + " shadow-lg";
             const iconActiveClass = venture
               ? "bg-gradient-to-br from-teal-400/30 to-orange-400/20 text-teal-200 ring-1 ring-white/15"
               : consult
               ? "rounded-md bg-orange-600 text-paper"
+              : free
+              ? "rounded-md bg-[#E6FF3D] text-[#14141B]"
               : "bg-paper/15 text-paper";
             return (
               <button
@@ -217,6 +226,8 @@ export function CoreServices() {
               ? "rounded-3xl border border-white/10 bg-[#07110f] shadow-[0_50px_120px_-40px_rgba(42,138,146,0.55)]"
               : isConsult
               ? "rounded-none border-2 border-ink bg-paper-warm shadow-[8px_8px_0_0_#0b2a30]"
+              : isFree
+              ? "rounded-none border-2 border-[#14141B] bg-[#F6F2EA] shadow-[8px_8px_0_0_#1F3BFF]"
               : "rounded-3xl border border-rule bg-paper shadow-[0_40px_80px_-40px_rgba(11,42,48,0.3)]")
           }
           onMouseEnter={() => {
@@ -253,6 +264,8 @@ export function CoreServices() {
                     ? "linear-gradient(180deg, rgba(7,17,15,0.45) 0%, rgba(7,17,15,0.88) 100%)"
                     : isConsult
                     ? "linear-gradient(180deg, rgba(11,42,48,0.25) 0%, rgba(11,42,48,0.7) 100%)"
+                    : isFree
+                    ? "linear-gradient(180deg, rgba(31,59,255,0.30) 0%, rgba(20,20,27,0.78) 100%)"
                     : "linear-gradient(180deg, rgba(7,24,46,0.15) 0%, rgba(7,24,46,0.55) 100%)",
                 }}
               />
@@ -267,11 +280,15 @@ export function CoreServices() {
                 // hard orange editorial block accent
                 <div aria-hidden="true" className="pointer-events-none absolute right-0 top-0 h-20 w-20 bg-orange-600" />
               )}
+              {isFree && (
+                // hard acid VertigoWorks block accent
+                <div aria-hidden="true" className="pointer-events-none absolute right-0 top-0 h-20 w-20 bg-[#E6FF3D]" />
+              )}
               <div className="absolute left-5 top-5 flex items-center gap-3">
                 <span
                   className={
                     "flex h-12 w-12 items-center justify-center text-paper shadow-lg " +
-                    (isConsult ? "rounded-none bg-ink" : `rounded-xl ${t.bg}`)
+                    (isConsult ? "rounded-none bg-ink" : isFree ? "rounded-none bg-[#1F3BFF]" : `rounded-xl ${t.bg}`)
                   }
                 >
                   <ActiveIcon className="h-6 w-6" strokeWidth={1.75} aria-hidden="true" />
@@ -279,7 +296,10 @@ export function CoreServices() {
                 <span className="font-display text-5xl font-extrabold text-paper/90">{s.number}</span>
               </div>
               <div className="absolute inset-x-5 bottom-5">
-                <h3 className={"font-display text-2xl font-bold text-paper md:text-3xl " + (isConsult ? "uppercase tracking-tight" : "")}>
+                <h3
+                  className={"text-2xl font-bold text-paper md:text-3xl " + (isConsult || isFree ? "uppercase tracking-tight" : "font-display")}
+                  style={isFree ? { fontFamily: "var(--font-syne), sans-serif", fontWeight: 800 } : undefined}
+                >
                   {s.title}
                 </h3>
               </div>
@@ -287,13 +307,14 @@ export function CoreServices() {
 
             {/* Content */}
             <div key={active} className="flex flex-col justify-center p-8 md:p-12 motion-safe:animate-[fadeUp_0.4s_ease]">
-              <p className={"text-body-lg " + (isVenture ? "text-white" : isConsult ? "text-ink" : "text-ink")}>{s.blurb}</p>
+              <p className={"text-body-lg " + (isVenture ? "text-white" : "text-ink")}>{s.blurb}</p>
 
               <p
                 className={
                   "mt-8 text-[11px] uppercase tracking-[0.12em] " +
-                  (isVenture ? "font-mono text-teal-200/70" : isConsult ? "font-bold text-ink" : "font-mono text-ink-muted")
+                  (isVenture ? "font-mono text-teal-200/70" : isConsult ? "font-bold text-ink" : isFree ? "text-[#6A6A78]" : "font-mono text-ink-muted")
                 }
+                style={isFree ? { fontFamily: "var(--font-space-mono), monospace", letterSpacing: "0.18em" } : undefined}
               >
                 What&apos;s included
               </p>
@@ -307,6 +328,8 @@ export function CoreServices() {
                           ? "rounded-full bg-gradient-to-br from-teal-400 to-orange-400"
                           : isConsult
                           ? "rounded-none bg-ink"
+                          : isFree
+                          ? "rounded-none bg-[#1F3BFF]"
                           : "rounded-full " + t.bg)
                       }
                     >
@@ -337,6 +360,16 @@ export function CoreServices() {
                   Book a consultation
                   <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true" />
                 </FactionLink>
+              ) : isFree ? (
+                <FactionLink
+                  href={s.href}
+                  label="Freelancing Services"
+                  theme="vertigo"
+                  className="group mt-8 inline-flex items-center gap-2 self-start rounded-sm bg-[#1F3BFF] px-6 py-3 font-bold text-white shadow-[4px_4px_0_0_#14141B] transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5"
+                >
+                  Hire talent
+                  <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true" />
+                </FactionLink>
               ) : (
                 <Link
                   href={s.href}
@@ -350,12 +383,12 @@ export function CoreServices() {
           </div>
 
           {/* progress bar */}
-          <div className={"h-1 w-full " + (isVenture ? "bg-white/10" : isConsult ? "bg-ink/15" : "bg-rule/60")}>
+          <div className={"h-1 w-full " + (isVenture ? "bg-white/10" : isConsult ? "bg-ink/15" : isFree ? "bg-[#14141B]/15" : "bg-rule/60")}>
             <div
               key={`bar-${active}-${cycle}`}
               className={
                 "h-full w-full origin-left motion-safe:animate-[grow_linear] " +
-                (isVenture ? "bg-gradient-to-r from-teal-300 to-orange-300" : isConsult ? "bg-ink" : t.bg)
+                (isVenture ? "bg-gradient-to-r from-teal-300 to-orange-300" : isConsult ? "bg-ink" : isFree ? "bg-[#1F3BFF]" : t.bg)
               }
               style={{ animationDuration: `${AUTO_MS}ms`, animationPlayState: paused ? "paused" : "running" }}
             />

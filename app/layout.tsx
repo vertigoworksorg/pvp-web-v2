@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
-import { plusJakarta } from "@/lib/fonts";
+import { plusJakarta, syne, sora, hankenGrotesk, spaceMono } from "@/lib/fonts";
 import { cn, siteConfig } from "@/lib/utils";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
@@ -23,7 +23,10 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={cn(plusJakarta.variable)}>
+    <html
+      lang="en"
+      className={cn(plusJakarta.variable, syne.variable, sora.variable, hankenGrotesk.variable, spaceMono.variable)}
+    >
       <body className="min-h-screen bg-paper text-ink antialiased">
         <a href="#main" className="skip-link">
           Skip to content
