@@ -2,7 +2,7 @@
 
 /* FREELANCING SERVICES faction — "VertigoWorks" design system.
    A distinct kinetic identity: voltage-blue / hyper-coral / acid palette,
-   Syne + Sora + Hanken Grotesk + Space Mono type, the spinning vortex mark,
+   Bricolage Grotesque + Sora + Hanken Grotesk + Space Mono type, the vortex mark,
    and hard offset-shadow components. All styling is scoped under `.vw-root`
    so it never leaks into the PVP teal/orange brand. Content is the real
    serviceDetails["digital-freelancing"]. */
@@ -43,7 +43,7 @@ export function FreelancingFaction({
         .vw-root{
           --voltage:#1F3BFF; --coral:#FF4324; --acid:#E6FF3D;
           --vwink:#14141B; --vwpaper:#F6F2EA; --vwmist:#E4DED2; --vwslate:#6A6A78;
-          --vwdisplay:var(--font-syne),sans-serif; --vwmetric:var(--font-sora),sans-serif;
+          --vwdisplay:var(--font-bricolage),sans-serif; --vwmetric:var(--font-sora),sans-serif;
           --vwbody:var(--font-hanken),sans-serif; --vwmono:var(--font-space-mono),monospace;
           background:var(--vwpaper); color:var(--vwink); font-family:var(--vwbody); line-height:1.5;
         }

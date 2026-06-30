@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
-import { plusJakarta, syne, sora, hankenGrotesk, spaceMono } from "@/lib/fonts";
+import { plusJakarta, bricolage, sora, hankenGrotesk, spaceMono } from "@/lib/fonts";
 import { cn, siteConfig } from "@/lib/utils";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
@@ -25,7 +25,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang="en"
-      className={cn(plusJakarta.variable, syne.variable, sora.variable, hankenGrotesk.variable, spaceMono.variable)}
+      className={cn(plusJakarta.variable, bricolage.variable, sora.variable, hankenGrotesk.variable, spaceMono.variable)}
     >
       <body className="min-h-screen bg-paper text-ink antialiased">
         <a href="#main" className="skip-link">

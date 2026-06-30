@@ -1,4 +1,4 @@
-import { Plus_Jakarta_Sans, Syne, Sora, Hanken_Grotesk, Space_Mono } from "next/font/google";
+import { Plus_Jakarta_Sans, Bricolage_Grotesque, Sora, Hanken_Grotesk, Space_Mono } from "next/font/google";
 
 export const plusJakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -11,10 +11,10 @@ export const plusJakarta = Plus_Jakarta_Sans({
 /* VertigoWorks design-system fonts — used only by the Freelancing faction page.
    preload:false so they aren't fetched site-wide; the browser downloads them
    only when an element actually references their CSS variable. */
-export const syne = Syne({
+export const bricolage = Bricolage_Grotesque({
   subsets: ["latin"],
-  weight: ["600", "700", "800"],
-  variable: "--font-syne",
+  weight: ["400", "600", "700", "800"],
+  variable: "--font-bricolage",
   display: "swap",
   preload: false,
 });

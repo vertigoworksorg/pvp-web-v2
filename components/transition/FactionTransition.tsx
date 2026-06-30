@@ -258,7 +258,7 @@ function VertigoOverlay({ label }: { label: string }) {
         </motion.p>
         <h2
           className="mt-4"
-          style={{ fontFamily: "var(--font-syne), sans-serif", fontWeight: 800, fontSize: "clamp(2.25rem,7vw,5.5rem)", lineHeight: 0.92, letterSpacing: "-0.035em" }}
+          style={{ fontFamily: "var(--font-bricolage), sans-serif", fontWeight: 800, fontSize: "clamp(2.25rem,7vw,5.5rem)", lineHeight: 0.92, letterSpacing: "-0.035em" }}
         >
           {label.split(" ").map((w, i) => (
             <span key={i} className="mr-[0.25em] inline-block overflow-hidden py-[0.08em] align-bottom">

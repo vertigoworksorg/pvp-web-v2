@@ -298,7 +298,7 @@ export function CoreServices() {
               <div className="absolute inset-x-5 bottom-5">
                 <h3
                   className={"text-2xl font-bold text-paper md:text-3xl " + (isConsult || isFree ? "uppercase tracking-tight" : "font-display")}
-                  style={isFree ? { fontFamily: "var(--font-syne), sans-serif", fontWeight: 800 } : undefined}
+                  style={isFree ? { fontFamily: "var(--font-bricolage), sans-serif", fontWeight: 800 } : undefined}
                 >
                   {s.title}
                 </h3>

@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>mHealth Companion — Build Map · Dev Digest</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Sora:wght@600;700;800&family=Hanken+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --voltage:#1F3BFF; --coral:#FF4324; --acid:#E6FF3D; --magenta:#FF2E97;
+    --ink:#14141B; --paper:#F6F2EA; --mist:#E4DED2; --slate:#6A6A78;
+    --display:'Bricolage Grotesque',sans-serif; --metric:'Sora',sans-serif;
+    --body:'Hanken Grotesk',sans-serif; --mono:'Space Mono',monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--paper);color:var(--ink);font-family:var(--body);line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  ::selection{background:var(--acid);color:var(--ink)}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 28px}
+  h1,h2,h3,.disp{font-family:var(--display)}
+  .kicker{font-family:var(--mono);font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--slate)}
+  .num{font-family:var(--metric)}
+
+  .vortex circle{fill:none;stroke-width:3.6;stroke-linecap:round}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .spin{animation:spin 30s linear infinite;transform-origin:50% 50%}
+
+  /* ---------- top bar ---------- */
+  nav{position:sticky;top:0;z-index:50;background:rgba(246,242,234,.85);backdrop-filter:blur(10px);border-bottom:1.5px solid var(--mist)}
+  .nav-in{max-width:1080px;margin:0 auto;padding:12px 28px;display:flex;align-items:center;gap:11px}
+  .nav-in svg{width:26px;height:26px}
+  .nav-in .bn{font-family:var(--display);font-weight:800;font-size:1.02rem;letter-spacing:-.02em}
+  .nav-in .tag{margin-left:auto;font-family:var(--mono);font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--coral);border:1.4px solid var(--mist);padding:5px 11px;border-radius:99px}
+
+  /* ---------- hero ---------- */
+  .hero{padding:62px 0 46px}
+  .hero .eyebrow{font-family:var(--mono);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--coral)}
+  .hero h1{font-weight:800;font-size:clamp(2.1rem,5.6vw,3.5rem);line-height:1.0;letter-spacing:-.03em;margin:14px 0 0;font-variation-settings:'opsz' 40}
+  .hero h1 .v{color:var(--voltage)}
+  .hero h1 .hl{background:var(--acid);box-decoration-break:clone;-webkit-box-decoration-break:clone;padding:0 .12em}
+  .hero p.lede{font-size:1.08rem;max-width:54ch;margin-top:18px;color:#33333d}
+  .hero p.lede b{color:var(--ink)}
+
+  .facts{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-top:30px}
+  .fact{border:1.6px solid var(--ink);border-radius:8px;padding:15px 16px;background:#fff;box-shadow:4px 4px 0 var(--ink)}
+  .fact .n{font-family:var(--metric);font-weight:800;font-size:1.7rem;letter-spacing:-.03em;line-height:1}
+  .fact .n.v{color:var(--voltage)} .fact .n.c{color:var(--coral)}
+  .fact .l{font-family:var(--mono);font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:var(--slate);margin-top:8px}
+
+  /* ---------- section scaffolding ---------- */
+  section{padding:42px 0;border-top:1.5px solid var(--mist)}
+  .sec-head{display:flex;align-items:baseline;gap:13px;margin-bottom:22px}
+  .sec-head .s{font-family:var(--mono);font-size:.78rem;color:var(--coral)}
+  .sec-head h2{font-weight:800;font-size:clamp(1.3rem,3vw,1.8rem);letter-spacing:-.02em;line-height:1;font-variation-settings:'opsz' 24}
+  .sec-head .note{margin-left:auto;font-size:.82rem;color:var(--slate);max-width:34ch;text-align:right}
+
+  /* ---------- adding cards ---------- */
+  .adds{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .add{border:1.5px solid var(--mist);border-radius:9px;padding:20px;background:#fff;transition:transform .15s,box-shadow .15s}
+  .add:hover{transform:translate(-3px,-3px);box-shadow:6px 6px 0 var(--ink)}
+  .add .ix{width:30px;height:30px;border-radius:7px;background:var(--ink);color:var(--acid);font-family:var(--metric);font-weight:800;display:flex;align-items:center;justify-content:center;box-shadow:3px 3px 0 var(--coral);margin-bottom:13px}
+  .add h3{font-weight:700;font-size:1.06rem;letter-spacing:-.01em;margin-bottom:5px}
+  .add p{font-size:.9rem;color:#3a3a44}
+  .add p code{font-family:var(--mono);font-size:.82em;background:var(--paper);padding:1px 5px;border-radius:4px}
+
+  /* ---------- architecture tiers ---------- */
+  .arch{display:flex;flex-direction:column;align-items:stretch}
+  .tier{border-radius:10px;padding:18px 20px;border:1.6px solid var(--ink)}
+  .tier.client{background:#fff;box-shadow:5px 5px 0 var(--voltage)}
+  .tier.backend{background:var(--ink);color:var(--paper);border-color:var(--ink);box-shadow:6px 6px 0 var(--coral)}
+  .tier.db{background:#fff;box-shadow:5px 5px 0 var(--ink)}
+  .tier .thead{display:flex;align-items:center;gap:10px;margin-bottom:13px}
+  .tier .badge{font-family:var(--mono);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;padding:4px 9px;border-radius:99px;font-weight:700}
+  .tier.client .badge{background:var(--voltage);color:#fff}
+  .tier.backend .badge{background:var(--acid);color:var(--ink)}
+  .tier.db .badge{background:var(--ink);color:var(--paper)}
+  .tier .ttitle{font-family:var(--display);font-weight:700;font-size:1.02rem;letter-spacing:-.01em}
+  .tier .tsub{font-family:var(--mono);font-size:.66rem;color:var(--slate);margin-left:auto}
+  .tier.backend .tsub{color:#8a8a98}
+  .chips{display:flex;flex-wrap:wrap;gap:8px}
+  .chip{font-size:.78rem;border:1.4px solid var(--mist);border-radius:6px;padding:6px 10px;background:var(--paper)}
+  .tier.backend .chip{border-color:#33333d;background:#1d1d27;color:#d7d2c6}
+  .chip.ep{font-family:var(--mono);font-size:.72rem;background:var(--voltage);color:#fff;border-color:var(--voltage)}
+  .chip.gw{font-family:var(--mono);font-size:.72rem;background:#1d1d27;border-color:var(--acid);color:var(--acid)}
+  .chip.new{border-style:dashed;border-color:var(--coral);color:var(--coral);background:transparent;font-weight:600}
+  .tier.backend .chip.new{background:transparent}
+  .blockrow{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+  .bk{border:1.4px solid #33333d;border-radius:7px;padding:11px 13px;background:#1a1a23}
+  .bk .bt{font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--acid);margin-bottom:6px}
+  .bk p{font-size:.8rem;color:#cfcabe;line-height:1.45}
+  .flow{display:flex;align-items:center;justify-content:center;gap:10px;padding:9px 0;font-family:var(--mono);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--slate)}
+  .flow .ar{color:var(--coral);font-size:1.1rem;line-height:1}
+  .flow b{color:var(--ink);font-weight:700}
+
+  /* ---------- invariants ---------- */
+  .inv{background:var(--ink);color:var(--paper);border-radius:11px;padding:26px 28px;position:relative;overflow:hidden;box-shadow:6px 6px 0 var(--acid)}
+  .inv .ttl{display:flex;align-items:center;gap:11px;margin-bottom:16px}
+  .inv .ttl .dot{width:11px;height:11px;border-radius:50%;background:var(--coral);box-shadow:0 0 0 4px rgba(255,67,36,.2)}
+  .inv .ttl h3{font-weight:800;font-size:1.18rem;letter-spacing:-.01em}
+  .inv .ttl span{margin-left:auto;font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--coral)}
+  .invgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px 26px}
+  .invitem{display:flex;gap:11px;align-items:flex-start}
+  .invitem .k{font-family:var(--metric);font-weight:800;color:var(--acid);font-size:.92rem;flex:none;width:1.4em}
+  .invitem p{font-size:.88rem;color:#ddd8cc;line-height:1.45}
+  .invitem p b{color:#fff}
+  .invitem code{font-family:var(--mono);font-size:.8em;background:#26262f;padding:1px 5px;border-radius:4px;color:var(--acid)}
+
+  /* ---------- reuse columns ---------- */
+  .rcols{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .rcol{border:1.5px solid var(--mist);border-radius:9px;background:#fff;overflow:hidden}
+  .rcol .rh{padding:12px 16px;font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700;display:flex;align-items:center;gap:8px}
+  .rcol.reuse .rh{background:var(--paper);color:var(--slate)}
+  .rcol.extend .rh{background:var(--voltage);color:#fff}
+  .rcol.build .rh{background:var(--coral);color:#fff}
+  .rcol ul{list-style:none;padding:12px 16px;display:flex;flex-direction:column;gap:9px}
+  .rcol li{font-size:.85rem;line-height:1.4;padding-left:15px;position:relative;color:#33333d}
+  .rcol li::before{content:"";position:absolute;left:0;top:7px;width:6px;height:6px;border-radius:50%;background:var(--ink);opacity:.35}
+  .rcol li code{font-family:var(--mono);font-size:.82em;background:var(--paper);padding:1px 4px;border-radius:4px;opacity:1}
+
+  /* ---------- actions table ---------- */
+  .atab{width:100%;border-collapse:separate;border-spacing:0;border:1.6px solid var(--ink);border-radius:9px;overflow:hidden;box-shadow:5px 5px 0 var(--ink)}
+  .atab th{background:var(--ink);color:var(--paper);font-family:var(--mono);font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;text-align:left;padding:11px 16px}
+  .atab td{padding:12px 16px;border-top:1.4px solid var(--mist);background:#fff;font-size:.9rem;vertical-align:middle}
+  .atab tr:hover td{background:#fbfaf6}
+  .atab .act{font-weight:600}
+  .atab .tgt{font-family:var(--mono);font-size:.78rem;color:var(--voltage)}
+  .cf{font-family:var(--mono);font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;font-weight:700;padding:4px 9px;border-radius:99px;white-space:nowrap}
+  .cf.no{background:var(--mist);color:var(--slate)}
+  .cf.light{background:var(--acid);color:var(--ink)}
+  .cf.yes{background:var(--coral);color:#fff}
+  .acaveat{margin-top:13px;font-size:.84rem;color:var(--slate);display:flex;gap:9px;align-items:flex-start}
+  .acaveat .w{flex:none;font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;background:var(--ink);color:var(--acid);padding:3px 8px;border-radius:99px}
+
+  /* ---------- tiering ---------- */
+  .tiers3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .mt{border:1.6px solid var(--ink);border-radius:9px;padding:18px;background:#fff;position:relative}
+  .mt .role{font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--slate)}
+  .mt .model{font-family:var(--display);font-weight:800;font-size:1.16rem;letter-spacing:-.01em;margin:6px 0 2px}
+  .mt .id{font-family:var(--mono);font-size:.72rem;color:var(--voltage)}
+  .mt .price{font-family:var(--metric);font-weight:700;font-size:.84rem;color:var(--ink);margin-top:12px;padding-top:10px;border-top:1.4px solid var(--mist)}
+  .mt .price span{color:var(--slate);font-weight:600}
+  .mt.haiku{box-shadow:4px 4px 0 var(--acid)} .mt.haiku .model{color:#0a8a5f}
+  .mt.sonnet{box-shadow:4px 4px 0 var(--voltage)} .mt.sonnet .model{color:var(--voltage)}
+  .mt.opus{box-shadow:4px 4px 0 var(--coral)} .mt.opus .model{color:var(--coral)}
+  .mt .pin{position:absolute;top:14px;right:14px;font-family:var(--mono);font-size:.56rem;letter-spacing:.1em;text-transform:uppercase;font-weight:700;padding:3px 8px;border-radius:99px;background:var(--paper);color:var(--slate)}
+  .mt.sonnet .pin{background:var(--voltage);color:#fff}
+
+  /* ---------- timeline ---------- */
+  .tl{position:relative;margin-top:8px}
+  .tl-rail{position:absolute;left:0;right:0;top:46px;height:2.5px;background:var(--mist)}
+  .tl-days{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;position:relative}
+  .day{display:flex;flex-direction:column;align-items:center;text-align:center}
+  .day .gate{height:24px;font-family:var(--mono);font-size:.6rem;letter-spacing:.06em;font-weight:700;color:var(--coral);display:flex;align-items:center}
+  .day .node{width:38px;height:38px;border-radius:50%;background:#fff;border:2.4px solid var(--ink);font-family:var(--metric);font-weight:800;font-size:.86rem;display:flex;align-items:center;justify-content:center;z-index:2;position:relative}
+  .day.m .node{background:var(--coral);color:#fff;border-color:var(--coral);box-shadow:0 0 0 4px rgba(255,67,36,.18)}
+  .day .dlabel{font-family:var(--mono);font-size:.58rem;color:var(--slate);margin:8px 0 4px;letter-spacing:.04em}
+  .day .focus{font-size:.74rem;line-height:1.3;color:#33333d}
+  .day .focus b{color:var(--ink);font-weight:700}
+
+  /* ---------- levers + risk ---------- */
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .lever{border:1.5px solid var(--mist);border-radius:9px;padding:18px 20px;background:#fff}
+  .lever .lh{display:flex;align-items:center;gap:9px;margin-bottom:9px}
+  .lever .lh .b{font-family:var(--mono);font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;font-weight:700;padding:3px 9px;border-radius:99px;background:var(--acid);color:var(--ink)}
+  .lever h3{font-weight:700;font-size:1.02rem}
+  .lever p{font-size:.86rem;color:#3a3a44;line-height:1.5}
+  .lever p b{color:var(--ink)}
+
+  .riskcard{border:1.6px solid var(--coral);border-radius:9px;padding:18px 20px;background:#fff;box-shadow:5px 5px 0 var(--coral)}
+  .riskcard h3{font-weight:700;font-size:1.02rem;display:flex;align-items:center;gap:8px;margin-bottom:8px}
+  .riskcard h3::before{content:"";width:10px;height:10px;border-radius:2px;background:var(--coral);transform:rotate(45deg)}
+  .riskcard p{font-size:.86rem;color:#3a3a44;line-height:1.5}
+  .riskcard p b{color:var(--ink)}
+  .acc{border:1.5px solid var(--mist);border-radius:9px;padding:18px 20px;background:var(--ink);color:var(--paper)}
+  .acc h3{font-weight:700;font-size:1.02rem;color:#fff;margin-bottom:11px}
+  .acc ul{list-style:none;display:flex;flex-direction:column;gap:9px}
+  .acc li{font-size:.85rem;line-height:1.4;color:#ddd8cc;padding-left:24px;position:relative}
+  .acc li::before{content:"✓";position:absolute;left:0;top:0;color:var(--acid);font-weight:700;font-family:var(--metric)}
+  .acc li b{color:#fff}
+
+  .deps{margin-top:18px;border:1.5px dashed var(--mist);border-radius:9px;padding:15px 18px;display:flex;align-items:center;gap:13px;flex-wrap:wrap}
+  .deps .dl{font-family:var(--mono);font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--slate)}
+  .deps code{font-family:var(--mono);font-size:.82rem;background:var(--paper);padding:4px 9px;border-radius:6px;border:1.4px solid var(--mist)}
+  .deps .cond{margin-left:auto;font-size:.78rem;color:var(--slate)}
+
+  /* ---------- footer ---------- */
+  footer{background:var(--ink);color:var(--paper);padding:40px 0 34px;margin-top:8px}
+  .foot-in{display:flex;align-items:center;gap:13px;flex-wrap:wrap}
+  .foot-in svg{width:32px;height:32px}
+  .foot-in .ft b{font-family:var(--display);font-weight:800;font-size:1.05rem}
+  .foot-in .ft p{font-family:var(--mono);font-size:.66rem;color:#8a8a98;margin-top:3px;letter-spacing:.04em}
+  .foot-in .by{margin-left:auto;text-align:right}
+  .foot-in .by .l{font-family:var(--mono);font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:#8a8a98}
+  .foot-in .by .v{font-family:var(--display);font-weight:800;color:var(--acid);font-size:.98rem}
+
+  /* ---------- reveal ---------- */
+  .rv{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s ease}
+  .rv.in{opacity:1;transform:none}
+
+  @media(max-width:860px){
+    .facts{grid-template-columns:repeat(2,1fr)}
+    .adds,.rcols,.tiers3{grid-template-columns:1fr}
+    .blockrow,.invgrid,.two{grid-template-columns:1fr}
+    .sec-head .note{display:none}
+    .tl-rail{display:none}
+    .tl-days{grid-template-columns:1fr;gap:14px}
+    .day{flex-direction:row;align-items:flex-start;text-align:left;gap:12px}
+    .day .gate{height:auto;width:34px;flex:none;padding-top:7px}
+    .day .node{flex:none}
+    .day .meta{display:flex;flex-direction:column}
+    .day .dlabel{margin:6px 0 3px}
+  }
+  @media(prefers-reduced-motion:reduce){.spin{animation:none}.rv{transition:none;opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute"><defs></defs></svg>
+
+<nav>
+  <div class="nav-in">
+    <svg class="vortex" viewBox="0 0 100 100" aria-label="VertigoWorks mark">
+      <circle cx="50" cy="50" r="46" stroke="var(--voltage)"/>
+      <circle cx="54" cy="46" r="35" stroke="var(--coral)"/>
+      <circle cx="58" cy="43" r="24" stroke="var(--voltage)"/>
+      <circle cx="61" cy="41" r="13" stroke="var(--coral)"/>
+      <circle cx="63" cy="39" r="4.5" fill="var(--coral)" stroke="none"/>
+    </svg>
+    <span class="bn">mHealth · Companion</span>
+    <span class="tag">Dev digest · build map</span>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="eyebrow rv">AI Companion / Command Deck · 7-day build</div>
+    <h1 class="rv">A <span class="v">proactive,</span> memory-aware companion<br>— as the app's <span class="hl">home screen.</span></h1>
+    <p class="lede rv">Turn the reactive chat into an agent that remembers each survivor and can act on their behalf — driven by a <b>secure Node serverless backend</b> doing <b>RAG + tool-calling</b> against Claude. The phone never holds keys and never decides identity.</p>
+
+    <div class="facts rv">
+      <div class="fact"><div class="n v">7</div><div class="l">day core build</div></div>
+      <div class="fact"><div class="n c">3</div><div class="l">milestone gates</div></div>
+      <div class="fact"><div class="n">5</div><div class="l">starter actions</div></div>
+      <div class="fact"><div class="n">1</div><div class="l">secure backend</div></div>
+    </div>
+  </header>
+
+  <!-- WHAT I'M ADDING -->
+  <section>
+    <div class="sec-head"><span class="s">01</span><h2>What I'm adding</h2><span class="note">Three things on top of the existing app — everything else is reused.</span></div>
+    <div class="adds rv">
+      <div class="add">
+        <div class="ix">1</div>
+        <h3>Secure agent backend</h3>
+        <p>Node.js <b>CommonJS</b> serverless, extends the existing <code>fitbit-api/</code> Vercel pattern. No TS, no build step — plain <code>.js</code> functions. All keys server-side.</p>
+      </div>
+      <div class="add">
+        <div class="ix">2</div>
+        <h3>RAG profile context</h3>
+        <p>Structured profile assembly + a lightweight semantic memory store with top-k retrieval. Pragmatic for one week — <b>no managed vector DB</b>.</p>
+      </div>
+      <div class="add">
+        <div class="ix">3</div>
+        <h3>Actions framework</h3>
+        <p>Model proposes → backend validates schema → executes. Extensible registry, surfaced through a Flutter <b>command-deck chat UI</b>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ARCHITECTURE -->
+  <section>
+    <div class="sec-head"><span class="s">02</span><h2>Architecture</h2><span class="note">Top-down data flow. The backend is the brain; the phone is a thin, keyless client.</span></div>
+    <div class="arch rv">
+
+      <div class="tier client">
+        <div class="thead">
+          <span class="badge">Client</span>
+          <span class="ttitle">Flutter app · GetX</span>
+          <span class="tsub">no keys · no identity logic</span>
+        </div>
+        <div class="chips">
+          <span class="chip">Command-deck chat (central screen)</span>
+          <span class="chip">Message bubbles + input bar</span>
+          <span class="chip">STT input — retained as-is</span>
+          <span class="chip">Inline action / confirm UI</span>
+          <span class="chip new">FCM receiver (conditional)</span>
+        </div>
+      </div>
+
+      <div class="flow"><span class="ar">↓</span>&nbsp;HTTPS&nbsp;·&nbsp;<b>Firebase ID-token verified</b>&nbsp;·&nbsp;no keys in client</div>
+
+      <div class="tier backend">
+        <div class="thead">
+          <span class="badge">Backend</span>
+          <span class="ttitle">Node serverless · Vercel</span>
+          <span class="tsub">all provider keys server-side only</span>
+        </div>
+        <div class="chips">
+          <span class="chip ep">/api/agent/chat → RAG + tools</span>
+          <span class="chip ep">/api/agent/checkin → proactive</span>
+          <span class="chip ep">/api/agent/action → execute</span>
+          <span class="chip gw">LLM gateway → Sonnet · Haiku · Opus</span>
+        </div>
+        <div class="blockrow">
+          <div class="bk">
+            <div class="bt">RAG module</div>
+            <p>Owner-scoped profile assembly + top-k memory retrieval, packed per turn within a token budget.</p>
+          </div>
+          <div class="bk">
+            <div class="bt">Actions registry</div>
+            <p>{ name, schema, handler }. Validates every model proposal against schema before it runs — invalid is rejected.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flow"><span class="ar">↓</span>&nbsp;<b>owner-scoped</b> reads/writes&nbsp;·&nbsp;<code style="font-family:var(--mono);font-size:.92em">isOwner(uid)</code></div>
+
+      <div class="tier db">
+        <div class="thead">
+          <span class="badge">Data</span>
+          <span class="ttitle">Cloud Firestore</span>
+          <span class="tsub">existing security model</span>
+        </div>
+        <div class="chips">
+          <span class="chip">users/{uid}/profile/data</span>
+          <span class="chip">users/{uid}/routines/*</span>
+          <span class="chip">exercise_checkins</span>
+          <span class="chip new">users/{uid}/memories/* (new)</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- INVARIANTS -->
+  <section>
+    <div class="sec-head"><span class="s">03</span><h2>Don't break these</h2><span class="note">The four invariants. Easy to violate under a one-week crunch — guard them.</span></div>
+    <div class="inv rv">
+      <div class="ttl"><span class="dot"></span><h3>Non-negotiable invariants</h3><span>health data · cancer survivors</span></div>
+      <div class="invgrid">
+        <div class="invitem"><span class="k">1</span><p><b>No LLM/provider keys in the Flutter client.</b> The app only ever talks to the backend.</p></div>
+        <div class="invitem"><span class="k">2</span><p><b>Identity = verified Firebase ID token, never the model.</b> Current <code>/api/ai/chat</code> takes <code>{messages}</code> with no auth → add token verification, bind every read/write to the verified <code>uid</code>.</p></div>
+        <div class="invitem"><span class="k">3</span><p><b>Owner-scoped reads</b> only, matching existing <code>firestore.rules</code>. A user can never retrieve another's data.</p></div>
+        <div class="invitem"><span class="k">4</span><p><b>Model proposes; backend decides.</b> Schema-validate before execute; nothing impactful runs without user confirmation in the UI.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REUSE VS BUILD -->
+  <section>
+    <div class="sec-head"><span class="s">04</span><h2>Reuse vs build-new</h2><span class="note">Lean hard on what exists; the net-new column is the real week of work.</span></div>
+    <div class="rcols rv">
+      <div class="rcol reuse">
+        <div class="rh">Reuse as-is</div>
+        <ul>
+          <li>Firebase Auth / Firestore + <code>firestore.rules</code></li>
+          <li><code>AiService</code> HTTP layer</li>
+          <li><code>ChatMessage</code> + bubble UI + input bar</li>
+          <li>Speech-to-text input (unchanged)</li>
+          <li>Existing workout generator</li>
+        </ul>
+      </div>
+      <div class="rcol extend">
+        <div class="rh">Extend</div>
+        <ul>
+          <li><code>fitbit-api/</code> → <code>api/agent/*</code></li>
+          <li><code>AIChatController</code> (+persistence, +actions)</li>
+          <li>Existing models as write targets</li>
+          <li><code>@anthropic-ai/sdk</code> already in deps</li>
+        </ul>
+      </div>
+      <div class="rcol build">
+        <div class="rh">Build new</div>
+        <ul>
+          <li>RAG profile-context module</li>
+          <li>Memory store <code>users/{uid}/memories/*</code></li>
+          <li>LLM gateway + model tiering</li>
+          <li>Actions registry + validation + confirm</li>
+          <li>Per-user message persistence</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACTIONS -->
+  <section>
+    <div class="sec-head"><span class="s">05</span><h2>The 5 starter actions</h2><span class="note">Each writes to an existing model — no new subsystems.</span></div>
+    <table class="atab rv">
+      <thead><tr><th style="width:42%">Action</th><th style="width:34%">Write target</th><th>Confirm</th></tr></thead>
+      <tbody>
+        <tr><td class="act">Save / update memory</td><td class="tgt">users/{uid}/memories/*</td><td><span class="cf no">No · additive</span></td></tr>
+        <tr><td class="act">Log an activity</td><td class="tgt">ExerciseCheckin</td><td><span class="cf light">Light</span></td></tr>
+        <tr><td class="act">Adjust workout plan <span style="color:var(--slate);font-weight:400">= re-run generator</span></td><td class="tgt">WorkoutRoutineModel</td><td><span class="cf yes">Yes · impactful</span></td></tr>
+        <tr><td class="act">Set / adjust a goal</td><td class="tgt">GoalsModel</td><td><span class="cf yes">Yes · impactful</span></td></tr>
+        <tr><td class="act">Schedule check-in / reminder</td><td class="tgt">reminder record</td><td><span class="cf yes">Yes</span></td></tr>
+      </tbody>
+    </table>
+    <div class="acaveat"><span class="w">Note</span><span>“Adjust workout plan” is <b style="color:var(--ink)">re-invoking the existing generator</b> with new params — <b style="color:var(--ink)">not</b> a new habit-plan subsystem. Keeping it a generator re-run is what keeps the two impactful actions inside the week.</span></div>
+  </section>
+
+  <!-- TIERING -->
+  <section>
+    <div class="sec-head"><span class="s">06</span><h2>Model tiering</h2><span class="note">Gateway routes each task to the cheapest model that does it well.</span></div>
+    <div class="tiers3 rv">
+      <div class="mt haiku">
+        <span class="pin">cheap path</span>
+        <div class="role">Nudges · classification</div>
+        <div class="model">Haiku 4.5</div>
+        <div class="id">claude-haiku-4-5</div>
+        <div class="price">$1.00 <span>in</span> / $5.00 <span>out</span> · per 1M</div>
+      </div>
+      <div class="mt sonnet">
+        <span class="pin">default</span>
+        <div class="role">Chat · agent workhorse</div>
+        <div class="model">Sonnet 4.6</div>
+        <div class="id">claude-sonnet-4-6</div>
+        <div class="price">$3.00 <span>in</span> / $15.00 <span>out</span> · per 1M</div>
+      </div>
+      <div class="mt opus">
+        <span class="pin">escalate only</span>
+        <div class="role">Complex plan rewrites</div>
+        <div class="model">Opus 4.8</div>
+        <div class="id">claude-opus-4-8</div>
+        <div class="price">$5.00 <span>in</span> / $25.00 <span>out</span> · per 1M</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TIMELINE -->
+  <section>
+    <div class="sec-head"><span class="s">07</span><h2>7-day build</h2><span class="note">Milestone gates govern payment, not day boundaries.</span></div>
+    <div class="tl rv">
+      <div class="tl-rail"></div>
+      <div class="tl-days">
+        <div class="day"><div class="gate">&nbsp;</div><div class="node">1</div><div class="meta"><div class="dlabel">21 Jun</div><div class="focus">Scaffold <b>api/agent/*</b>; LLM gateway + tiering; access/keys</div></div></div>
+        <div class="day m"><div class="gate">M1</div><div class="node">2</div><div class="meta"><div class="dlabel">22 Jun</div><div class="focus"><b>RAG module</b>: profile + memory + top-k, owner-scoped</div></div></div>
+        <div class="day"><div class="gate">&nbsp;</div><div class="node">3</div><div class="meta"><div class="dlabel">23 Jun</div><div class="focus"><b>Command-deck UI</b> + persistence · streaming only if ahead</div></div></div>
+        <div class="day"><div class="gate">&nbsp;</div><div class="node">4</div><div class="meta"><div class="dlabel">24 Jun</div><div class="focus">Registry + validation + confirm · <b>actions 1–3</b></div></div></div>
+        <div class="day m"><div class="gate">M2</div><div class="node">5</div><div class="meta"><div class="dlabel">25 Jun</div><div class="focus"><b>Actions 4–5</b> + proactive check-ins · FCM decision</div></div></div>
+        <div class="day"><div class="gate">&nbsp;</div><div class="node">6</div><div class="meta"><div class="dlabel">26 Jun</div><div class="focus">Integration · guardrail hardening · e2e on seeded acct</div></div></div>
+        <div class="day m"><div class="gate">M3</div><div class="node">7</div><div class="meta"><div class="dlabel">27–28</div><div class="focus">Fixes · handover docs · walkthrough · <b>acceptance</b></div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LEVERS -->
+  <section>
+    <div class="sec-head"><span class="s">08</span><h2>Trade-off levers</h2><span class="note">What slips first if the week tightens — neither blocks acceptance.</span></div>
+    <div class="two rv">
+      <div class="lever">
+        <div class="lh"><span class="b">Not a gate</span><h3>Streaming replies</h3></div>
+        <p>Sequenced last on Day 3. Token streaming through a serverless proxy plus a RAG + tool round-trip can eat a day. If it doesn't fit, replies ship as <b>fast complete responses</b> and streaming moves to Improvements.</p>
+      </div>
+      <div class="lever">
+        <div class="lh"><span class="b">Decide at M2</span><h3>FCM push nudge</h3></div>
+        <p>The designated lever. If the week's at risk, defer the basic push at M2 → it becomes a quoted Improvement. <b>In-app proactivity always ships</b>; deferral doesn't block M3 or final payment.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- RISK + ACCEPTANCE -->
+  <section>
+    <div class="sec-head"><span class="s">09</span><h2>Watch &amp; verify</h2><span class="note">The tightest part of the week, and the hooks I build toward.</span></div>
+    <div class="two rv">
+      <div class="riskcard">
+        <h3>Tightest risk</h3>
+        <p>The two impactful actions — <b>adjust workout plan</b> &amp; <b>set goal</b> — need real write paths into <code style="font-family:var(--mono);font-size:.86em">WorkoutRoutineModel</code> / <code style="font-family:var(--mono);font-size:.86em">GoalsModel</code> plus confirm UI, <b>not stubs</b>. Scoped Day 4–5. The generator-re-run framing is the de-risk.</p>
+      </div>
+      <div class="acc">
+        <h3>Acceptance hooks</h3>
+        <ul>
+          <li><b>RAG:</b> seeded profile + 1 memory → one reply references both (repeatable).</li>
+          <li><b>Actions:</b> all 5 run, schema-validated, confirm on impactful; invalid rejected.</li>
+          <li><b>Proactive:</b> in-app check-in greets, asks, flags a consistency gap.</li>
+          <li><b>Deployed:</b> backend on client hosting; app talks e2e; no keys in client.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="deps">
+      <span class="dl">New Flutter deps — only if FCM lands post-M2</span>
+      <code>firebase_messaging</code>
+      <code>flutter_local_notifications</code>
+      <span class="cond">conditional</span>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="wrap foot-in">
+    <svg class="vortex spin" viewBox="0 0 100 100">
+      <circle cx="50" cy="50" r="46" stroke="#fff"/>
+      <circle cx="54" cy="46" r="35" stroke="var(--coral)"/>
+      <circle cx="58" cy="43" r="24" stroke="#fff"/>
+      <circle cx="61" cy="41" r="13" stroke="var(--acid)"/>
+      <circle cx="63" cy="39" r="4.5" fill="var(--acid)" stroke="none"/>
+    </svg>
+    <div class="ft">
+      <b>Build map · mHealth AI Companion</b>
+      <p>companion to 05-IMPLEMENTATION-PLAN.md · 04-CLIENT-SPEC.md governs scope · 21 Jun 2026</p>
+    </div>
+    <div class="by">
+      <div class="l">Developer</div>
+      <div class="v">Shahan Ali Naqvi · VertigoWorks</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+  }, {threshold:.12});
+  document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+</script>
+
+</body>
+</html>
