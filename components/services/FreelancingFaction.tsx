@@ -81,7 +81,7 @@ export function FreelancingFaction({
       <header className="relative overflow-hidden">
         <div aria-hidden="true" className="pointer-events-none absolute -right-24 -top-24 h-[360px] w-[360px] rounded-full blur-2xl" style={{ background: "radial-gradient(circle,rgba(31,59,255,.18),transparent 70%)" }} />
         <div aria-hidden="true" className="pointer-events-none absolute -left-20 bottom-0 h-[300px] w-[300px] rounded-full blur-2xl" style={{ background: "radial-gradient(circle,rgba(255,67,36,.16),transparent 70%)" }} />
-        <div className="vw-wrap relative grid items-center gap-10 py-20 md:grid-cols-[1.2fr_.8fr] md:py-28">
+        <div className="vw-wrap relative grid items-center gap-10 py-28 md:grid-cols-[1.2fr_.8fr] md:py-40">
           <div>
             <Reveal>
               <p className="vw-kicker">What we offer · {service.number} · Freelancing Services</p>
